@@ -13,7 +13,13 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
     telefono: "",
 
-    direccion: ""
+    direccion: "",
+
+    alergias: "",
+
+    enfermedades: "",
+
+    observaciones: ""
 
     });
 
@@ -34,8 +40,13 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
                 telefono: patient.telefono || "",
 
-                direccion: patient.direccion || ""
+                direccion: patient.direccion || "",
 
+                alergias: patient.alergias || "",
+
+                enfermedades: patient.enfermedades || "",
+
+                observaciones: patient.observaciones || ""
             });
 
         }
@@ -54,7 +65,13 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
                 telefono: "",
 
-                direccion: ""
+                direccion: "",
+
+                alergias: "",
+
+                enfermedades: "",
+
+                observaciones: ""
 
             });
 
