@@ -5,65 +5,96 @@ import Odontogram from "../components/Odontogram/Odontogram";
 import History from "../components/History/History";
 import UpcomingAppointments from "../components/UpcomingAppointments/UpcomingAppointments";
 import { useState, useEffect} from "react";    
-import {getPatients, createPatient} from "../supabase/patients";
+import {getPatients, createPatient, updatePatient} from "../supabase/patients";
 import PatientForm from "../components/PatientForm/PatientForm";
 
 
 function Pacientes() {
 
     const [patients, setPatients] = useState([]);
+
     const [selectedPatient, setSelectedPatient] = useState(null);
+
     const [panelMode, setPanelMode] = useState("profile");
-    useEffect(() => {
 
-        async function loadPatients() {
+    async function loadPatients() {
 
-            try {
+        try {
 
-                const data = await getPatients();
+            const data = await getPatients();
 
-                if (!data || data.length === 0) return;
+            setPatients(data);
 
-                setPatients(data);
-                setSelectedPatient(data[0]);
+            return data;
 
-            } catch (error) {
+        } catch (error) {
 
-                console.error(error);
+            console.error(error);
 
-            }
+            return [];
 
         }
 
-        loadPatients();
-
-    }, []);
-
+    }
 
     useEffect(() => {
-    console.log(panelMode);
-}, [panelMode]);
-async function handleCreatePatient(formData) {
+        loadPatients();
+    }, []);
 
-    try {
+    useEffect(() => {
 
-        const newPatient = await createPatient(formData);
+        if (!selectedPatient && patients.length > 0) {
 
-        setPatients((prev) => [...prev, newPatient]);
+            setSelectedPatient(patients[0]);
 
-        setSelectedPatient(newPatient);
+        }
 
-        setPanelMode("profile");
+    }, [patients]);
 
-    } catch (error) {
+    async function handleCreatePatient(formData) {
 
-        console.error(error);
+        try {
 
-        alert("Ocurrió un error al guardar el paciente.");
+            const newPatient = await createPatient(formData);
+
+            setPatients((prev) => [...prev, newPatient]);
+
+            setSelectedPatient(newPatient);
+
+            setPanelMode("profile");
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Ocurrió un error al guardar el paciente.");
+
+        }
 
     }
 
-}
+    async function handleUpdatePatient(formData) {
+
+        try {
+
+            const updatedPatient = await updatePatient(
+                selectedPatient.id,
+                formData
+            );
+
+            await loadPatients();
+
+            setSelectedPatient(updatedPatient);
+
+            setPanelMode("profile");
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    }
     return (
         <div className="dashboard">
 
@@ -77,31 +108,35 @@ async function handleCreatePatient(formData) {
                     onSelectPatient={setSelectedPatient}
                     selectedPatient={selectedPatient}
                     onCreatePatient={() => setPanelMode("create")}
+                    onEditPatient={() => setPanelMode("edit")}
                 />
                 </div>
 
                 <div className="rightColumn">
 
-                    {panelMode === "profile" ? (
-
+                    {panelMode === "profile" && (
                         <>
-
-                            <PatientProfile patient={selectedPatient} />
-
-
-                            <History />
-
-                            <UpcomingAppointments />
-
+                            <PatientProfile patient={selectedPatient}/>
+                            <History/>
+                            <UpcomingAppointments/>
                         </>
+                    )}
 
-                    ) : (
-
+                    {panelMode === "create" && (
                         <PatientForm
+                            mode="create"
                             onCancel={() => setPanelMode("profile")}
                             onSave={handleCreatePatient}
                         />
+                    )}
 
+                    {panelMode === "edit" && (
+                        <PatientForm
+                            mode="edit"
+                            patient={selectedPatient}
+                            onCancel={() => setPanelMode("profile")}
+                            onSave={handleUpdatePatient}
+                        />
                     )}
 
                 </div>

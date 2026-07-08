@@ -1,10 +1,12 @@
+import ActionMenu from "../ActionMenu/ActionMenu";
 import "./PatientTable.css";
 import { useState, useEffect} from "react";    
 function PatientTable({
     patients,
     onSelectPatient,
     selectedPatient,
-    onCreatePatient
+    onCreatePatient,
+    onEditPatient
 }) {
 
 
@@ -75,9 +77,19 @@ return(
             </span>
 
             </td>
+            <td>
+            <ActionMenu
+                onEdit={() => {
 
-            <td>⋮</td>
+                    onSelectPatient(patient);
 
+                    onEditPatient();
+
+                }}
+
+                onDeactivate={() => {}}
+            />
+            </td>
         </tr>
 
     ))}

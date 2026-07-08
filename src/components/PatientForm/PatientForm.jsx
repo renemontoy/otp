@@ -1,7 +1,7 @@
 import "./PatientForm.css";
 import { useState, useEffect} from "react"; 
 
-function PatientForm({ onCancel, onSave }) {
+function PatientForm({ mode, patient, onCancel, onSave }) {
 
     const [formData, setFormData] = useState({
 
@@ -9,11 +9,58 @@ function PatientForm({ onCancel, onSave }) {
 
     apellido: "",
 
+    edad: "",
+
     telefono: "",
 
     direccion: ""
 
     });
+
+
+    useEffect(() => {
+
+        if (mode === "edit" && patient) {
+
+            setFormData({
+
+                nombre: patient.nombre || "",
+
+                apellido: patient.apellido || "",
+
+                fecha_nacimiento: patient.fecha_nacimiento || "",
+
+                edad: patient.edad || "",
+
+                telefono: patient.telefono || "",
+
+                direccion: patient.direccion || ""
+
+            });
+
+        }
+
+        if (mode === "create") {
+
+            setFormData({
+
+                nombre: "",
+
+                apellido: "",
+
+                fecha_nacimiento: "",
+
+                edad: "",
+
+                telefono: "",
+
+                direccion: ""
+
+            });
+
+        }
+
+    }, [mode, patient]);
 
     function handleChange(e){
 
@@ -31,7 +78,15 @@ function PatientForm({ onCancel, onSave }) {
 
         <div className="patientFormCard">
 
-            <h2>Nuevo Paciente</h2>
+            <h2>
+
+                {mode === "create"
+
+                    ? "Nuevo Paciente"
+
+                    : "Editar Paciente"}
+
+            </h2>
 
             <div className="formGroup">
 
@@ -59,6 +114,19 @@ function PatientForm({ onCancel, onSave }) {
                 />
 
             </div>
+                        <div className="formGroup">
+
+                <label>Fecha de Nacimiento</label>
+
+                <input
+                    type="date"
+                    name="fecha_nacimiento"
+                    value={formData.fecha_nacimiento}
+                    onChange={handleChange}
+                />
+
+            </div>
+            
             <div className="formGroup">
                         <label>Edad</label>
 
@@ -81,6 +149,7 @@ function PatientForm({ onCancel, onSave }) {
                 />
 
             </div>
+            
 
             <div className="formGroup">
 
@@ -95,6 +164,46 @@ function PatientForm({ onCancel, onSave }) {
 
             </div>
 
+            <div className="formGroup">
+
+                <label>Alergias</label>
+
+                <input
+                    type="text"
+                    name="alergias"
+                    value={formData.alergias}
+                    onChange={handleChange}
+                />
+
+            </div>
+
+            <div className="formGroup">
+
+                <label>Enfermedades</label>
+
+                <input
+                    type="text"
+                    name="enfermedades"
+                    value={formData.enfermedades}
+                    onChange={handleChange}
+                />
+
+            </div>
+
+            <div className="formGroup">
+
+                <label>Observaciones</label>
+
+                <input
+                    type="text"
+                    name="observaciones"
+                    value={formData.observaciones}
+                    onChange={handleChange}
+                />
+
+            </div>
+
+
             <div className="formButtons">
 
                 <button
@@ -107,7 +216,11 @@ function PatientForm({ onCancel, onSave }) {
                 <button className="saveButton"
                 onClick={() => onSave(formData)}
                 >
-                    Guardar
+                   {mode === "create"
+
+                    ? "Guardar"
+
+                    : "Guardar Cambios"}
                 </button>
 
             </div>

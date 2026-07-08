@@ -23,3 +23,17 @@ export async function createPatient(patient) {
     return data[0];
 
 }
+
+export async function updatePatient(id, patient) {
+
+    const { data, error } = await supabase
+        .from("pacientes")
+        .update(patient)
+        .eq("id", id)
+        .select();
+
+    if (error) throw error;
+
+    return data[0];
+
+}
