@@ -11,28 +11,28 @@ const cards = [
 
 {
 title:"Total Pacientes",
-value:"1245",
+value:"1876",
 icon:<FaUsers/>,
 color:"#ffffff"
 },
 
 {
 title:"Citas Hoy",
-value:"12",
+value:"1876",
 icon:<FaCalendarAlt/>,
 color:"#dff0ff"
 },
 
 {
 title:"Tratamientos Pendientes",
-value:"48",
+value:"1876",
 icon:<FaClipboardList/>,
 color:"#ffe7db"
 },
 
 {
 title:"Ingresos Mensuales",
-value:"$15,300",
+value:"$1,876",
 icon:<FaDollarSign/>,
 color:"#d9f9ef"
 }

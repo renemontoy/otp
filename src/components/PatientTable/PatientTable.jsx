@@ -3,7 +3,8 @@ import { useState, useEffect} from "react";
 function PatientTable({
     patients,
     onSelectPatient,
-    selectedPatient
+    selectedPatient,
+    onCreatePatient
 }) {
 
 
@@ -13,11 +14,16 @@ return(
 
 <div className="tableCard">
 
-<h3>
+<div className="tableHeader">
+<h3>Lista de Pacientes</h3>
 
-Lista de Pacientes
+<button className="newPatientButton" onClick={onCreatePatient}>
 
-</h3>
++ Nuevo Paciente
+</button>
+</div>
+
+
 
 <table>
 
@@ -31,7 +37,7 @@ Lista de Pacientes
 
 <th>Teléfono</th>
 
-<th>Última Consulta</th>
+<th>Dirección</th>
 
 <th>Estado</th>
 
@@ -57,7 +63,7 @@ Lista de Pacientes
 
             <td>{patient.telefono}</td>
 
-            <td>{patient.ultima_consulta}</td>
+            <td>{patient.direccion}</td>
 
             <td>
             <span

@@ -10,3 +10,16 @@ export async function getPatients() {
 
     return data;
 }
+
+export async function createPatient(patient) {
+
+    const { data, error } = await supabase
+        .from("pacientes")
+        .insert([patient])
+        .select();
+
+    if (error) throw error;
+
+    return data[0];
+
+}

@@ -1,4 +1,5 @@
 import "../styles/Sidebar.css";
+import { NavLink } from "react-router-dom";
 
 import {
 
@@ -15,24 +16,30 @@ import {
 
 const items = [
 
-    { icon: <FaHome />, text: "Inicio", active: true },
+    {
+        text: "Dashboard",
+        icon: <FaHome />,
+        path: "/"
+    },
 
-    { icon: <FaUserFriends />, text: "Pacientes" },
+    {
+        text: "Pacientes",
+        icon: <FaUserFriends />,
+        path: "/pacientes"
+    },
 
-    { icon: <FaNotesMedical />, text: "Historial Clínico" },
+    {
+        text: "Citas",
+        icon: <FaCalendarAlt />,
+        path: "/agenda"
+    },
 
-    { icon: <FaCalendarAlt />, text: "Citas" },
-
-    { icon: <FaTeeth />, text: "Tratamientos" },
-
-    { icon: <FaTeeth />, text: "Odontograma" },
-
-    { icon: <FaMoneyCheckAlt />, text: "Pagos" },
-
-    { icon: <FaChartBar />, text: "Reportes" },
-
-    { icon: <FaCog />, text: "Configuración" }
-
+    /*{{
+        text: "Configuración",
+        icon: <FaCog />,
+        path: "/settings"
+    }
+    }*/
 ];
 
 function Sidebar(){
@@ -60,18 +67,21 @@ function Sidebar(){
 
             <nav>
 
-                {items.map((item,index)=>(
+                {items.map((item) => (
 
-                    <button
-                        key={index}
-                        className={item.active ? "menu active" : "menu"}
+                    <NavLink
+                        key={item.path}
+                        to={item.path}
+                        className={({ isActive }) =>
+                            isActive ? "menu active" : "menu"
+                        }
                     >
 
                         {item.icon}
 
                         <span>{item.text}</span>
 
-                    </button>
+                    </NavLink>
 
                 ))}
 

@@ -8,7 +8,7 @@ import { useState, useEffect} from "react";
 import {getPatients} from "../supabase/patients";
 
 
-function Dashboard() {
+function Agenda() {
 
     const [patients, setPatients] = useState([]);
     const [selectedPatient, setSelectedPatient] = useState(null);
@@ -40,22 +40,10 @@ function Dashboard() {
     return (
         <div className="dashboard">
 
-            <h2 className="dashboardTitle">Dashboard - Sigo pensando que ira aqui - ve a pacientes</h2>
-
-            <div className="dashboardGrid">
-
-                <div className="leftColumn">
-
-                    <StatsCards />
-
-                </div>
-
-
-
-            </div>
+            <h2 className="dashboardTitle">Trabajando en la agenda...</h2>
 
         </div>
     );
 }
 
-export default Dashboard;
+export default Agenda;

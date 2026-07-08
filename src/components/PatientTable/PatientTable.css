@@ -1,6 +1,6 @@
 .tableCard{
 
-margin-top: -7px;
+margin-top: -11px;
 
 background:white;
 
@@ -16,7 +16,7 @@ box-shadow:0 10px 20px rgba(0,0,0,.05);
 
 font-size:22px;
 
-margin-bottom:18px;
+margin-bottom:17px;
 
 color:#263238;
 
@@ -157,6 +157,28 @@ tbody tr{
 
 tbody tr:hover{
 
-    background:#f7fbff;
+    background:#ebf5ff;
 
+}
+
+.tableHeader{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.newPatientButton{
+    background:#173852;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.2s;
+}
+
+.newPatientButton:hover{
+    background:#224b69;
 }

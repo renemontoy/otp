@@ -70,7 +70,6 @@ nav{
 }
 
 .menu{
-
     display:flex;
 
     align-items:center;
@@ -79,21 +78,11 @@ nav{
 
     padding:14px;
 
-    border:none;
-
     border-radius:12px;
 
     color:white;
 
-    background:none;
-
-    cursor:pointer;
-
-    height:52px;
-
-    font-size:16px;
-
-    font-weight:500;
+    text-decoration:none;
 
     transition:.2s;
 
@@ -101,11 +90,12 @@ nav{
 
 .menu:hover{
 
-    background:#214761;
+    background:#294864;
 
 }
 
-.active{
+
+.menu.active{
 
     background:#294864;
 
