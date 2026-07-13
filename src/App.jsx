@@ -7,14 +7,14 @@ import Agenda from "./pages/Agenda";
 function App() {
     return (
         <div className="app">
-            <Sidebar />
+            {/*<Sidebar />*/}
 
             <main className="main">
 
             <Header />
 
             <Routes>
-                <Route path="/" element={<Dashboard />}/>
+                <Route path="/" element={<Pacientes />}/>
                 <Route path="pacientes" element={<Pacientes />} />
                 <Route path="agenda" element={<Agenda />} />
             </Routes>
