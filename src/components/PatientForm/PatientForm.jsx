@@ -157,7 +157,35 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
                 <div className="formButtons">
 
-                    {step > 1 && (
+                    {step == 1 ? (
+
+                        <button
+
+                            className="cancelButton"
+                            onClick={() => onCancel()}
+
+                        >
+
+                            Cancelar
+
+                        </button>
+
+                    ) : (
+
+                        <button
+
+                            className="cancelButton"
+                            onClick={() => setStep(step - 1)}
+
+                        >
+
+                            Anterior
+
+                        </button>
+
+                    )}
+
+                   {/* {step > 1 && (
 
                         <button
 
@@ -170,7 +198,7 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
                         </button>
 
-                    )}
+                    )}*/}
 
                     {step < 3 ? (
 
