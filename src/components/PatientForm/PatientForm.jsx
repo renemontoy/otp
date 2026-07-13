@@ -14,15 +14,53 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
     edad: "",
 
+    fecha_nacimiento: "",
+
+    estado_nacimiento: "",
+
+    municipio_nacimiento: "",
+
+    ocupacion: "",
+
+    escolaridad: "",
+
+    estado_civil: "",
+
+    domicilio: "",
+
+    estado: "",
+
+    municipio: "",
+
     telefono: "",
 
-    direccion: "",
+    correo: "",
 
-    alergias: "",
+    medico_familiar: "",
 
-    enfermedades: "",
+    telefono_medico_familiar: "",
 
-    observaciones: ""
+    fecha_ultima_consulta: "",
+
+    motivo_ultima_consulta: "",
+
+    persona_emergencia: "",
+
+    telefono_emergencia: "",
+
+    antecedentes_padre: "",
+
+    antecedentes_madre: "",
+
+    antecedentes_abuelo_paterno: "",
+
+    antecedentes_abuelo_materno: "",
+
+    antecedentes_abuela_paterna: "",
+
+    antecedentes_abuela_materna: "",
+
+    antecedentes_hermanos: "",
 
     });
 
@@ -43,19 +81,51 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
                 fecha_nacimiento: patient.fecha_nacimiento || "",
 
-                lugar_nacimiento: patient.lugar_nacimiento || "",
+                estado_nacimiento: patient.estado_nacimiento || "",
+
+                municipio_nacimiento: patient.municipio_nacimiento || "",
 
                 ocupacion: patient.ocupacion || "",
 
+                escolaridad: patient.escolaridad || "",
+
+                estado_civil: patient.estado_civil || "",
+
+                domicilio: patient.domicilio || "",
+
+                estado: patient.estado || "",
+
+                municipio: patient.municipio || "",
+
                 telefono: patient.telefono || "",
 
-                direccion: patient.direccion || "",
+                correo: patient.correo || "",
 
-                alergias: patient.alergias || "",
+                medico_familiar: patient.medico_familiar || "",
 
-                enfermedades: patient.enfermedades || "",
+                telefono_medico_familiar: patient.telefono_medico_familiar || "",
 
-                observaciones: patient.observaciones || ""
+                fecha_ultima_consulta: patient.fecha_ultima_consulta || "",
+
+                motivo_ultima_consulta: patient.motivo_ultima_consulta || "",
+
+                persona_emergencia: patient.persona_emergencia || "",
+
+                telefono_emergencia: patient.telefono_emergencia || "",
+
+                antecedentes_padre: patient.antecedentes_padre || "",
+
+                antecedentes_madre: patient.antecedentes_madre || "",
+
+                antecedentes_abuelo_paterno: patient.antecedentes_abuelo_paterno || "",
+
+                antecedentes_abuelo_materno: patient.antecedentes_abuelo_materno || "",
+
+                antecedentes_abuela_paterna: patient.antecedentes_abuela_paterna || "",
+
+                antecedentes_abuela_materna: patient.antecedentes_abuela_materna || "",
+
+                antecedentes_hermanos: patient.antecedentes_hermanos || "",
             });
 
         }
@@ -64,28 +134,59 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
             setFormData({
 
-                nombre: "",
+    nombre: "",
 
-                apellido: "",
+            apellido: "",
 
-                edad: "",
+            edad: "",
 
-                fecha_nacimiento: "",
+            fecha_nacimiento: "",
 
-                lugar_nacimiento: "",
-                
-                ocupacion: "",
+            estado_nacimiento: "",
 
-                telefono: "",
+            municipio_nacimiento: "",
 
-                direccion: "",
+            ocupacion: "",
 
-                alergias: "",
+            escolaridad: "",
 
-                enfermedades: "",
+            estado_civil: "",
 
-                observaciones: ""
+            domicilio: "",
 
+            estado: "",
+
+            municipio: "",
+
+            telefono: "",
+
+            correo: "",
+
+            medico_familiar: "",
+
+            telefono_medico_familiar: "",
+
+            fecha_ultima_consulta: "",
+
+            motivo_ultima_consulta: "",
+
+            persona_emergencia: "",
+
+            telefono_emergencia: "",
+
+            antecedentes_padre: "",
+
+            antecedentes_madre: "",
+
+            antecedentes_abuelo_paterno: "",
+
+            antecedentes_abuelo_materno: "",
+
+            antecedentes_abuela_paterna: "",
+
+            antecedentes_abuela_materna: "",
+
+            antecedentes_hermanos: "",
             });
 
         }
@@ -184,21 +285,6 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
                         </button>
 
                     )}
-
-                   {/* {step > 1 && (
-
-                        <button
-
-                            className="cancelButton"
-                            onClick={() => setStep(step - 1)}
-
-                        >
-                            
-                            Anterior
-
-                        </button>
-
-                    )}*/}
 
                     {step < 3 ? (
 

@@ -19,10 +19,7 @@ function PersonalDataStep({
     );
 
     return(
-
         <>
-
-            
             <div className="formGroup">
             <h2>Datos Personales</h2>
                 <label>Nombre</label>
@@ -50,7 +47,7 @@ function PersonalDataStep({
 
             </div>
             <div className="formGroup">
-                        <label>Edad</label>
+                <label>Edad</label>
 
                 <input
                 type="number"
@@ -217,8 +214,6 @@ function PersonalDataStep({
                 />
 
             </div>
-
-
 
 
             <div className="formGroup">

@@ -16,9 +16,9 @@ function FamilyDataStep({
 
                 <input
 
-                    name="nombre_padre"
+                    name="antecedentes_padre"
 
-                    value={formData.nombre_padre}
+                    value={formData.antecedentes_padre}
 
                     onChange={handleChange}
 
@@ -32,9 +32,9 @@ function FamilyDataStep({
 
                 <input
 
-                    name="nombre_madre"
+                    name="antecedentes_madre"
 
-                    value={formData.nombre_madre}
+                    value={formData.antecedentes_madre}
 
                     onChange={handleChange}
 
@@ -48,9 +48,9 @@ function FamilyDataStep({
 
                 <input
 
-                    name="nombre_abuelo_paterno"
+                    name="antecedentes_abuelo_paterno"
 
-                    value={formData.nombre_abuelo_paterno}
+                    value={formData.antecedentes_abuelo_paterno}
 
                     onChange={handleChange}
 
@@ -64,9 +64,9 @@ function FamilyDataStep({
 
                 <input
 
-                    name="nombre_abuelo_materno"
+                    name="antecedentes_abuelo_materno"
 
-                    value={formData.nombre_abuelo_materno}
+                    value={formData.antecedentes_abuelo_materno}
 
                     onChange={handleChange}
 
@@ -80,9 +80,9 @@ function FamilyDataStep({
 
                 <input
 
-                    name="nombre_abuela_paterna"
+                    name="antecedentes_abuela_paterna"
 
-                    value={formData.nombre_abuela_paterna}
+                    value={formData.antecedentes_abuela_paterna}
 
                     onChange={handleChange}
 
@@ -96,9 +96,9 @@ function FamilyDataStep({
 
                 <input
 
-                    name="nombre_abuela_materna"
+                    name="antecedentes_abuela_materna"
 
-                    value={formData.nombre_abuela_materna}
+                    value={formData.antecedentes_abuela_materna}
 
                     onChange={handleChange}
 
@@ -112,9 +112,9 @@ function FamilyDataStep({
 
                 <input
 
-                    name="nombre_hermanos"
+                    name="antecedentes_hermanos"
 
-                    value={formData.nombre_hermanos}
+                    value={formData.antecedentes_hermanos}
 
                     onChange={handleChange}
 
