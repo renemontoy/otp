@@ -3,6 +3,7 @@ import { useState, useEffect} from "react";
 import PersonalDataStep from "./Steps/PersonalDataStep";
 import FamilyDataStep from "./Steps/FamilyDataStep";
 import MedicalDataStep from "./Steps/MedicalDataStep";
+import AntecedentesStep from "./Steps/AntecedentesStep";
 
 function PatientForm({ mode, patient, onCancel, onSave }) {
 
@@ -61,6 +62,8 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
     antecedentes_abuela_materna: "",
 
     antecedentes_hermanos: "",
+
+    antecedentes_personales: "",
 
     });
 
@@ -126,7 +129,9 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
                 antecedentes_abuela_materna: patient.antecedentes_abuela_materna || "",
 
                 antecedentes_hermanos: patient.antecedentes_hermanos || "",
-            });
+                
+                antecedentes_personales: patient.antecedentes_personales || "",
+                });
 
         }
 
@@ -187,7 +192,9 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
             antecedentes_abuela_materna: "",
 
             antecedentes_hermanos: "",
-            });
+        
+            antecedentes_personales: "",
+        });
 
         }
 
@@ -256,6 +263,18 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
                 )}
 
+                {step === 4 && (
+
+                    <AntecedentesStep
+
+                        formData={formData}
+
+                        handleChange={handleChange}
+
+                    />
+
+                )}
+
                 <div className="formButtons">
 
                     {step == 1 ? (
@@ -286,7 +305,7 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
                     )}
 
-                    {step < 3 ? (
+                    {step < 4 ? (
 
                         <button
                             className="saveButton"
