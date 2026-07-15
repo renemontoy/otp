@@ -1,7 +1,6 @@
 import "./Odontogram.css";
 import { Odontogram } from "react-odontogram";
 import "react-odontogram/style.css";
-import "../PatientForm/PatientForm.css";
 
 function Odontograma({onCancel}) {
 

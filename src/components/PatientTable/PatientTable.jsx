@@ -9,6 +9,7 @@ function PatientTable({
     onCreatePatient,
     onEditPatient,
     onOdontogramPatient,
+    onExploracionPatient
 }) {
 
 
@@ -105,6 +106,12 @@ return(
                 onOdontogram={() => {
                     onOdontogramPatient();
                 }}
+
+                onExploracion={() => {
+                    onExploracionPatient();
+                }}
+
+
             />
             </td>
         </tr>
