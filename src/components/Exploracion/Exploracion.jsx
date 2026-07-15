@@ -2,8 +2,8 @@ import "./Exploracion.css";
 import { useState, useEffect} from "react"; 
 import SignosVitalesDataStep from "./Steps/Signosvitales";
 import CabezaCuelloDataStep from "./Steps/Cabezacuello";
-import TejidosBlandosDataStep from "./Steps/tejidosblandos";
-import EstomagoDataStep from "./Steps/estomatogmatico";
+import TejidosBlandosDataStep from "./Steps/Tejidosblandos";
+import EstomagoDataStep from "./Steps/Estomatogmatico";
 
 function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
