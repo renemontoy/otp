@@ -5,7 +5,8 @@ function ActionMenu({
 
     onEdit,
     onDeactivate,
-    onOdontogram
+    onOdontogram,
+    onExploracion
 
 }) {
 
@@ -57,13 +58,19 @@ function ActionMenu({
 
                     <button onClick={onEdit}>
 
-                        Editar
+                        Datos Personales
 
                     </button>
 
                     <button onClick={onOdontogram}>
 
                         Odontogrmama
+
+                    </button>
+
+                    <button onClick={onExploracion}>
+
+                        Exploración
 
                     </button>
 
