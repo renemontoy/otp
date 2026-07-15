@@ -4,7 +4,8 @@ import "./ActionMenu.css";
 function ActionMenu({
 
     onEdit,
-    onDeactivate
+    onDeactivate,
+    onOdontogram
 
 }) {
 
@@ -57,6 +58,12 @@ function ActionMenu({
                     <button onClick={onEdit}>
 
                         Editar
+
+                    </button>
+
+                    <button onClick={onOdontogram}>
+
+                        Odontogrmama
 
                     </button>
 

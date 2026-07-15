@@ -26,9 +26,9 @@ function Header(){
 
             </div>
 
-            <div className="headerRight">
+           {/*  <div className="headerRight">
 
-                <div className="search">
+               <div className="search">
 
                     <FaSearch />
 
@@ -51,7 +51,7 @@ function Header(){
 
                 </button>
 
-            </div>
+            </div>*/}
 
         </header>
 

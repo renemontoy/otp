@@ -12,7 +12,7 @@ function App() {
 
             <main className="main">
 
-            <Header />
+            {/*<Header />*/}
 
             <Routes>
                 <Route path="/" element={<Pacientes />}/>

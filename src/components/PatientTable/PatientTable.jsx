@@ -1,12 +1,14 @@
 import ActionMenu from "../ActionMenu/ActionMenu";
 import "./PatientTable.css";
-import { useState, useEffect} from "react";    
+import { useState, useEffect} from "react";
+import { FaSearch } from "react-icons/fa";
 function PatientTable({
     patients,
     onSelectPatient,
     selectedPatient,
     onCreatePatient,
-    onEditPatient
+    onEditPatient,
+    onOdontogramPatient,
 }) {
 
 
@@ -17,7 +19,18 @@ return(
 <div className="tableCard">
 
 <div className="tableHeader">
-<h3>Lista de Pacientes</h3>
+
+
+<div className="search">
+
+    <FaSearch />
+
+    <input
+        type="text"
+        placeholder="Buscar paciente"
+    />
+
+</div>
 
 <button className="newPatientButton" onClick={onCreatePatient}>
 
@@ -88,6 +101,10 @@ return(
                 }}
 
                 onDeactivate={() => {}}
+
+                onOdontogram={() => {
+                    onOdontogramPatient();
+                }}
             />
             </td>
         </tr>

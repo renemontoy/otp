@@ -7,6 +7,7 @@ import UpcomingAppointments from "../components/UpcomingAppointments/UpcomingApp
 import { useState, useEffect} from "react";    
 import {getPatients, createPatient, updatePatient} from "../supabase/patients";
 import PatientForm from "../components/PatientForm/PatientForm";
+import Odontograma from "../components/Odontogram/Odontogram";
 
 
 function Pacientes() {
@@ -109,6 +110,7 @@ function Pacientes() {
                     selectedPatient={selectedPatient}
                     onCreatePatient={() => setPanelMode("create")}
                     onEditPatient={() => setPanelMode("edit")}
+                    onOdontogramPatient={() => setPanelMode("odontogram")}
                 />
                 </div>
 
@@ -136,6 +138,12 @@ function Pacientes() {
                             patient={selectedPatient}
                             onCancel={() => setPanelMode("profile")}
                             onSave={handleUpdatePatient}
+                        />
+                    )}
+
+                    {panelMode === "odontogram" && (
+                        <Odontograma
+                        onCancel={() => setPanelMode("profile")}
                         />
                     )}
 
