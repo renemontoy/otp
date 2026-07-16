@@ -15,9 +15,32 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
     edad: "",
 
+    cabeza: {
+    exostosis: false,
+    endostosis: false
+},
+
+    craneo: {
+    dolicocefalo: false,
+    mesocefalo: false,
+    braquicefalo: false,
+},
+
+
 
 
     });
+    function handleCheckboxChange(grupo, campo) {
+
+    setFormData(prev => ({
+        ...prev,
+        [grupo]: {
+            ...prev[grupo],
+            [campo]: !prev[grupo][campo]
+        }
+    }));
+
+}
 
     const [step, setStep] = useState(1);
 
@@ -34,6 +57,15 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
                 edad: patient.edad || "",
 
+                cabeza: patient.cabeza || {
+                    exostosis: false,
+                    endostosis: false,
+                },
+                craneo: patient.craneo || {
+                    dolicocefalo: false,
+                    mesocefalo: false,
+                    braquicefalo: false,
+                }
 
                 });
 
@@ -51,6 +83,16 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
             fecha_nacimiento: "",
 
+            cabeza: {
+                exostosis: false,
+                endostosis: false,
+            },
+            
+            craneo: {
+                dolicocefalo: false,
+                mesocefalo: false,
+                braquicefalo: false,
+            }
         });
 
         }
@@ -103,6 +145,8 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
                         formData={formData}
 
                         handleChange={handleChange}
+
+                        handleCheckboxChange={handleCheckboxChange}
 
                     />
 
