@@ -135,3 +135,23 @@
     font-size:14px;
 
 }
+
+.radioGroup{
+
+    display:flex;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+.radioGroup label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+}

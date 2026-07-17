@@ -1,0 +1,33 @@
+.radioGroup{
+
+    display:flex;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+    margin-top:8px;
+
+}
+
+.radioOption{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    cursor:pointer;
+
+}
+
+.groupLabel{
+
+    font-weight:600;
+
+    display:block;
+
+    margin-bottom:6px;
+
+}

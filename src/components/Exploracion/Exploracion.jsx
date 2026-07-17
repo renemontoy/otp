@@ -15,32 +15,24 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
     edad: "",
 
-    cabeza: {
-    exostosis: false,
-    endostosis: false
-},
+    cabeza: "",
 
-    craneo: {
-    dolicocefalo: false,
-    mesocefalo: false,
-    braquicefalo: false,
-},
+    creaneo: "",
 
+    cara : "",
 
+    perfil: "",
 
+    piel: "",
+
+    musculos: "",
+
+    cuello: "",
+
+    otros_cabeza_cuello: ""
 
     });
-    function handleCheckboxChange(grupo, campo) {
 
-    setFormData(prev => ({
-        ...prev,
-        [grupo]: {
-            ...prev[grupo],
-            [campo]: !prev[grupo][campo]
-        }
-    }));
-
-}
 
     const [step, setStep] = useState(1);
 
@@ -57,15 +49,21 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
                 edad: patient.edad || "",
 
-                cabeza: patient.cabeza || {
-                    exostosis: false,
-                    endostosis: false,
-                },
-                craneo: patient.craneo || {
-                    dolicocefalo: false,
-                    mesocefalo: false,
-                    braquicefalo: false,
-                }
+                cabeza: patient.cabeza || "",
+
+                craneo: patient.craneo || "",
+
+                cara: patient.cara || "",
+
+                perfil: patient.perfil || "",
+
+                piel: patient.perfil || "",
+
+                musculos: patient.perfil || "",
+
+                cuello: patient.perfil || "",
+
+                otros_cabeza_cuello: patient.perfil || ""
 
                 });
 
@@ -75,7 +73,7 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
             setFormData({
 
-    nombre: "",
+            nombre: "",
 
             apellido: "",
 
@@ -83,16 +81,21 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
             fecha_nacimiento: "",
 
-            cabeza: {
-                exostosis: false,
-                endostosis: false,
-            },
+            cabeza: "",
             
-            craneo: {
-                dolicocefalo: false,
-                mesocefalo: false,
-                braquicefalo: false,
-            }
+            craneo:"",
+
+            cara:"",
+
+            perfil: "",
+
+            piel: "",
+
+            musculos: "",
+
+            cuello: "",
+
+            otros_cabeza_cuello: ""
         });
 
         }
@@ -145,8 +148,6 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
                         formData={formData}
 
                         handleChange={handleChange}
-
-                        handleCheckboxChange={handleCheckboxChange}
 
                     />
 
