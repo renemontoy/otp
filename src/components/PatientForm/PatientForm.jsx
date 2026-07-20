@@ -104,7 +104,7 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
                 correo: patient.correo || "",
 
-                medico_familiar: patient.medico_familiar || "",
+                /*medico_familiar: patient.medico_familiar || "",
 
                 telefono_medico_familiar: patient.telefono_medico_familiar || "",
 
@@ -114,7 +114,7 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
                 persona_emergencia: patient.persona_emergencia || "",
 
-                telefono_emergencia: patient.telefono_emergencia || "",
+                telefono_emergencia: patient.telefono_emergencia || "",*/
 
                 antecedentes_padre: patient.antecedentes_padre || "",
 
@@ -167,7 +167,7 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
             correo: "",
 
-            medico_familiar: "",
+            /*medico_familiar: "",
 
             telefono_medico_familiar: "",
 
@@ -177,7 +177,7 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
             persona_emergencia: "",
 
-            telefono_emergencia: "",
+            telefono_emergencia: "",*/
 
             antecedentes_padre: "",
 

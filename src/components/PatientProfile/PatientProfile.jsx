@@ -27,9 +27,9 @@ function PatientProfile({ patient }) {
 
                 <h3>Datos Personales</h3>
 
-                <p><strong>F. Nac:</strong> {patient.fecha_nacimiento}</p>
+                <p><strong>Fecha Nac:</strong> {patient.fecha_nacimiento}</p>
 
-                <p><strong>Dirección:</strong> {patient.direccion}</p>
+                <p><strong>Domicilio:</strong> {patient.domicilio}</p>
 
             </div>
 
@@ -37,11 +37,14 @@ function PatientProfile({ patient }) {
 
                 <h3>Historial Médico</h3>
 
-                <p><strong>Alergias:</strong> {patient.alergias || "Ninguno"}</p>
+                <p><strong>Antecedentes Padre:</strong> {patient.antecedentes_padre || "Ninguno"}</p>
 
-                <p><strong>Enfermedades:</strong> {patient.enfermedades || "Ninguna"}</p>
+                <p><strong>Antecedentes Madre:</strong> {patient.antecedentes_madre || "Ninguno"}</p>
 
-                <p><strong>Observaciones:</strong> {patient.observaciones || "Ninguna"}</p>
+                <p><strong>Antecedentes Hermanos:</strong> {patient.antecedentes_hermanos || "Ninguno"}</p>
+
+                <p><strong>Antecedentes Personales:</strong> {patient.antecedentes_personales || "Ninguno"}</p>
+
             </div>
 
         </div>

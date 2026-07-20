@@ -153,8 +153,8 @@ function PersonalDataStep({
 
                 <input
                     type="text"
-                    name="direccion"
-                    value={formData.direccion}
+                    name="domicilio"
+                    value={formData.domicilio}
                     onChange={handleChange}
                 />
 

@@ -16,7 +16,7 @@ function AntecedentesStep({
 
                 <input
 
-                    name="antecedentes_padre"
+                    name="antecedentes_personales"
 
                     value={formData.antecedentes_personales}
 

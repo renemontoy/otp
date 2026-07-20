@@ -1996,7 +1996,6 @@ export const estados = [
       "Banámichi",
       "Baviácora",
       "Bavispe",
-      "Benito Juárez",
       "Benjamín Hill",
       "Caborca",
       "Cajeme",
@@ -2028,7 +2027,6 @@ export const estados = [
       "Opodepe",
       "Oquitoa",
       "Pitiquito",
-      "Puerto Peñasco",
       "Quiriego",
       "Rayón",
       "Rosario de Tesopaco",
@@ -2053,7 +2051,6 @@ export const estados = [
       "Yécora",
       "General Plutarco Elías Calles",
       "Benito Juárez",
-      "San Luis Río Colorado",
       "Puerto Peñasco"
     ]
   },

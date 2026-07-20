@@ -79,15 +79,15 @@ return(
 
             <td>{patient.telefono}</td>
 
-            <td>{patient.direccion}</td>
+            <td>{patient.domicilio}</td>
 
             <td>
             <span
                 className={`status ${
-                    patient.estado ? "statusActive" : "statusInactive"
+                    patient.status ? "statusActive" : "statusInactive"
                 }`}
             >
-                {patient.estado ? "Activo" : "Inactivo"}
+                {patient.status ? "Activo" : "Inactivo"}
             </span>
 
             </td>
