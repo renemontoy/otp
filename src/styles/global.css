@@ -90,7 +90,7 @@ button{
 
     display:grid;
 
-    grid-template-columns:2fr 420px;
+    grid-template-columns:2fr 450px;
 
     gap:18px;
 

@@ -42,8 +42,8 @@ function CabezaCuelloDataStep({
             name="cara"
             value={formData.cara}
             options={[
-                { value: "asimetrias_transversales", label: "Asimetrías Transversales" },
-                { value: "asimetrias_longitudinales", label: "Asimetrías Longitudinales" },
+                { value: "asimetrias_transversales", label: "Asimetrías transversales" },
+                { value: "asimetrias_longitudinales", label: "Asimetrías longitudinales" },
 
             ]}
             onChange={handleChange}
