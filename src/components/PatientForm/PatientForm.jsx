@@ -37,7 +37,7 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
     correo: "",
 
-    medico_familiar: "",
+    /*medico_familiar: "",
 
     telefono_medico_familiar: "",
 
@@ -47,7 +47,7 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
     persona_emergencia: "",
 
-    telefono_emergencia: "",
+    telefono_emergencia: "",*/
 
     antecedentes_padre: "",
 
