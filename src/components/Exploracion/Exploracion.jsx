@@ -4,6 +4,8 @@ import SignosVitalesDataStep from "./Steps/Signosvitales";
 import CabezaCuelloDataStep from "./Steps/Cabezacuello";
 import TejidosBlandosDataStep from "./Steps/Tejidosblandos";
 import EstomagoDataStep from "./Steps/Estomatogmatico";
+import TejidosBlandosDataStep2 from "./Steps/Tejidosblandos2";
+import TejidosBlandosDataStep3 from "./Steps/Tejidosblandos3";
 
 function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
@@ -177,6 +179,30 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
                 )}
 
+                {step === 5 && (
+
+                    <TejidosBlandosDataStep2
+
+                        formData={formData}
+
+                        handleChange={handleChange}
+
+                    />
+
+                )}
+
+                {step === 6 && (
+
+                    <TejidosBlandosDataStep3
+
+                        formData={formData}
+
+                        handleChange={handleChange}
+
+                    />
+
+                )}
+
                 <div className="formButtons">
 
                     {step == 1 ? (
@@ -207,7 +233,7 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
                     )}
 
-                    {step < 4 ? (
+                    {step < 6 ? (
 
                         <button
                             className="saveButton"
