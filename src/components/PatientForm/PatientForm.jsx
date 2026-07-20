@@ -239,19 +239,8 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
                 )}
 
+
                 {step === 2 && (
-
-                    <MedicalDataStep
-
-                        formData={formData}
-
-                        handleChange={handleChange}
-
-                    />
-
-                )}
-
-                {step === 3 && (
 
                     <FamilyDataStep
 
@@ -263,7 +252,7 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
                 )}
 
-                {step === 4 && (
+                {step === 3 && (
 
                     <AntecedentesStep
 
@@ -305,7 +294,7 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
                     )}
 
-                    {step < 4 ? (
+                    {step < 3 ? (
 
                         <button
                             className="saveButton"
