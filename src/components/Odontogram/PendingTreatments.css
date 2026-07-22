@@ -1,0 +1,45 @@
+.pendingTreatments{
+
+    margin-top:20px;
+
+}
+
+.pendingTreatments h3{
+
+    margin-bottom:15px;
+
+}
+
+.treatmentCard{
+
+    background:#fff;
+
+    border-radius:12px;
+
+    padding:18px;
+
+    margin-bottom:16px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+}
+
+.treatmentCard h4{
+
+    margin:12px 0 4px;
+
+    color:#374151;
+
+    font-size:14px;
+
+}
+
+.treatmentCard p{
+
+    margin:0;
+
+    color:#4b5563;
+
+    font-size:14px;
+
+}

@@ -145,6 +145,7 @@ function Pacientes() {
                     {panelMode === "odontogram" && (
                         <Odontograma
                         onCancel={() => setPanelMode("profile")}
+                        
                         />
                     )}
 

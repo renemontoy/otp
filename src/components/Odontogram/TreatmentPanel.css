@@ -1,0 +1,155 @@
+.treatmentPanel{
+
+    margin-top:20px;
+
+    background:#fff;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+}
+
+.treatmentPanel h3{
+
+    margin:0 0 20px;
+
+    font-size:20px;
+
+    color:#2d3748;
+
+}
+
+.treatmentPanel .formGroup{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-bottom:18px;
+
+}
+
+.treatmentPanel label{
+
+    margin-bottom:6px;
+
+    font-weight:600;
+
+    color:#4a5568;
+
+}
+
+.treatmentPanel input,
+
+.treatmentPanel select,
+
+.treatmentPanel textarea{
+
+    padding:10px;
+
+    border:1px solid #d1d5db;
+
+    border-radius:8px;
+
+    font-size:14px;
+
+    outline:none;
+
+    transition:.2s;
+
+}
+
+.treatmentPanel input:focus,
+
+.treatmentPanel select:focus,
+
+.treatmentPanel textarea:focus{
+
+    border-color:#2563eb;
+
+}
+
+.treatmentPanel textarea{
+
+    resize:vertical;
+
+    min-height:90px;
+
+}
+
+.selectedTeeth{
+
+    background:#f8fafc;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:8px;
+
+    padding:12px;
+
+    margin-bottom:20px;
+
+}
+
+.selectedTeeth span{
+
+    font-weight:600;
+
+    color:#2563eb;
+
+}
+
+.treatmentButtons{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+.treatmentButtons button{
+
+    padding:10px 18px;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+}
+
+.saveTreatment{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+.saveTreatment:hover{
+
+    background:#1d4ed8;
+
+}
+
+.clearTreatment{
+
+    background:#e5e7eb;
+
+}
+
+.clearTreatment:hover{
+
+    background:#d1d5db;
+
+}

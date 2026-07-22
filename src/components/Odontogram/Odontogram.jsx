@@ -1,43 +1,108 @@
 import "./Odontogram.css";
 import { Odontogram } from "react-odontogram";
 import "react-odontogram/style.css";
+import { useState, useEffect } from "react";
+import TreatmentPanel from "./TreatmentPanel";
+import PendingTreatments from "./PendingTratments";
 
 function Odontograma({onCancel}) {
 
-  const handleChange = (selectedTeeth) => {
-    console.log(selectedTeeth);
-    /*
-      Example output:
-      [
-        {
-          "id": "teeth-21",
-          "notations": {
-            "fdi": "21",
-            "universal": "9",
-            "palmer": "1UL"
-          },
-          "type": "Central Incisor"
-        },
-        {
-          "id": "teeth-12",
-          "notations": {
-            "fdi": "12",
-            "universal": "7",
-            "palmer": "2UR"
-          },
-          "type": "Lateral Incisor"
+    const [odontogramKey, setOdontogramKey] = useState(0);
+
+    const [selectedTeeth, setSelectedTeeth] = useState([]);
+    const [treatmentData, setTreatmentData] = useState({
+
+        treatment: "",
+
+        material: "",
+
+        observations: ""
+
+    });
+
+    const [pendingTreatments, setPendingTreatments] = useState([]);
+
+    const handleChange = (teeth) => {
+
+        const selected = teeth.map(tooth => tooth.notations.fdi);
+
+        setSelectedTeeth(selected);
+    };
+
+    function addTreatment(){
+        if(selectedTeeth.length === 0){
+
+            alert("Seleccione un diente.");
+
+            return;
+
         }
-      ]
-    */
-  };
+
+        if(!treatmentData.treatment){
+
+            alert("Seleccione un tratamiento.");
+
+            return;
+
+        }
+        const treatment = {
+
+            id: Date.now(),
+
+            teeth: [...selectedTeeth],
+
+            treatment: treatmentData.treatment,
+
+            material: treatmentData.material,
+
+            observations: treatmentData.observations
+
+        };
+
+        console.log(treatment);
+
+        setPendingTreatments((prev)=>([
+
+            ...prev,
+
+            treatment
+
+        ]));
+
+        setTreatmentData({
+
+            treatment: "",
+
+            material: "",
+
+            observations: ""
+
+        });
+
+        setSelectedTeeth([]);
+
+        setOdontogramKey(prev => prev + 1);
+}
+
 
   return( 
     <div className="patientFormCard">
-
         <Odontogram 
+            key={odontogramKey}
             onChange={handleChange}
         />
-        
+        <TreatmentPanel
+
+            selectedTeeth={selectedTeeth}
+
+            treatmentData={treatmentData}
+
+            setTreatmentData={setTreatmentData}
+
+        />
+        <PendingTreatments 
+            pendingTreatments={pendingTreatments}
+        />
     
     <div className="formButtons">
         <button
@@ -48,8 +113,9 @@ function Odontograma({onCancel}) {
         </button>
         <button
         className="saveButton"
+        onClick={() => addTreatment()}
         >
-            Guardar
+            Agregar Tratamiento
         </button>
 
     </div>
