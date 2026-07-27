@@ -242,7 +242,7 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
                 {step === 2 && (
 
-                    <FamilyDataStep
+                    <AntecedentesStep
 
                         formData={formData}
 
@@ -254,7 +254,7 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
                 {step === 3 && (
 
-                    <AntecedentesStep
+                    <FamilyDataStep
 
                         formData={formData}
 
