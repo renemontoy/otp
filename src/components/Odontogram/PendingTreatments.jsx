@@ -1,30 +1,8 @@
 import "./PendingTreatments.css";
-import { useState, useRef, useEffect } from "react";
+
 
 function PendingTreatments({ pendingTreatments }) {
-    const [open, setOpen] = useState(false);
-    const menuRef = useRef(null);
-    useEffect(() => {
 
-        function handleClickOutside(e){
-
-            if(menuRef.current && !menuRef.current.contains(e.target)){
-
-                setOpen(false);
-
-            }
-
-        }
-
-        document.addEventListener("mousedown", handleClickOutside);
-
-        return () => {
-
-            document.removeEventListener("mousedown", handleClickOutside);
-
-        };
-
-    }, []);
     return (
 
         <div className="pendingTreatments">
@@ -38,16 +16,16 @@ function PendingTreatments({ pendingTreatments }) {
 
                         <h4>
 
-                            🦷 Diente
+                            🦷 Dientes
 
 
                         </h4>
 
-                        <p>
+                        <strong>
 
                             {item.teeth.join(", ")}
 
-                        </p>
+                        </strong>
                         <h4>
 
                             🩺 Tratamiento
@@ -56,7 +34,7 @@ function PendingTreatments({ pendingTreatments }) {
 
                         <p>
 
-                            {item.treatment}
+                            {item.treatmentName}
 
                         </p>
                         <h4>
@@ -67,7 +45,7 @@ function PendingTreatments({ pendingTreatments }) {
 
                         <p>
 
-                            {item.material || "-"}
+                            {item.materialName || "-"}
 
                         </p>
                         <h4>
@@ -79,6 +57,17 @@ function PendingTreatments({ pendingTreatments }) {
                         <p>
 
                             {item.observations || "-"}
+
+                        </p>
+                        <h4>
+
+                            Estado
+
+                        </h4>
+
+                        <p>
+
+                            {item.status}
 
                         </p>
                     </div>

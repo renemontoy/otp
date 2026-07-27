@@ -3,7 +3,7 @@ import { Odontogram } from "react-odontogram";
 import "react-odontogram/style.css";
 import { useState, useEffect } from "react";
 import TreatmentPanel from "./TreatmentPanel";
-import PendingTreatments from "./PendingTratments";
+import PendingTreatments from "./PendingTreatments";
 
 function Odontograma({onCancel}) {
 
@@ -12,14 +12,15 @@ function Odontograma({onCancel}) {
     const [selectedTeeth, setSelectedTeeth] = useState([]);
     const [treatmentData, setTreatmentData] = useState({
 
-        treatment: "",
+        treatmentId: "",
+        treatmentName: "",
 
-        material: "",
+        materialId: "",
+        materialName: "",
 
         observations: ""
 
     });
-
     const [pendingTreatments, setPendingTreatments] = useState([]);
 
     const handleChange = (teeth) => {
@@ -38,7 +39,7 @@ function Odontograma({onCancel}) {
 
         }
 
-        if(!treatmentData.treatment){
+        if(!treatmentData.treatmentId){
 
             alert("Seleccione un tratamiento.");
 
@@ -51,11 +52,17 @@ function Odontograma({onCancel}) {
 
             teeth: [...selectedTeeth],
 
-            treatment: treatmentData.treatment,
+            treatmentId: treatmentData.treatmentId,
 
-            material: treatmentData.material,
+            treatmentName: treatmentData.treatmentName,
 
-            observations: treatmentData.observations
+            materialId: treatmentData.materialId,
+
+            materialName: treatmentData.materialName,
+
+            observations: treatmentData.observations,
+
+            status: "Pendiente"
 
         };
 
@@ -71,14 +78,17 @@ function Odontograma({onCancel}) {
 
         setTreatmentData({
 
-            treatment: "",
+            treatmentId: "",
 
-            material: "",
+            treatmentName: "",
+
+            materialId: "",
+
+            materialName: "",
 
             observations: ""
 
         });
-
         setSelectedTeeth([]);
 
         setOdontogramKey(prev => prev + 1);

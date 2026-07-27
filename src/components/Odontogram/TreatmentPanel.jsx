@@ -30,25 +30,41 @@ function TreatmentPanel({ selectedTeeth, treatmentData, setTreatmentData  }) {
 
     }, []);
 
-    function handleChange(e){
+        function handleChange(e){
 
-    const { name, value } = e.target;
+            const { name, value } = e.target;
 
-}
+            setTreatmentData(prev => ({
+
+                ...prev,
+
+                [name]: value
+
+            }));
+
+        }
 
     async function handleTreatmentChange(e) {
 
         const treatmentId = e.target.value;
 
-        setTreatmentData({
+        const selectedOption = e.target.options[e.target.selectedIndex];
 
-            ...treatmentData,
+        const treatmentName = selectedOption.text;
 
-            treatment: treatmentId,
+        setTreatmentData(prev => ({
 
-            material: ""
+            ...prev,
 
-        });
+            treatmentId,
+
+            treatmentName,
+
+            materialId: "",
+
+            materialName: ""
+
+        }));
 
         if (!treatmentId) {
 
@@ -65,6 +81,26 @@ function TreatmentPanel({ selectedTeeth, treatmentData, setTreatmentData  }) {
             data.map(item => item.materiales)
 
         );
+
+    }
+
+    function handleMaterialChange(e){
+
+        const materialId = e.target.value;
+
+        const selectedOption = e.target.options[e.target.selectedIndex];
+
+        const materialName = selectedOption.text;
+
+        setTreatmentData(prev => ({
+
+            ...prev,
+
+            materialId,
+
+            materialName
+
+        }));
 
     }
     return (
@@ -93,9 +129,9 @@ function TreatmentPanel({ selectedTeeth, treatmentData, setTreatmentData  }) {
                     Tratamiento
             </label>
             <select
-                name="treatment"
+                name="treatmentId"
                 disabled={selectedTeeth.length === 0}
-                value={treatmentData.treatment}
+                value={treatmentData.treatmentId}
                 onChange={handleTreatmentChange}
 
             >
@@ -106,17 +142,17 @@ function TreatmentPanel({ selectedTeeth, treatmentData, setTreatmentData  }) {
 
                 </option>
 
-                {treatments.map((treatment) => (
+                {treatments.map((treatmentId) => (
 
                     <option
 
-                        key={treatment.id}
+                        key={treatmentId.id}
 
-                        value={treatment.id}
+                        value={treatmentId.id}
 
                     >
 
-                        {treatment.nombre}
+                        {treatmentId.nombre}
 
                     </option>
 
@@ -133,23 +169,23 @@ function TreatmentPanel({ selectedTeeth, treatmentData, setTreatmentData  }) {
                     <label>Material</label>
 
                     <select
-                        name="material"
+                        name="materialId"
                         disabled={selectedTeeth.length === 0}
-                        value={treatmentData.material}
-                        onChange={handleChange}
+                        value={treatmentData.materialId}
+                        onChange={handleMaterialChange}
                     >
 
                         <option value="">
                             Seleccionar
                         </option>
 
-                        {materials.map((material) => (
+                        {materials.map((materialId) => (
 
                             <option
-                                key={material.id}
-                                value={material.id}
+                                key={materialId.id}
+                                value={materialId.id}
                             >
-                                {material.nombre}
+                                {materialId.nombre}
                             </option>
 
                         ))}
