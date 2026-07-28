@@ -22,6 +22,7 @@ function Odontograma({onCancel}) {
 
     });
     const [pendingTreatments, setPendingTreatments] = useState([]);
+    const [editingTreatmentId, setEditingTreatmentId] = useState(null);
 
     const handleChange = (teeth) => {
 
@@ -48,7 +49,7 @@ function Odontograma({onCancel}) {
         }
         const treatment = {
 
-            id: Date.now(),
+            id: editingTreatmentId ?? Date.now(),
 
             teeth: [...selectedTeeth],
 
@@ -68,13 +69,35 @@ function Odontograma({onCancel}) {
 
         console.log(treatment);
 
-        setPendingTreatments((prev)=>([
+        if (editingTreatmentId) {
 
-            ...prev,
+            setPendingTreatments(prev =>
 
-            treatment
+                prev.map(item =>
 
-        ]));
+                    item.id === editingTreatmentId
+
+                        ? treatment
+
+                        : item
+
+                )
+
+            );
+
+        } else {
+
+            setPendingTreatments(prev => ([
+
+                ...prev,
+
+                treatment
+
+            ]));
+
+        }
+
+        setEditingTreatmentId(null);
 
         setTreatmentData({
 
@@ -94,6 +117,35 @@ function Odontograma({onCancel}) {
         setOdontogramKey(prev => prev + 1);
 }
 
+    function deleteTreatment(id){
+
+        setPendingTreatments(prev =>
+
+            prev.filter(item => item.id !== id)
+
+        );
+
+    }
+
+    function editTreatment(treatment){
+
+        setSelectedTeeth(treatment.teeth);
+
+        setTreatmentData({
+
+            treatmentId: treatment.treatmentId,
+            treatmentName: treatment.treatmentName,
+
+            materialId: treatment.materialId,
+            materialName: treatment.materialName,
+
+            observations: treatment.observations
+
+        });
+
+        setEditingTreatmentId(treatment.id);
+
+    }
 
   return( 
     <div className="patientFormCard">
@@ -112,6 +164,10 @@ function Odontograma({onCancel}) {
         />
         <PendingTreatments 
             pendingTreatments={pendingTreatments}
+            
+            onDelete={deleteTreatment}
+
+            onEdit={editTreatment}
         />
     
     <div className="formButtons">
@@ -122,10 +178,12 @@ function Odontograma({onCancel}) {
             Cancelar
         </button>
         <button
-        className="saveButton"
-        onClick={() => addTreatment()}
+            className="saveButton"
+            onClick={addTreatment}
         >
-            Agregar Tratamiento
+            {editingTreatmentId
+                ? "Guardar Cambios"
+                : "Agregar Tratamiento"}
         </button>
 
     </div>

@@ -1,7 +1,15 @@
 import "./PendingTreatments.css";
 
 
-function PendingTreatments({ pendingTreatments }) {
+function PendingTreatments({
+
+    pendingTreatments,
+
+    onDelete,
+
+    onEdit
+
+}) {
 
     return (
 
@@ -70,6 +78,29 @@ function PendingTreatments({ pendingTreatments }) {
                             {item.status}
 
                         </p>
+                        <button
+
+                            className="deleteButton"
+
+                            onClick={() => onDelete(item.id)}
+
+                        >
+
+                            Eliminar
+
+                        </button>
+
+                        <button
+
+                            className="editButton"
+
+                            onClick={() => onEdit(item)}
+
+                        >
+
+                            Editar
+
+                        </button>
                     </div>
 
                 ))}

@@ -30,6 +30,40 @@ function TreatmentPanel({ selectedTeeth, treatmentData, setTreatmentData  }) {
 
     }, []);
 
+    useEffect(() => {
+
+        async function loadMaterials() {
+
+            if (!treatmentData.treatmentId) {
+
+                setMaterials([]);
+
+                return;
+
+            }
+
+            try {
+
+                const data = await getMaterialsByTreatment(
+                    treatmentData.treatmentId
+                );
+
+                setMaterials(
+                    data.map(item => item.materiales)
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+            }
+
+        }
+
+        loadMaterials();
+
+    }, [treatmentData.treatmentId]);
+
         function handleChange(e){
 
             const { name, value } = e.target;
@@ -65,22 +99,6 @@ function TreatmentPanel({ selectedTeeth, treatmentData, setTreatmentData  }) {
             materialName: ""
 
         }));
-
-        if (!treatmentId) {
-
-            setMaterials([]);
-
-            return;
-
-        }
-
-        const data = await getMaterialsByTreatment(treatmentId);
-
-        setMaterials(
-
-            data.map(item => item.materiales)
-
-        );
 
     }
 
