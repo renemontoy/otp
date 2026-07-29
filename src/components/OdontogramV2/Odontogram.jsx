@@ -1,50 +1,47 @@
 import "./Odontogram.css";
 
-import Tooth from "./Tooth/Tooth";
+import ToothGroup from "./components/ToothGroup";
 
 import { createOdontogram } from "./data/createOdontogram";
-
-import {
-
-    UPPER_RIGHT,
-
-    UPPER_LEFT
-
-} from "./data/teeth";
+import { getToothPosition } from "./utils/getToothPosition";
 
 const odontogram = createOdontogram();
 
-function Odontogram() {
+function Odontogram(){
 
-    return (
+    return(
 
-        <div className="upperArch">
+        <svg
 
-            {UPPER_RIGHT.map(number => (
+            className="odontogram"
 
-                <Tooth
+            viewBox="0 0 1500 600"
 
-                    key={number}
+        >
 
-                    tooth={odontogram[number]}
+            {Object.values(odontogram).map(tooth => {
 
-                />
+                const {x,y}=getToothPosition(tooth.number);
 
-            ))}
+                return(
 
-            {UPPER_LEFT.map(number => (
+                    <ToothGroup
 
-                <Tooth
+                        key={tooth.number}
 
-                    key={number}
+                        tooth={tooth}
 
-                    tooth={odontogram[number]}
+                        x={x}
 
-                />
+                        y={y}
 
-            ))}
+                    />
 
-        </div>
+                );
+
+            })}
+
+        </svg>
 
     );
 

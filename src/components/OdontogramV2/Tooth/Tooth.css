@@ -26,9 +26,9 @@
 
     align-items:center;
 
-    gap:6px;
+    width:74px;
 
-    margin:3px;
+    user-select:none;
 
 }
 
@@ -114,8 +114,18 @@
 
     color:#475569;
 
-    margin-bottom:4px;
+    margin-bottom:6px;
 
-    user-select:none;
+}
+
+.tooth svg{
+
+    transition:.2s;
+
+}
+
+.tooth:hover svg{
+
+    transform:scale(1.04);
 
 }

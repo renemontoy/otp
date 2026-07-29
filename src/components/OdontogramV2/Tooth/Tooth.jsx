@@ -1,27 +1,30 @@
-import IncisorShape from "./Shapes/IncisorShape";
+import "./Tooth.css";
+import ToothSvg from "./ToothSvg";
 
-function Tooth({ tooth }) {
+function Tooth({ tooth, onFaceClick }) {
 
-    switch (tooth.type) {
+    return (
 
-        case "incisor":
-            return <IncisorShape tooth={tooth} />;
+        <div className="tooth">
 
-        default:
-            return (
-                <div style={{
-                    width: 72,
-                    height: 72,
-                    border: "1px solid #CBD5E1",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: 6
-                }}>
-                    {tooth.number}
-                </div>
-            );
-    }
+            <span className="tooth-number">
+
+                {tooth.number}
+
+            </span>
+
+            <ToothSvg
+
+                tooth={tooth}
+
+                onFaceClick={onFaceClick}
+
+            />
+
+        </div>
+
+    );
+
 }
 
 export default Tooth;
