@@ -1,0 +1,121 @@
+.toothContainer{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+.toothNumber{
+
+    font-weight:600;
+
+    color:#374151;
+
+}
+
+.tooth{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:6px;
+
+    margin:3px;
+
+}
+
+.toothFace{
+
+    background:white;
+
+    border:1px solid #CBD5E1;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.toothFace:hover{
+
+    transform:scale(1.05);
+
+    box-shadow:0 0 6px rgba(37,99,235,.25);
+
+}
+
+.toothFace.selected{
+
+    outline:2px solid #2563EB;
+
+}
+
+.top{
+
+    grid-column:2;
+
+    grid-row:1;
+
+    border-radius:8px 8px 0 0;
+
+}
+
+.left{
+
+    grid-column:1;
+
+    grid-row:2;
+
+    border-radius:8px 0 0 8px;
+
+}
+
+.center{
+
+    grid-column:2;
+
+    grid-row:2;
+
+}
+
+.right{
+
+    grid-column:3;
+
+    grid-row:2;
+
+    border-radius:0 8px 8px 0;
+
+}
+
+.bottom{
+
+    grid-column:2;
+
+    grid-row:3;
+
+    border-radius:0 0 8px 8px;
+
+}
+
+.tooth-number{
+
+    font-size:12px;
+
+    font-weight:600;
+
+    color:#475569;
+
+    margin-bottom:4px;
+
+    user-select:none;
+
+}

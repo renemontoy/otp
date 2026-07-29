@@ -1,0 +1,16 @@
+.tooth-face{
+
+    cursor:pointer;
+
+    transition:
+        fill .18s ease,
+        stroke .18s ease,
+        opacity .18s ease;
+
+}
+
+.tooth-face:hover{
+
+    opacity:.82;
+
+}
