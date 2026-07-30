@@ -2,6 +2,7 @@ import ToothOutline from "./ToothOutline";
 import ToothFace from "./ToothFace";
 import ToothNumber from "./ToothNumber";
 import { FACE_GEOMETRY, FACE_ORDER } from "../geometry/faces";
+import { useOdontogram } from "../hooks/useOdontogram";
 
 function ToothGroup({
 
@@ -9,10 +10,11 @@ function ToothGroup({
 
     x,
 
-    y
+    y,
+
+    onFaceClick
 
 }) {
-
     return (
 
         <g transform={`translate(${x},${y})`}>
@@ -34,9 +36,9 @@ function ToothGroup({
 
                     stroke="#CBD5E1"
 
-                    selected={false}
+                    selected={tooth.faces[faceId].selected}
 
-                    onClick={(id) => console.log(tooth.number, id)}
+                    onClick={(faceId)=>onFaceClick(tooth.number, faceId)}
 
                 />
 

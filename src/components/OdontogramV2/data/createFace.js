@@ -2,11 +2,35 @@ export function createFaces() {
 
     return {
 
-        selected: false,
+        top: {
+            selected: false,
+            status: "healthy",
+            treatmentId: null
+        },
 
-        treatments: [],
+        left: {
+            selected: false,
+            status: "healthy",
+            treatmentId: null
+        },
 
-        condition: "healthy"
+        center: {
+            selected: false,
+            status: "healthy",
+            treatmentId: null
+        },
+
+        right: {
+            selected: false,
+            status: "healthy",
+            treatmentId: null
+        },
+
+        bottom: {
+            selected: false,
+            status: "healthy",
+            treatmentId: null
+        }
 
     };
 
