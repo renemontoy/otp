@@ -1,7 +1,6 @@
 import StatsCards from "../components/StatsCards/StatsCards";
 import PatientTable from "../components/PatientTable/PatientTable";
 import PatientProfile from "../components/PatientProfile/PatientProfile";
-import Odontogram from "../components/Odontogram/Odontogram";
 import History from "../components/History/History";
 import UpcomingAppointments from "../components/UpcomingAppointments/UpcomingAppointments";
 import { useState, useEffect} from "react";    

@@ -1,9 +1,18 @@
 import Odontogram from "../components/OdontogramV2/Odontogram";
-import { createOdontogram } from "../components/OdontogramV2/data/createOdontogram";
+import { OdontogramProvider } from "../components/OdontogramV2/context/OdontogramContext";
 
 function Agenda() {
 
-  return <Odontogram/>;
+    return (
+
+        <OdontogramProvider>
+
+            <Odontogram />
+
+        </OdontogramProvider>
+
+    );
+
 }
 
 export default Agenda;

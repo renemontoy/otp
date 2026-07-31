@@ -1,6 +1,7 @@
-import { useState } from "react";
-
+import { useState, useMemo } from "react";
+import { createTreatment } from "../data/createTreatment";
 import { createOdontogram } from "../data/createOdontogram";
+import { applyTreatmentToFaces } from "../services/treatmentEngine";
 
 export function useOdontogram() {
 
@@ -23,17 +24,17 @@ export function useOdontogram() {
 
     }
 
-    function getSelectedFaces() {
+    const selectedFaces = useMemo(() => {
 
-        const selected = [];
+        const faces = [];
 
         Object.values(odontogram).forEach(tooth => {
 
             Object.entries(tooth.faces).forEach(([faceId, face]) => {
 
-                if (face.selected) {
+                if(face.selected){
 
-                    selected.push({
+                    faces.push({
 
                         toothNumber: tooth.number,
 
@@ -47,17 +48,77 @@ export function useOdontogram() {
 
         });
 
-        return selected;
+        return faces;
 
-    }  
+    }, [odontogram]);
 
+    function applyTreatment(){
+
+        if(selectedFaces.length === 0){
+
+            return;
+
+        }
+
+        if(!treatmentData.treatmentId){
+
+            return;
+
+        }
+
+        const updated = applyTreatmentToFaces(
+
+            odontogram,
+
+            selectedFaces,
+
+            treatmentData
+
+        );
+
+        setOdontogram(updated);
+
+        setTreatmentData({
+
+            treatmentId: "",
+
+            treatmentName: "",
+
+            materialId: "",
+
+            materialName: "",
+
+            observations: ""
+
+        });
+
+    }
+    const [treatmentData, setTreatmentData] = useState({
+
+        treatmentId: "",
+
+        treatmentName: "",
+
+        materialId: "",
+
+        materialName: "",
+
+        observations: ""
+
+    });
     return{
 
         odontogram,
 
         toggleFaceSelection,
 
-        getSelectedFaces
+        selectedFaces,
+
+        applyTreatment,
+
+        treatmentData,
+
+        setTreatmentData
     };
 
 }

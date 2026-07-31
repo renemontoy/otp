@@ -1,20 +1,23 @@
 import "./Odontogram.css";
 import ToothGroup from "./components/ToothGroup";
-import { createOdontogram } from "./data/createOdontogram";
 import { getToothPosition } from "./utils/getToothPosition";
-import { useOdontogram } from "./hooks/useOdontogram";
-
+import { useOdontogramContext } from "./context/OdontogramContext";
 
 function Odontogram(){
-    const {odontogram, toggleFaceSelection, getSelectedFaces} = useOdontogram();
+    const {
+
+        odontogram,
+
+        toggleFaceSelection,
+
+        selectedFaces
+
+    } = useOdontogramContext();
     return(
-        <div>
         <svg
-
-            className="odontogram"
-
-            viewBox="0 0 1500 600"
-
+            className="odontogramSvg"
+            viewBox="0 0 1800 900"
+            preserveAspectRatio="xMidYMid meet"
         >
 
             {Object.values(odontogram).map(tooth => {
@@ -23,28 +26,18 @@ function Odontogram(){
 
                 return(
 
-                    <ToothGroup
-
-                        key={tooth.number}
-
-                        tooth={tooth}
-
-                        x={x}
-
-                        y={y}
-
-                        onFaceClick={toggleFaceSelection}
-
-                    />
+                <ToothGroup
+                    key={tooth.number}
+                    tooth={tooth}
+                    x={x}
+                    y={y}
+                    onFaceClick={toggleFaceSelection}
+                />
 
                 );
 
             })}
         </svg>
- <p>
-    Caras seleccionadas: {getSelectedFaces().length}
-</p>           
-            </div>
     );
 
 }

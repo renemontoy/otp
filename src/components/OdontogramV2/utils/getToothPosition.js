@@ -1,47 +1,96 @@
-const SPACING=80;
+import {
+
+    TOOTH_SIZE,
+
+    TOOTH_GAP,
+
+    MIDLINE_GAP,
+
+    ARCH_SPACING,
+
+    START_X,
+
+    START_Y,
+
+    ARCH_CURVE
+
+} from "../config/layout";
+
+const UPPER_RIGHT = [18,17,16,15,14,13,12,11];
+
+const UPPER_LEFT = [21,22,23,24,25,26,27,28];
+
+const LOWER_RIGHT = [48,47,46,45,44,43,42,41];
+
+const LOWER_LEFT = [31,32,33,34,35,36,37,38];
 
 export function getToothPosition(number){
 
-    const map={
+    let row = 0;
 
-        18:{x:0,y:0},
-        17:{x:SPACING,y:0},
-        16:{x:SPACING*2,y:0},
-        15:{x:SPACING*3,y:0},
-        14:{x:SPACING*4,y:0},
-        13:{x:SPACING*5,y:0},
-        12:{x:SPACING*6,y:0},
-        11:{x:SPACING*7,y:0},
+    let index = 0;
 
-        21:{x:SPACING*9,y:0},
-        22:{x:SPACING*10,y:0},
-        23:{x:SPACING*11,y:0},
-        24:{x:SPACING*12,y:0},
-        25:{x:SPACING*13,y:0},
-        26:{x:SPACING*14,y:0},
-        27:{x:SPACING*15,y:0},
-        28:{x:SPACING*16,y:0},
+    let side = "right";
 
-        48:{x:0,y:250},
-        47:{x:SPACING,y:250},
-        46:{x:SPACING*2,y:250},
-        45:{x:SPACING*3,y:250},
-        44:{x:SPACING*4,y:250},
-        43:{x:SPACING*5,y:250},
-        42:{x:SPACING*6,y:250},
-        41:{x:SPACING*7,y:250},
+    if(UPPER_RIGHT.includes(number)){
 
-        31:{x:SPACING*9,y:250},
-        32:{x:SPACING*10,y:250},
-        33:{x:SPACING*11,y:250},
-        34:{x:SPACING*12,y:250},
-        35:{x:SPACING*13,y:250},
-        36:{x:SPACING*14,y:250},
-        37:{x:SPACING*15,y:250},
-        38:{x:SPACING*16,y:250}
+        row = 0;
 
-    };
+        side = "right";
 
-    return map[number];
+        index = UPPER_RIGHT.indexOf(number);
+
+    }
+
+    else if(UPPER_LEFT.includes(number)){
+
+        row = 0;
+
+        side = "left";
+
+        index = UPPER_LEFT.indexOf(number);
+
+    }
+
+    else if(LOWER_RIGHT.includes(number)){
+
+        row = 1;
+
+        side = "right";
+
+        index = LOWER_RIGHT.indexOf(number);
+
+    }
+
+    else{
+
+        row = 1;
+
+        side = "left";
+
+        index = LOWER_LEFT.indexOf(number);
+
+    }
+
+    const x = side === "right"
+
+        ? START_X + index * (TOOTH_SIZE + TOOTH_GAP)
+
+        : START_X
+            + 8 * (TOOTH_SIZE + TOOTH_GAP)
+            + MIDLINE_GAP
+            + index * (TOOTH_SIZE + TOOTH_GAP);
+
+    const distanceFromCenter = Math.abs(index - 3.5);
+
+    const curve = Math.pow(distanceFromCenter, 2) * ARCH_CURVE / 12;
+
+    const y = row === 0
+
+        ? START_Y + curve
+
+        : START_Y + ARCH_SPACING - curve;
+
+    return { x, y };
 
 }

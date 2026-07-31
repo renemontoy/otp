@@ -1,36 +1,36 @@
+function createFace() {
+
+    return {
+
+        selected: false,
+
+        status: "healthy",
+
+        treatment: null,
+
+        diagnosis: null,
+
+        notes: "",
+
+        updatedAt: null
+
+    };
+
+}
+
 export function createFaces() {
 
     return {
 
-        top: {
-            selected: false,
-            status: "healthy",
-            treatmentId: null
-        },
+        top: createFace(),
 
-        left: {
-            selected: false,
-            status: "healthy",
-            treatmentId: null
-        },
+        left: createFace(),
 
-        center: {
-            selected: false,
-            status: "healthy",
-            treatmentId: null
-        },
+        center: createFace(),
 
-        right: {
-            selected: false,
-            status: "healthy",
-            treatmentId: null
-        },
+        right: createFace(),
 
-        bottom: {
-            selected: false,
-            status: "healthy",
-            treatmentId: null
-        }
+        bottom: createFace()
 
     };
 

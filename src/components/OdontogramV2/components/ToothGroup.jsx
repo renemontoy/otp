@@ -1,8 +1,5 @@
-import ToothOutline from "./ToothOutline";
-import ToothFace from "./ToothFace";
+import ToothRenderer from "./Tooth/ToothRenderer";
 import ToothNumber from "./ToothNumber";
-import { FACE_GEOMETRY, FACE_ORDER } from "../geometry/faces";
-import { useOdontogram } from "../hooks/useOdontogram";
 
 function ToothGroup({
 
@@ -15,34 +12,20 @@ function ToothGroup({
     onFaceClick
 
 }) {
+
     return (
 
-        <g transform={`translate(${x},${y})`}>
+        <g transform={`translate(${x}, ${y})`}>
 
             <ToothNumber number={tooth.number} />
 
-            <ToothOutline />
-            {FACE_ORDER.map(faceId => (
+            <ToothRenderer
 
-                <ToothFace
+                tooth={tooth}
 
-                    key={faceId}
+                onFaceClick={onFaceClick}
 
-                    id={faceId}
-
-                    points={FACE_GEOMETRY[faceId]}
-
-                    fill="#FFFFFF"
-
-                    stroke="#CBD5E1"
-
-                    selected={tooth.faces[faceId].selected}
-
-                    onClick={(faceId)=>onFaceClick(tooth.number, faceId)}
-
-                />
-
-            ))}
+            />
 
         </g>
 

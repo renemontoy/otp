@@ -1,0 +1,75 @@
+.workspace{
+
+    display:flex;
+
+    flex-direction:column;
+
+    height:100%;
+
+    width:100%;
+
+    gap:18px;
+
+}
+
+.workspaceToolbar{
+
+    flex:0 0 auto;
+
+}
+
+.workspaceCanvas{
+
+    flex:1;
+
+    min-height:520px;
+
+    background:white;
+
+    border-radius:16px;
+
+    border:1px solid #E2E8F0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+}
+
+.workspaceBottom{
+
+    display:grid;
+
+    grid-template-columns:380px 1fr;
+
+    gap:18px;
+
+}
+
+.workspaceLeft{
+
+    background:white;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:16px;
+
+    padding:18px;
+
+}
+
+.workspaceRight{
+
+    background:white;
+
+    border:1px solid #E2E8F0;
+
+    border-radius:16px;
+
+    padding:18px;
+
+}

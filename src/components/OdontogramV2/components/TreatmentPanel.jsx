@@ -1,9 +1,21 @@
 import "./TreatmentPanel.css";
-import "./Odontogram.css";
 import { useEffect, useState } from "react";
-import { getTreatments, getMaterialsByTreatment } from "../../supabase/tratamientos";
+import { getTreatments, getMaterialsByTreatment } from "../../../supabase/tratamientos";
+import { useOdontogramContext } from "../context/OdontogramContext";
 
-function TreatmentPanel({ selectedTeeth, treatmentData, setTreatmentData  }) {
+function TreatmentPanel() {
+    const {
+
+        selectedFaces,
+
+        treatmentData,
+
+        setTreatmentData,
+
+        applyTreatment
+
+    } = useOdontogramContext();
+
     const [treatments, setTreatments] = useState([]);
 
     const [materials, setMaterials] = useState([]);
@@ -121,6 +133,39 @@ function TreatmentPanel({ selectedTeeth, treatmentData, setTreatmentData  }) {
         }));
 
     }
+    function formatSelectedFaces() {
+
+        if (selectedFaces.length === 0) {
+
+            return "Ninguna";
+
+        }
+
+        return selectedFaces
+
+            .map(face => {
+
+                const names = {
+
+                    top: "Oclusal",
+
+                    bottom: "Lingual",
+
+                    left: "Mesial",
+
+                    right: "Distal",
+
+                    center: "Centro"
+
+                };
+
+                return `${face.toothNumber} (${names[face.faceId]})`;
+
+            })
+
+            .join(", ");
+
+    }
     return (
 
         <div className="treatmentPanel">
@@ -132,13 +177,7 @@ function TreatmentPanel({ selectedTeeth, treatmentData, setTreatmentData  }) {
             </p>
 
             <strong>
-
-                {selectedTeeth.length > 0
-
-                    ? selectedTeeth.join(", ")
-
-                    : ""}
-
+                {formatSelectedFaces()}
             </strong>
             </div>
 
@@ -148,7 +187,7 @@ function TreatmentPanel({ selectedTeeth, treatmentData, setTreatmentData  }) {
             </label>
             <select
                 name="treatmentId"
-                disabled={selectedTeeth.length === 0}
+                disabled={selectedFaces.length === 0}
                 value={treatmentData.treatmentId}
                 onChange={handleTreatmentChange}
 
@@ -160,19 +199,19 @@ function TreatmentPanel({ selectedTeeth, treatmentData, setTreatmentData  }) {
 
                 </option>
 
-                {treatments.map((treatmentId) => (
+                {treatments.map((treatment) => (
 
-                    <option
+                <option
 
-                        key={treatmentId.id}
+                    key={treatment.id}
 
-                        value={treatmentId.id}
+                    value={treatment.id}
 
-                    >
+                >
 
-                        {treatmentId.nombre}
+                    {treatment.nombre}
 
-                    </option>
+                </option>
 
                 ))}
 
@@ -188,7 +227,7 @@ function TreatmentPanel({ selectedTeeth, treatmentData, setTreatmentData  }) {
 
                     <select
                         name="materialId"
-                        disabled={selectedTeeth.length === 0}
+                        disabled={selectedFaces.length === 0}
                         value={treatmentData.materialId}
                         onChange={handleMaterialChange}
                     >
@@ -197,13 +236,13 @@ function TreatmentPanel({ selectedTeeth, treatmentData, setTreatmentData  }) {
                             Seleccionar
                         </option>
 
-                        {materials.map((materialId) => (
+                        {materials.map((material) => (
 
                             <option
-                                key={materialId.id}
-                                value={materialId.id}
+                                key={material.id}
+                                value={material.id}
                             >
-                                {materialId.nombre}
+                                {material.nombre}
                             </option>
 
                         ))}
@@ -220,13 +259,35 @@ function TreatmentPanel({ selectedTeeth, treatmentData, setTreatmentData  }) {
             </label>
             <textarea
                 name="observations"
-                disabled={selectedTeeth.length === 0}
+                disabled={selectedFaces.length === 0}
                 value={treatmentData.observations}
                 onChange={handleChange}
 
             />
             </div>
+            <div className="formButtons">
 
+                <button
+
+                    className="saveButton"
+
+                    disabled={
+
+                        selectedFaces.length === 0 ||
+
+                        !treatmentData.treatmentId
+
+                    }
+
+                    onClick={applyTreatment}
+
+                >
+
+                    Aplicar tratamiento
+
+                </button>
+
+            </div>
         </div>
 
     );

@@ -218,7 +218,7 @@ function PersonalDataStep({
 
             <div className="formGroup">
 
-                <label>Correo electrónico</label>
+                <label>Motivo de consulta</label>
 
                 <input
                     type="text"

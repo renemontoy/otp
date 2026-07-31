@@ -1,15 +1,13 @@
 import StatsCards from "../components/StatsCards/StatsCards";
 import PatientTable from "../components/PatientTable/PatientTable";
 import PatientProfile from "../components/PatientProfile/PatientProfile";
-import Odontogram from "../components/Odontogram/Odontogram";
 import History from "../components/History/History";
 import UpcomingAppointments from "../components/UpcomingAppointments/UpcomingAppointments";
 import { useState, useEffect} from "react";    
 import {getPatients, createPatient, updatePatient} from "../supabase/patients";
 import PatientForm from "../components/PatientForm/PatientForm";
-import Odontograma from "../components/Odontogram/Odontogram";
 import ExploracionForm from "../components/Exploracion/Exploracion";
-
+import OdontogramModule from "../components/OdontogramV2/OdontogramModule";
 
 function Pacientes() {
 
@@ -97,6 +95,19 @@ function Pacientes() {
         }
 
     }
+
+    if (panelMode === "odontogram") {
+
+    return (
+
+        <OdontogramModule
+            patient={selectedPatient}
+            onCancel={() => setPanelMode("profile")}
+        />
+
+    );
+
+}
     return (
         <div className="dashboard">
 
@@ -143,9 +154,9 @@ function Pacientes() {
                     )}
 
                     {panelMode === "odontogram" && (
-                        <Odontograma
-                        onCancel={() => setPanelMode("profile")}
-                        
+                        <OdontogramModule
+                            patient={selectedPatient}
+                            onCancel={() => setPanelMode("profile")}
                         />
                     )}
 

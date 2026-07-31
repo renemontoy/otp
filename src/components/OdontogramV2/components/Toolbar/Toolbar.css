@@ -1,0 +1,57 @@
+.toolbar{
+
+    display:flex;
+
+    gap:12px;
+
+    align-items:center;
+
+    padding:12px 18px;
+
+    border-bottom:1px solid #E2E8F0;
+
+    background:white;
+
+}
+
+.toolbarButton{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:10px 16px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#F8FAFC;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.toolbarButton:hover{
+
+    background:#E2E8F0;
+
+}
+
+.toolbarButton.active{
+
+    background:#2563EB;
+
+    color:white;
+
+}
+
+.toolbarIcon{
+
+    font-size:18px;
+
+}

@@ -2,9 +2,8 @@ import "./Odontogram.css";
 import { Odontogram } from "react-odontogram";
 import "react-odontogram/style.css";
 import { useState, useEffect } from "react";
-import TreatmentPanel from "./TreatmentPanel";
-import PendingTreatments from "./PendingTreatments";
-
+import TreatmentPanel from "../OdontogramV2/TreatmentPanel";
+import PendingTreatments from "../OdontogramV2/components/PendingTreatments";
 function Odontograma({onCancel}) {
 
     const [odontogramKey, setOdontogramKey] = useState(0);
