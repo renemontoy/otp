@@ -1,26 +1,12 @@
 import "./Workspace.css";
 
 function Workspace({
-
-    toolbar,
-
     canvas,
-
     leftPanel,
-
     rightPanel
-
-}){
-
-    return(
-
+}) {
+    return (
         <div className="workspace">
-
-            <div className="workspaceToolbar">
-
-                {toolbar}
-
-            </div>
 
             <div className="workspaceCanvas">
 
@@ -45,9 +31,7 @@ function Workspace({
             </div>
 
         </div>
-
     );
-
 }
 
 export default Workspace;

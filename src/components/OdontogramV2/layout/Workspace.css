@@ -5,24 +5,17 @@
     display: grid;
 
     grid-template-rows:
-        auto
-        minmax(280px, 38vh)
+        minmax(280px, 40vh)
         minmax(230px, 1fr);
 
-    /* Menor separación entre toolbar, canvas y paneles */
     row-gap: 8px;
 
-    /* Conservamos un poco más de espacio horizontal */
     padding: 8px 12px 12px;
 
     box-sizing: border-box;
     overflow: hidden;
 
     background: #eef2f7;
-}
-.workspaceToolbar {
-    min-width: 0;
-    min-height: 0;
 }
 
 /* Contenedor exterior del canvas */
@@ -96,11 +89,11 @@
 
 /* Ajuste para pantallas con poca altura */
 @media (max-height: 850px) {
+
     .workspace {
         grid-template-rows:
-            auto
-            minmax(250px, 35vh)
-            minmax(220px, 1fr);
+            minmax(250px, 38vh)
+            minmax(210px, 1fr);
 
         row-gap: 6px;
 
@@ -110,11 +103,6 @@
             10px;
     }
 
-    .odontogramCanvas {
-        padding:
-            6px
-            22px;
-    }
 }
 
 /* Ajuste para pantallas más estrechas */

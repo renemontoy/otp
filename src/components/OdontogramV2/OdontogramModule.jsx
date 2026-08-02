@@ -1,6 +1,5 @@
 import "./OdontogramModule.css";
 import { OdontogramProvider } from "./context/OdontogramContext";
-import Toolbar from "./components/Toolbar/Toolbar";
 import Odontogram from "./Odontogram";
 import TreatmentPanel from "./components/TreatmentPanel";
 import PendingTreatments from "./components/PendingTreatments";
@@ -26,8 +25,6 @@ function OdontogramModule({
             />
 
             <Workspace
-
-                toolbar={<Toolbar/>}
 
                 canvas={
 
