@@ -90,21 +90,30 @@ function TreatmentPanel() {
 
         }
 
-    async function handleTreatmentChange(e) {
+    function handleTreatmentChange(event) {
 
-        const treatmentId = e.target.value;
+        const treatmentId =
+            event.target.value;
 
-        const selectedOption = e.target.options[e.target.selectedIndex];
+        const selectedTreatment =
+            treatments.find((treatment) =>
 
-        const treatmentName = selectedOption.text;
+                String(treatment.id) ===
+                String(treatmentId)
 
-        setTreatmentData(prev => ({
+            );
 
-            ...prev,
+        setTreatmentData((previous) => ({
+
+            ...previous,
 
             treatmentId,
 
-            treatmentName,
+            treatmentName:
+                selectedTreatment?.nombre || "",
+
+            treatmentColor:
+                selectedTreatment?.color || "",
 
             materialId: "",
 

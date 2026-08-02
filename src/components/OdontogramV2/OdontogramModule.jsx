@@ -38,7 +38,7 @@ function OdontogramModule({
 
                 leftPanel={<TreatmentPanel/>}
 
-                /*rightPanel={<PendingTreatments/>}*/
+                rightPanel={<PendingTreatments/>}
 
             />
 

@@ -1,109 +1,283 @@
 import "./PendingTreatments.css";
 
+import {
+    useOdontogramContext
+} from "../context/OdontogramContext";
 
-function PendingTreatments({
+function formatDate(date) {
 
-    pendingTreatments,
+    if (!date) {
 
-    onDelete,
+        return "-";
 
-    onEdit
+    }
 
-}) {
+    return new Intl.DateTimeFormat(
+        "es-MX",
+        {
+
+            dateStyle: "medium",
+
+            timeStyle: "short"
+
+        }
+    ).format(new Date(date));
+
+}
+
+function PendingTreatments() {
+
+    const {
+
+        pendingTreatments,
+
+        deletePendingTreatment,
+
+        pendingActionId,
+
+        isLoading,
+
+        loadError
+
+    } = useOdontogramContext();
+
+    function handleDelete(item) {
+
+        const confirmed = window.confirm(
+
+            "¿Deseas eliminar este tratamiento pendiente?"
+
+        );
+
+        if (!confirmed) {
+
+            return;
+
+        }
+
+        deletePendingTreatment(item);
+
+    }
+
+    if (isLoading) {
+
+        return (
+
+            <div className="pendingTreatments">
+
+                <h3>
+                    Tratamientos pendientes
+                </h3>
+
+                <p className="pendingMessage">
+
+                    Cargando tratamientos...
+
+                </p>
+
+            </div>
+
+        );
+
+    }
+
+    if (loadError) {
+
+        return (
+
+            <div className="pendingTreatments">
+
+                <h3>
+                    Tratamientos pendientes
+                </h3>
+
+                <p className="pendingError">
+
+                    {loadError}
+
+                </p>
+
+            </div>
+
+        );
+
+    }
 
     return (
 
         <div className="pendingTreatments">
 
-            <h3>Tratamientos pendientes</h3>
-                {pendingTreatments.map((item) => (
-                    <div
+            <div className="pendingHeader">
+
+                <h3>
+                    Tratamientos pendientes
+                </h3>
+
+                <span className="pendingCount">
+
+                    {pendingTreatments.length}
+
+                </span>
+
+            </div>
+
+            {pendingTreatments.length === 0 ? (
+
+                <div className="pendingEmpty">
+
+                    <strong>
+                        Sin tratamientos pendientes
+                    </strong>
+
+                    <p>
+
+                        Los tratamientos aplicados
+                        aparecerán en este panel.
+
+                    </p>
+
+                </div>
+
+            ) : (
+
+                pendingTreatments.map((item) => (
+
+                    <article
+
                         key={item.id}
+
                         className="treatmentCard"
+
                     >
 
-                        <h4>
+                        <div className="treatmentCardHeader">
 
-                            🦷 Dientes
+                            <div>
 
+                                <span className="treatmentStatus">
 
-                        </h4>
+                                    {item.status}
 
-                        <strong>
+                                </span>
 
-                            {item.teeth.join(", ")}
+                                <h4>
 
-                        </strong>
-                        <h4>
+                                    {item.treatmentName}
 
-                            🩺 Tratamiento
+                                </h4>
 
-                        </h4>
+                            </div>
 
-                        <p>
+                            {item.treatmentColor && (
 
-                            {item.treatmentName}
+                                <span
 
-                        </p>
-                        <h4>
+                                    className="treatmentColor"
 
-                            🧱 Material
+                                    style={{
 
-                        </h4>
+                                        backgroundColor:
+                                            item.treatmentColor
 
-                        <p>
+                                    }}
 
-                            {item.materialName || "-"}
+                                />
 
-                        </p>
-                        <h4>
+                            )}
 
-                            📝 Observaciones
+                        </div>
 
-                        </h4>
+                        <div className="treatmentDetail">
 
-                        <p>
+                            <span>
+                                Piezas y caras
+                            </span>
 
-                            {item.observations || "-"}
+                            <strong>
 
-                        </p>
-                        <h4>
+                                {item.teeth.join(", ")}
 
-                            Estado
+                            </strong>
 
-                        </h4>
+                        </div>
 
-                        <p>
+                        <div className="treatmentDetail">
 
-                            {item.status}
+                            <span>
+                                Material
+                            </span>
 
-                        </p>
-                        <button
+                            <strong>
 
-                            className="deleteButton"
+                                {item.materialName || "-"}
 
-                            onClick={() => onDelete(item.id)}
+                            </strong>
 
-                        >
+                        </div>
 
-                            Eliminar
+                        <div className="treatmentDetail">
 
-                        </button>
+                            <span>
+                                Observaciones
+                            </span>
 
-                        <button
+                            <p>
 
-                            className="editButton"
+                                {item.observations || "-"}
 
-                            onClick={() => onEdit(item)}
+                            </p>
 
-                        >
+                        </div>
 
-                            Editar
+                        <div className="treatmentDetail">
 
-                        </button>
-                    </div>
+                            <span>
+                                Fecha
+                            </span>
 
-                ))}
+                            <p>
+
+                                {formatDate(item.date)}
+
+                            </p>
+
+                        </div>
+
+                        <div className="treatmentActions">
+
+                            <button
+
+                                type="button"
+
+                                className="deleteButton"
+
+                                disabled={
+
+                                    pendingActionId ===
+                                    item.id
+
+                                }
+
+                                onClick={() =>
+                                    handleDelete(item)
+                                }
+
+                            >
+
+                                {pendingActionId === item.id
+                                    ? "Eliminando..."
+                                    : "Eliminar"}
+
+                            </button>
+
+                        </div>
+
+                    </article>
+
+                ))
+
+            )}
+
         </div>
 
     );

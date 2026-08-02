@@ -1,33 +1,28 @@
-import { TREATMENT_COLORS } from "./colors";
+import {
+    TREATMENT_COLORS
+} from "./colors";
 
-export function getFaceColor(face){
+export function getFaceColor(face) {
 
-    if(face.selected){
+    if (face.selected) {
 
         return TREATMENT_COLORS.selected;
 
     }
 
-    if(face.treatment){
+    if (face.treatment?.color) {
 
-        const nombre = face.treatment.name
-            ?.toLowerCase();
-
-        if(TREATMENT_COLORS[nombre]){
-
-            return TREATMENT_COLORS[nombre];
-
-        }
+        return face.treatment.color;
 
     }
 
-    if(face.status === "pendiente"){
+    if (face.status === "pendiente") {
 
         return TREATMENT_COLORS.pendiente;
 
     }
 
-    if(face.status === "completado"){
+    if (face.status === "completado") {
 
         return TREATMENT_COLORS.completado;
 

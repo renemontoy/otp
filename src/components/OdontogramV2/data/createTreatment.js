@@ -1,28 +1,60 @@
 export function createTreatment({
 
+    recordId = null,
+
+    groupId = null,
+
     treatmentId,
 
     treatmentName,
 
-    materialId,
+    treatmentColor = null,
 
-    materialName
+    materialId = null,
 
-}){
+    materialName = "",
 
-    return{
+    observations = "",
+
+    status = "pendiente",
+
+    date = null,
+
+    completedAt = null,
+
+    cost = null
+
+}) {
+
+    return {
+
+        recordId,
+
+        groupId,
 
         id: treatmentId,
 
         name: treatmentName,
 
-        material:{
+        color: treatmentColor,
+
+        material: {
 
             id: materialId,
 
             name: materialName
 
-        }
+        },
+
+        observations,
+
+        status,
+
+        date,
+
+        completedAt,
+
+        cost
 
     };
 

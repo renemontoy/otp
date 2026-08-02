@@ -1,24 +1,124 @@
-import { useState, useMemo } from "react";
-import { createTreatment } from "../data/createTreatment";
-import { createOdontogram } from "../data/createOdontogram";
-import { applyTreatmentToFaces } from "../services/treatmentEngine";
-import { mapFacesToDatabase } from "../services/treatmentMapper";
-import { saveTreatment } from "../../../supabase/odontogram";
+import {
+
+    useCallback,
+
+    useEffect,
+
+    useMemo,
+
+    useState
+
+} from "react";
+
+import {
+    createOdontogram
+} from "../data/createOdontogram";
+
+import {
+    applyTreatmentToFaces
+} from "../services/treatmentEngine";
+
+import {
+
+    mapDatabaseToOdontogram,
+
+    mapDatabaseToPendingTreatments,
+
+    mapFacesToDatabase
+
+} from "../services/treatmentMapper";
+
+import {
+
+    deleteTreatmentGroup,
+
+    deleteTreatmentsByIds,
+
+    loadOdontogram,
+
+    saveTreatment
+
+} from "../../../supabase/odontogram";
+
+const EMPTY_TREATMENT_DATA = {
+
+    treatmentId: "",
+
+    treatmentName: "",
+
+    treatmentColor: "",
+
+    materialId: "",
+
+    materialName: "",
+
+    observations: ""
+
+};
 
 export function useOdontogram(patient) {
 
-    const [odontogram, setOdontogram] = useState(
-        createOdontogram()
-    );
+    const [odontogram, setOdontogram] =
+        useState(() => createOdontogram());
 
-    function toggleFaceSelection(toothNumber, faceId){
+    const [
 
-        setOdontogram(prev => {
+        treatmentData,
 
-            const updated = structuredClone(prev);
+        setTreatmentData
 
-            updated[toothNumber].faces[faceId].selected =
-                !updated[toothNumber].faces[faceId].selected;
+    ] = useState({
+
+        ...EMPTY_TREATMENT_DATA
+
+    });
+
+    const [
+
+        pendingTreatments,
+
+        setPendingTreatments
+
+    ] = useState([]);
+
+    const [isLoading, setIsLoading] =
+        useState(false);
+
+    const [isSaving, setIsSaving] =
+        useState(false);
+
+    const [
+
+        pendingActionId,
+
+        setPendingActionId
+
+    ] = useState(null);
+
+    const [loadError, setLoadError] =
+        useState(null);
+
+    function toggleFaceSelection(
+        toothNumber,
+        faceId
+    ) {
+
+        setOdontogram((previous) => {
+
+            const updated =
+                structuredClone(previous);
+
+            const tooth =
+                updated[toothNumber];
+
+            if (!tooth?.faces?.[faceId]) {
+
+                return previous;
+
+            }
+
+            tooth.faces[faceId].selected =
+                !tooth.faces[faceId].selected;
 
             return updated;
 
@@ -30,86 +130,146 @@ export function useOdontogram(patient) {
 
         const faces = [];
 
-        Object.values(odontogram).forEach(tooth => {
+        Object.values(odontogram)
+            .forEach((tooth) => {
 
-            Object.entries(tooth.faces).forEach(([faceId, face]) => {
+                Object.entries(tooth.faces)
+                    .forEach(([
+                        faceId,
+                        face
+                    ]) => {
 
-                if(face.selected){
+                        if (face.selected) {
 
-                    faces.push({
+                            faces.push({
 
-                        toothNumber: tooth.number,
+                                toothNumber:
+                                    tooth.number,
 
-                        faceId
+                                faceId
+
+                            });
+
+                        }
 
                     });
 
-                }
-
             });
-
-        });
 
         return faces;
 
     }, [odontogram]);
 
-    function applyTreatment(){
-        console.log("Entró a applyTreatment");
-        if(selectedFaces.length === 0){
+    const reloadOdontogram =
+        useCallback(async () => {
+
+            if (!patient?.id) {
+
+                setOdontogram(
+                    createOdontogram()
+                );
+
+                setPendingTreatments([]);
+
+                return [];
+
+            }
+
+            setIsLoading(true);
+
+            setLoadError(null);
+
+            try {
+
+                const rows =
+                    await loadOdontogram(
+                        patient.id
+                    );
+
+                setOdontogram(
+                    mapDatabaseToOdontogram(
+                        rows
+                    )
+                );
+
+                setPendingTreatments(
+                    mapDatabaseToPendingTreatments(
+                        rows
+                    )
+                );
+
+                return rows;
+
+            } catch (error) {
+
+                console.error(
+                    "Error al cargar el odontograma:",
+                    error
+                );
+
+                setLoadError(
+                    "No fue posible cargar el odontograma."
+                );
+
+                throw error;
+
+            } finally {
+
+                setIsLoading(false);
+
+            }
+
+        }, [patient?.id]);
+
+    useEffect(() => {
+
+        void reloadOdontogram();
+
+    }, [reloadOdontogram]);
+
+    function applyTreatment(
+
+        faces = selectedFaces,
+
+        data = treatmentData
+
+    ) {
+
+        if (faces.length === 0) {
 
             return;
 
         }
 
-        if(!treatmentData.treatmentId){
+        if (!data.treatmentId) {
 
             return;
 
         }
 
-        const updated = applyTreatmentToFaces(
+        setOdontogram((previous) =>
 
-            odontogram,
+            applyTreatmentToFaces(
 
-            selectedFaces,
+                previous,
 
-            treatmentData
+                faces,
+
+                data
+
+            )
 
         );
 
-        setOdontogram(updated);
-
-        setTreatmentData({
-
-            treatmentId: "",
-
-            treatmentName: "",
-
-            materialId: "",
-
-            materialName: "",
-
-            observations: ""
-
-        });
-
     }
-    const [treatmentData, setTreatmentData] = useState({
-
-        treatmentId: "",
-
-        treatmentName: "",
-
-        materialId: "",
-
-        materialName: "",
-
-        observations: ""
-
-    });
 
     async function saveSelectedTreatment() {
+
+        if (!patient?.id) {
+
+            return;
+
+        }
 
         if (selectedFaces.length === 0) {
 
@@ -123,29 +283,123 @@ export function useOdontogram(patient) {
 
         }
 
+        const facesToSave =
+            selectedFaces.map((face) => ({
+
+                ...face
+
+            }));
+
+        const treatmentToSave = {
+
+            ...treatmentData
+
+        };
+
+        setIsSaving(true);
+
         try {
 
-            const rows = mapFacesToDatabase(
-                patient.id,
-                selectedFaces,
-                treatmentData
-            );
+            const rows =
+                mapFacesToDatabase(
+
+                    patient.id,
+
+                    facesToSave,
+
+                    treatmentToSave
+
+                );
 
             await saveTreatment(rows);
-            console.log("Guardado correctamente");
-            applyTreatment();
+
+            /*
+                En lugar de pintar manualmente,
+                volvemos a leer Supabase para
+                obtener IDs, colores y estado real.
+            */
+            await reloadOdontogram();
+
+            setTreatmentData({
+
+                ...EMPTY_TREATMENT_DATA
+
+            });
 
         } catch (error) {
 
-            console.error("Error al guardar tratamiento:", error);
+            console.error(
+                "Error al guardar tratamiento:",
+                error
+            );
 
-            alert("No fue posible guardar el tratamiento.");
+            alert(
+                "No fue posible guardar el tratamiento."
+            );
+
+        } finally {
+
+            setIsSaving(false);
 
         }
 
     }
 
-    return{
+    async function deletePendingTreatment(
+        item
+    ) {
+
+        if (!item) {
+
+            return;
+
+        }
+
+        setPendingActionId(item.id);
+
+        try {
+
+            if (item.groupId) {
+
+                await deleteTreatmentGroup(
+                    item.groupId
+                );
+
+            } else {
+
+                await deleteTreatmentsByIds(
+                    item.recordIds
+                );
+
+            }
+
+            /*
+                Si existía un tratamiento anterior
+                en esa cara, reaparecerá al recargar.
+            */
+            await reloadOdontogram();
+
+        } catch (error) {
+
+            console.error(
+                "Error al eliminar tratamiento:",
+                error
+            );
+
+            alert(
+                "No fue posible eliminar el tratamiento."
+            );
+
+        } finally {
+
+            setPendingActionId(null);
+
+        }
+
+    }
+
+    return {
+
         patient,
 
         odontogram,
@@ -160,7 +414,22 @@ export function useOdontogram(patient) {
 
         setTreatmentData,
 
-        saveSelectedTreatment
+        saveSelectedTreatment,
+
+        pendingTreatments,
+
+        deletePendingTreatment,
+
+        reloadOdontogram,
+
+        isLoading,
+
+        isSaving,
+
+        pendingActionId,
+
+        loadError
+
     };
 
 }

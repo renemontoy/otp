@@ -1,4 +1,6 @@
-import { createTreatment } from "../data/createTreatment";
+import {
+    createTreatment
+} from "../data/createTreatment";
 
 export function applyTreatmentToFaces(
 
@@ -8,31 +10,60 @@ export function applyTreatmentToFaces(
 
     treatmentData
 
-){
+) {
 
-    const updated = structuredClone(odontogram);
+    const updated =
+        structuredClone(odontogram);
 
-    selectedFaces.forEach(({ toothNumber, faceId }) => {
+    selectedFaces.forEach(({
 
-        const face = updated[toothNumber].faces[faceId];
+        toothNumber,
+
+        faceId
+
+    }) => {
+
+        const face =
+            updated[toothNumber]
+                ?.faces?.[faceId];
+
+        if (!face) {
+
+            return;
+
+        }
 
         face.treatment = createTreatment({
 
-            treatmentId: treatmentData.treatmentId,
+            treatmentId:
+                treatmentData.treatmentId,
 
-            treatmentName: treatmentData.treatmentName,
+            treatmentName:
+                treatmentData.treatmentName,
 
-            materialId: treatmentData.materialId,
+            treatmentColor:
+                treatmentData.treatmentColor,
 
-            materialName: treatmentData.materialName,
+            materialId:
+                treatmentData.materialId,
 
-            observations: treatmentData.observations
+            materialName:
+                treatmentData.materialName,
+
+            observations:
+                treatmentData.observations,
+
+            status: "pendiente"
 
         });
 
         face.status = "pendiente";
 
-        face.updatedAt = new Date().toISOString();
+        face.notes =
+            treatmentData.observations || "";
+
+        face.updatedAt =
+            new Date().toISOString();
 
         face.selected = false;
 

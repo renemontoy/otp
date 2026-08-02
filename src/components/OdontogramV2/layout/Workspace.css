@@ -83,8 +83,8 @@
     interior definitivo, conservamos padding.
 */
 .workspaceRight {
-    padding: 18px;
-    overflow: auto;
+    padding: 0;
+    overflow: hidden;
 }
 
 /* Ajuste para pantallas con poca altura */
