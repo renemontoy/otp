@@ -38,24 +38,22 @@
 
 }
 
-.formGroup input{
+.formGroup input:not([type="radio"]):not([type="checkbox"]) {
+    padding: 12px;
 
-    padding:12px;
+    border: 1px solid #d9e2ec;
+    border-radius: 10px;
 
-    border:1px solid #d9e2ec;
+    outline: none;
 
-    border-radius:10px;
-
-    outline:none;
-
-    font-size:15px;
-
+    font-size: 15px;
 }
 
-.formGroup input:focus{
-
-    border-color:#173852;
-
+.formGroup input:not([type="radio"]):not([type="checkbox"]):focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+    border-color: #173852;
+    outline: none;
 }
 
 .formButtons{
@@ -100,15 +98,18 @@
 
 }
 
-
-
-.formGroup input,
-.formGroup select {
+.formGroup input:not([type="radio"]):not([type="checkbox"]),
+.formGroup select,
+.formGroup textarea {
     width: 100%;
+
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+
+    border: 1px solid #d9e2ec;
+    border-radius: 8px;
+
     font-size: 14px;
+
     box-sizing: border-box;
 }
 
@@ -136,22 +137,17 @@
 
 }
 
-.radioGroup{
+.checkboxGroup input[type="checkbox"] {
+    flex: 0 0 auto;
 
-    display:flex;
+    width: 16px;
+    height: 16px;
 
-    gap:20px;
+    min-width: 16px;
+    min-height: 16px;
 
-    flex-wrap:wrap;
+    margin: 0;
+    padding: 0;
 
-}
-
-.radioGroup label{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:6px;
-
+    accent-color: #173852;
 }

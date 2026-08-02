@@ -1,47 +1,64 @@
 import "./RadioGroup.css";
 
 function RadioGroup({
-
     label,
     name,
     value,
     options,
     onChange
-
 }) {
 
     return (
 
-        <div className="formGroup">
+        <div className="formGroup radioField">
 
-            <label className="groupLabel">
+            <span className="groupLabel">
 
                 {label}
 
-            </label>
+            </span>
 
-            <div className="radioGroup">
+            <div
+                className="radioGroup"
+                role="radiogroup"
+                aria-label={label}
+            >
 
-                {options.map((option) => (
+                {options.map((option) => {
 
-                    <label
-                        key={option.value}
-                        className="radioOption"
-                    >
+                    const inputId =
+                        `${name}-${option.value}`
+                            .toLowerCase()
+                            .replace(/\s+/g, "-");
 
-                        <input
-                            type="radio"
-                            name={name}
-                            value={option.value}
-                            checked={value === option.value}
-                            onChange={onChange}
-                        />
+                    return (
 
-                        {option.label}
+                        <label
+                            key={option.value}
+                            htmlFor={inputId}
+                            className="radioOption"
+                        >
 
-                    </label>
+                            <input
+                                id={inputId}
+                                type="radio"
+                                name={name}
+                                value={option.value}
+                                checked={value === option.value}
+                                onChange={onChange}
+                            />
 
-                ))}
+                            <span className="radioLabel">
+
+                                {option.label}
+
+                            </span>
+
+                        </label>
+
+                    );
+
+                })}
 
             </div>
 

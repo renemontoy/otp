@@ -1,33 +1,99 @@
-.radioGroup{
-
-    display:flex;
-
-    gap:20px;
-
-    flex-wrap:wrap;
-
-    margin-top:8px;
-
+.radioField {
+    width: 100%;
 }
 
-.radioOption{
+.groupLabel {
+    display: block;
 
-    display:flex;
+    margin-bottom: 8px;
 
-    align-items:center;
+    color: #475569;
 
-    gap:8px;
-
-    cursor:pointer;
-
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
 }
 
-.groupLabel{
+.radioGroup {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
 
-    font-weight:600;
+    column-gap: 20px;
+    row-gap: 10px;
 
-    display:block;
+    width: 100%;
+    margin-top: 0;
+}
 
-    margin-bottom:6px;
+.radioOption {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    min-height: 30px;
+    margin: 0;
+
+    color: #475569;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.35;
+
+    cursor: pointer;
+    user-select: none;
+}
+
+.radioOption input[type="radio"] {
+    flex: 0 0 auto;
+
+    width: 16px;
+    height: 16px;
+
+    min-width: 16px;
+    min-height: 16px;
+
+    margin: 0;
+    padding: 0;
+
+    border-radius: 50%;
+
+    accent-color: #173852;
+
+    cursor: pointer;
+}
+
+.radioLabel {
+    display: inline-block;
+
+    margin: 0;
+
+    font-weight: 400;
+
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+@media (max-width: 1024px) {
+
+    .radioGroup {
+        column-gap: 18px;
+        row-gap: 12px;
+    }
+
+    .radioOption {
+        min-height: 36px;
+
+        font-size: 15px;
+    }
+
+    .radioOption input[type="radio"] {
+        width: 18px;
+        height: 18px;
+
+        min-width: 18px;
+        min-height: 18px;
+    }
 
 }
