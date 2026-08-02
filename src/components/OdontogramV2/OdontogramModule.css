@@ -36,3 +36,20 @@
 
     user-select: none;
 }
+
+.odontogramModule {
+    /*
+        Ajusta 72px a la altura real del encabezado principal
+        donde aparece "Dr. Pedro Murillo".
+    */
+    height: calc(100dvh - 72px);
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #f8fafc;
+
+    box-sizing: border-box;
+    overflow: hidden;
+}

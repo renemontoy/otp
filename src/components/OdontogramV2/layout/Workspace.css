@@ -1,75 +1,125 @@
-.workspace{
+.workspace {
+    flex: 1;
+    min-height: 0;
 
-    display:flex;
+    display: grid;
 
-    flex-direction:column;
+    /*
+        1. Toolbar
+        2. Odontograma
+        3. Paneles inferiores
+    */
+    grid-template-rows:
+        auto
+        minmax(290px, 42vh)
+        minmax(230px, 1fr);
 
-    height:100%;
+    gap: 16px;
+    padding: 16px;
 
-    width:100%;
+    box-sizing: border-box;
+    overflow: hidden;
 
-    gap:18px;
-
+    background: #eef2f7;
 }
 
-.workspaceToolbar{
-
-    flex:0 0 auto;
-
+.workspaceToolbar {
+    min-width: 0;
+    min-height: 0;
 }
 
-.workspaceCanvas{
+/* Contenedor exterior del canvas */
+.workspaceCanvas {
+    min-width: 0;
+    min-height: 0;
 
-    flex:1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    min-height:520px;
+    overflow: hidden;
 
-    background:white;
-
-    border-radius:16px;
-
-    border:1px solid #E2E8F0;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    overflow:hidden;
-
+    /*
+        El borde visual ya está en odontogramPaper,
+        por eso no necesitamos otra tarjeta aquí.
+    */
+    background: transparent;
+    border: none;
+    border-radius: 0;
 }
 
-.workspaceBottom{
+/* Zona completa inferior */
+.workspaceBottom {
+    min-width: 0;
+    min-height: 0;
 
-    display:grid;
+    display: grid;
+    grid-template-columns:
+        minmax(300px, 340px)
+        minmax(0, 1fr);
 
-    grid-template-columns:380px 1fr;
+    gap: 16px;
 
-    gap:18px;
-
+    overflow: hidden;
 }
 
-.workspaceLeft{
+/* Frames inferiores */
+.workspaceLeft,
+.workspaceRight {
+    min-width: 0;
+    min-height: 0;
 
-    background:white;
+    background: #ffffff;
 
-    border:1px solid #E2E8F0;
+    border: 1px solid #d9e2ec;
+    border-radius: 16px;
 
-    border-radius:16px;
+    box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.05);
 
-    padding:18px;
-
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-.workspaceRight{
+/*
+    El TreatmentPanel ya tiene su propio padding.
+    Evitamos una doble separación.
+*/
+.workspaceLeft {
+    padding: 0;
+}
 
-    background:white;
+/*
+    Mientras el panel derecho no tenga un componente
+    interior definitivo, conservamos padding.
+*/
+.workspaceRight {
+    padding: 18px;
+    overflow: auto;
+}
 
-    border:1px solid #E2E8F0;
+/* Ajuste para pantallas con poca altura */
+@media (max-height: 850px) {
+    .workspace {
+        grid-template-rows:
+            auto
+            minmax(250px, 38vh)
+            minmax(210px, 1fr);
 
-    border-radius:16px;
+        gap: 12px;
+        padding: 12px;
+    }
 
-    padding:18px;
+    .workspaceBottom {
+        gap: 12px;
+    }
+}
 
+/* Ajuste para pantallas más estrechas */
+@media (max-width: 1100px) {
+    .workspaceBottom {
+        grid-template-columns:
+            minmax(280px, 320px)
+            minmax(0, 1fr);
+    }
 }
