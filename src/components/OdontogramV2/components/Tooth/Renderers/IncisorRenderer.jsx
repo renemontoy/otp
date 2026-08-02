@@ -1,7 +1,7 @@
 import ToothFace from "../../ToothFace";
 import { FACE_ORDER } from "../../../geometry/faces";
 import { getFaceColor } from "../../../utils/getFaceColor";
-import { INCISOR_GEOMETRY } from "../../../geometry/incisors";
+import { INCISOR_PATH } from "../../../geometry/incisorPath";
 
 function IncisorRenderer({
 
@@ -23,7 +23,7 @@ function IncisorRenderer({
 
                     id={faceId}
 
-                    points={INCISOR_GEOMETRY[faceId]}
+                    points={INCISOR_PATH[faceId]}
 
                     fill={getFaceColor(
 

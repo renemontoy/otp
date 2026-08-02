@@ -12,9 +12,9 @@ function ToothFace({
 
     onClick
 
-}){
+}) {
 
-    return(
+    return (
 
         <polygon
 
@@ -24,17 +24,17 @@ function ToothFace({
 
             stroke={selected ? "#2563EB" : stroke}
 
-            strokeWidth={selected ? 2 : 1}
+            strokeWidth={selected ? 2.5 : 1}
 
-            cursor="pointer"
+            style={{
 
-            onClick={(e)=>{
+                cursor: "pointer",
 
-                e.stopPropagation();
-
-                onClick(id);
+                transition: "all .18s ease"
 
             }}
+
+            onClick={() => onClick(id)}
 
         />
 

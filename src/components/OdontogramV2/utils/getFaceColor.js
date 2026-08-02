@@ -8,44 +8,31 @@ export function getFaceColor(face){
 
     }
 
-    switch(face.status){
+    if(face.treatment){
 
-        case "healthy":
+        const nombre = face.treatment.treatmentName
+            ?.toLowerCase();
 
-            return TREATMENT_COLORS.healthy;
+        if(TREATMENT_COLORS[nombre]){
 
-        case "pending":
+            return TREATMENT_COLORS[nombre];
 
-            return TREATMENT_COLORS.pending;
-
-        case "completed":
-
-            return TREATMENT_COLORS.completed;
-
-        case "extraction":
-
-            return TREATMENT_COLORS.extraction;
-
-        case "implant":
-
-            return TREATMENT_COLORS.implant;
-
-        case "crown":
-
-            return TREATMENT_COLORS.crown;
-
-        case "endodontics":
-
-            return TREATMENT_COLORS.endodontics;
-
-        case "caries":
-
-            return TREATMENT_COLORS.caries;
-
-        default:
-
-            return "#FFFFFF";
+        }
 
     }
+
+    if(face.status === "pendiente"){
+
+        return TREATMENT_COLORS.pendiente;
+
+    }
+
+    if(face.status === "completado"){
+
+        return TREATMENT_COLORS.completado;
+
+    }
+
+    return TREATMENT_COLORS.healthy;
 
 }

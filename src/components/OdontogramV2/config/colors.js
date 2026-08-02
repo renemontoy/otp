@@ -2,6 +2,10 @@ export const TREATMENT_COLORS = {
 
     healthy: "#FFFFFF",
 
+    pendiente: "#EAB308",
+
+    completed: "#22C55E",
+
     caries: "#DC2626",
 
     resina: "#2563EB",
@@ -16,6 +20,6 @@ export const TREATMENT_COLORS = {
 
     sellador: "#10B981",
 
-    pendiente: "#EAB308"
+    extraction: "#991B1B"
 
 };

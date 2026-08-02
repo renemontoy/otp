@@ -2,20 +2,24 @@ export const TREATMENT_COLORS = {
 
     healthy: "#FFFFFF",
 
-    selected: "#3B82F6",
+    selected: "#BFDBFE",
 
-    pending: "#FACC15",
+    pendiente: "#EAB308",
 
-    completed: "#22C55E",
+    completado: "#22C55E",
 
-    extraction: "#EF4444",
+    caries: "#DC2626",
 
-    implant: "#8B5CF6",
+    resina: "#2563EB",
 
-    crown: "#F97316",
+    amalgama: "#6B7280",
 
-    endodontics: "#06B6D4",
+    corona: "#F59E0B",
 
-    caries: "#DC2626"
+    implante: "#7C3AED",
+
+    endodoncia: "#EA580C",
+
+    sellador: "#10B981"
 
 };
