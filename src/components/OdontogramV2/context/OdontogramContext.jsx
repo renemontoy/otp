@@ -3,9 +3,15 @@ import { useOdontogram } from "../hooks/useOdontogram";
 
 const OdontogramContext = createContext();
 
-export function OdontogramProvider({ children }) {
+export function OdontogramProvider({
 
-    const odontogram = useOdontogram();
+    patient,
+
+    children
+
+}) {
+
+    const odontogram = useOdontogram(patient);
 
     return (
 

@@ -1,11 +1,38 @@
-.odontogramModule{
+.odontogramSvg {
+    display: block;
 
-    display:flex;
+    width: 100%;
 
-    flex-direction:column;
+    height: auto;
 
-    height:100vh;
+    max-height: 430px;
 
-    background:#F8FAFC;
+    min-height: 300px;
 
+    overflow: visible;
+}
+
+.toothGroup {
+    transition:
+        transform 160ms ease;
+}
+
+.toothNumber {
+    fill: #334155;
+
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    pointer-events: none;
+
+    user-select: none;
 }

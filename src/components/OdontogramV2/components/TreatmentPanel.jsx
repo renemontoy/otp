@@ -12,7 +12,7 @@ function TreatmentPanel() {
 
         setTreatmentData,
 
-        applyTreatment
+        saveSelectedTreatment
 
     } = useOdontogramContext();
 
@@ -279,7 +279,7 @@ function TreatmentPanel() {
 
                     }
 
-                    onClick={applyTreatment}
+                    onClick={saveSelectedTreatment}
 
                 >
 

@@ -30,7 +30,7 @@ export function applyTreatmentToFaces(
 
         });
 
-        face.status = "pending";
+        face.status = "pendiente";
 
         face.updatedAt = new Date().toISOString();
 

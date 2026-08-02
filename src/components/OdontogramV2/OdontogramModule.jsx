@@ -15,7 +15,7 @@ function OdontogramModule({
     {
     return(
         <div className="odontogramModule">
-        <OdontogramProvider>
+        <OdontogramProvider patient={patient}>
 
             <PatientHeader
 

@@ -1,5 +1,4 @@
-import ToothRenderer from "./Tooth/ToothRenderer";
-import ToothNumber from "./ToothNumber";
+import ClinicalTooth from "./ClinicalTooth/ClinicalTooth";
 
 function ToothGroup({
 
@@ -9,23 +8,35 @@ function ToothGroup({
 
     y,
 
+    numberY,
+
     onFaceClick
 
 }) {
 
     return (
 
-        <g transform={`translate(${x}, ${y})`}>
+        <g
+            className="toothGroup"
+            transform={`translate(${x}, ${y})`}
+        >
 
-            <ToothNumber number={tooth.number} />
-
-            <ToothRenderer
-
+            <ClinicalTooth
                 tooth={tooth}
-
                 onFaceClick={onFaceClick}
-
             />
+
+            <text
+                className="toothNumber"
+                x="0"
+                y={numberY}
+                textAnchor="middle"
+                dominantBaseline="middle"
+            >
+
+                {tooth.number}
+
+            </text>
 
         </g>
 

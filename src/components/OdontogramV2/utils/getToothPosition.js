@@ -1,96 +1,122 @@
-import {
+const UPPER_TEETH = [
+    "18",
+    "17",
+    "16",
+    "15",
+    "14",
+    "13",
+    "12",
+    "11",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28"
+];
 
-    TOOTH_SIZE,
+const LOWER_TEETH = [
+    "48",
+    "47",
+    "46",
+    "45",
+    "44",
+    "43",
+    "42",
+    "41",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38"
+];
 
-    TOOTH_GAP,
+const START_X = 100;
 
-    MIDLINE_GAP,
+const TOOTH_SPACING = 64;
 
-    ARCH_SPACING,
+const MIDLINE_GAP = 38;
 
-    START_X,
+const UPPER_ROW_Y = 110;
 
-    START_Y,
+const LOWER_ROW_Y = 290;
 
-    ARCH_CURVE
+function calculateX(index) {
 
-} from "../config/layout";
+    const centerGap =
+        index >= 8
+            ? MIDLINE_GAP
+            : 0;
 
-const UPPER_RIGHT = [18,17,16,15,14,13,12,11];
+    return (
+        START_X +
+        index * TOOTH_SPACING +
+        centerGap
+    );
 
-const UPPER_LEFT = [21,22,23,24,25,26,27,28];
+}
 
-const LOWER_RIGHT = [48,47,46,45,44,43,42,41];
+export function getToothPosition(toothNumber) {
 
-const LOWER_LEFT = [31,32,33,34,35,36,37,38];
+    const toothId = String(toothNumber);
 
-export function getToothPosition(number){
+    const upperIndex =
+        UPPER_TEETH.indexOf(toothId);
 
-    let row = 0;
+    if (upperIndex !== -1) {
 
-    let index = 0;
+        return {
 
-    let side = "right";
+            x: calculateX(upperIndex),
 
-    if(UPPER_RIGHT.includes(number)){
+            y: UPPER_ROW_Y,
 
-        row = 0;
+            numberY: 43,
 
-        side = "right";
+            row: "upper"
 
-        index = UPPER_RIGHT.indexOf(number);
+        };
 
     }
 
-    else if(UPPER_LEFT.includes(number)){
+    const lowerIndex =
+        LOWER_TEETH.indexOf(toothId);
 
-        row = 0;
+    if (lowerIndex !== -1) {
 
-        side = "left";
+        return {
 
-        index = UPPER_LEFT.indexOf(number);
+            x: calculateX(lowerIndex),
 
-    }
+            y: LOWER_ROW_Y,
 
-    else if(LOWER_RIGHT.includes(number)){
+            numberY: -43,
 
-        row = 1;
+            row: "lower"
 
-        side = "right";
-
-        index = LOWER_RIGHT.indexOf(number);
-
-    }
-
-    else{
-
-        row = 1;
-
-        side = "left";
-
-        index = LOWER_LEFT.indexOf(number);
+        };
 
     }
 
-    const x = side === "right"
+    console.warn(
+        `No se encontró la posición de la pieza ${toothNumber}`
+    );
 
-        ? START_X + index * (TOOTH_SIZE + TOOTH_GAP)
+    return {
 
-        : START_X
-            + 8 * (TOOTH_SIZE + TOOTH_GAP)
-            + MIDLINE_GAP
-            + index * (TOOTH_SIZE + TOOTH_GAP);
+        x: 0,
 
-    const distanceFromCenter = Math.abs(index - 3.5);
+        y: 0,
 
-    const curve = Math.pow(distanceFromCenter, 2) * ARCH_CURVE / 12;
+        numberY: 0,
 
-    const y = row === 0
+        row: null
 
-        ? START_Y + curve
-
-        : START_Y + ARCH_SPACING - curve;
-
-    return { x, y };
+    };
 
 }

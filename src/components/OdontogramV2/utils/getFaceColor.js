@@ -10,7 +10,7 @@ export function getFaceColor(face){
 
     if(face.treatment){
 
-        const nombre = face.treatment.treatmentName
+        const nombre = face.treatment.name
             ?.toLowerCase();
 
         if(TREATMENT_COLORS[nombre]){

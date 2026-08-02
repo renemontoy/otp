@@ -2,8 +2,10 @@ import { useState, useMemo } from "react";
 import { createTreatment } from "../data/createTreatment";
 import { createOdontogram } from "../data/createOdontogram";
 import { applyTreatmentToFaces } from "../services/treatmentEngine";
+import { mapFacesToDatabase } from "../services/treatmentMapper";
+import { saveTreatment } from "../../../supabase/odontogram";
 
-export function useOdontogram() {
+export function useOdontogram(patient) {
 
     const [odontogram, setOdontogram] = useState(
         createOdontogram()
@@ -53,7 +55,7 @@ export function useOdontogram() {
     }, [odontogram]);
 
     function applyTreatment(){
-
+        console.log("Entró a applyTreatment");
         if(selectedFaces.length === 0){
 
             return;
@@ -106,7 +108,45 @@ export function useOdontogram() {
         observations: ""
 
     });
+
+    async function saveSelectedTreatment() {
+
+        if (selectedFaces.length === 0) {
+
+            return;
+
+        }
+
+        if (!treatmentData.treatmentId) {
+
+            return;
+
+        }
+
+        try {
+
+            const rows = mapFacesToDatabase(
+                patient.id,
+                selectedFaces,
+                treatmentData
+            );
+
+            await saveTreatment(rows);
+            console.log("Guardado correctamente");
+            applyTreatment();
+
+        } catch (error) {
+
+            console.error("Error al guardar tratamiento:", error);
+
+            alert("No fue posible guardar el tratamiento.");
+
+        }
+
+    }
+
     return{
+        patient,
 
         odontogram,
 
@@ -118,7 +158,9 @@ export function useOdontogram() {
 
         treatmentData,
 
-        setTreatmentData
+        setTreatmentData,
+
+        saveSelectedTreatment
     };
 
 }
