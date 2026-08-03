@@ -22,14 +22,23 @@ function normalizeText(value) {
 }
 
 function PatientTable({
-    patients = [],
+
+    patients,
+
     onSelectPatient,
+
     selectedPatient,
+
     onCreatePatient,
+
     onEditPatient,
+
     onOdontogramPatient,
+
     onExploracionPatient,
+
     onDeactivatePatient
+
 }) {
 
     const [searchTerm, setSearchTerm] =
@@ -432,11 +441,15 @@ function PatientTable({
 
                                                 onDeactivate={() => {
 
-                                                    onSelectPatient(
+                                                    console.log(
+                                                        "Paciente enviado a desactivar:",
                                                         patient
                                                     );
 
+                                                    onDeactivatePatient(patient);
+
                                                 }}
+
 
                                                 onOdontogram={() => {
 

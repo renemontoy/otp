@@ -40,6 +40,14 @@ export async function updatePatient(id, patient) {
 
 export async function deactivatePatient(patientId) {
 
+    if (!patientId) {
+
+        throw new Error(
+            "No se recibió el ID del paciente."
+        );
+
+    }
+
     const { data, error } = await supabase
 
         .from("pacientes")
@@ -50,13 +58,27 @@ export async function deactivatePatient(patientId) {
 
         .eq("id", patientId)
 
-        .select()
+        .select("id, status")
 
-        .single();
+        .maybeSingle();
+
+    console.log("Resultado desactivación:", {
+        patientId,
+        data,
+        error
+    });
 
     if (error) {
 
         throw error;
+
+    }
+
+    if (!data) {
+
+        throw new Error(
+            "Supabase no actualizó ninguna fila. Revisa el ID y las políticas RLS."
+        );
 
     }
 

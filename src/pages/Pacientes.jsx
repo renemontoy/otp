@@ -113,11 +113,10 @@ async function handleDeactivatePatient(patient) {
 
     if (!patient?.id) {
 
-        return;
-
-    }
-
-    if (patient.status === false) {
+        console.error(
+            "Paciente sin ID:",
+            patient
+        );
 
         return;
 
@@ -142,43 +141,51 @@ async function handleDeactivatePatient(patient) {
 
     try {
 
-        await deactivatePatient(patient.id);
+        const deactivatedPatient =
+            await deactivatePatient(patient.id);
 
-        const updatedPatients =
-            await loadPatients();
+        setPatients((previousPatients) =>
 
-        /*
-            Si se desactivó al paciente actualmente
-            seleccionado, seleccionamos al siguiente
-            paciente activo.
-        */
-        if (selectedPatient?.id === patient.id) {
+            previousPatients.map((item) =>
 
-            const nextActivePatient =
-                updatedPatients.find(
-                    (item) =>
-                        item.status === true &&
-                        item.id !== patient.id
-                );
+                item.id === deactivatedPatient.id
 
-            setSelectedPatient(
-                nextActivePatient || null
-            );
+                    ? {
+                        ...item,
+                        status:
+                            deactivatedPatient.status
+                    }
 
-            setPanelMode("profile");
+                    : item
+
+            )
+
+        );
+
+        if (
+            selectedPatient?.id ===
+            deactivatedPatient.id
+        ) {
+
+            setSelectedPatient((previous) => ({
+
+                ...previous,
+
+                status:
+                    deactivatedPatient.status
+
+            }));
 
         }
 
     } catch (error) {
 
         console.error(
-            "Error al desactivar al paciente:",
+            "Error al desactivar paciente:",
             error
         );
 
-        alert(
-            "No fue posible desactivar al paciente."
-        );
+        alert(error.message);
 
     }
 

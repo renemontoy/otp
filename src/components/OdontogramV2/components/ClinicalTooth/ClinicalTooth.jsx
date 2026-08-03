@@ -7,7 +7,9 @@ import {
     FACE_SECTOR_PATHS
 } from "./geometry";
 
-import { getFaceColor } from "../../utils/getFaceColor";
+import {
+    getFaceColor
+} from "../../utils/getFaceColor";
 
 const FACE_ORDER = [
     "top",
@@ -31,12 +33,23 @@ const DEFAULT_FACE = {
 };
 
 function ClinicalTooth({
+
     tooth,
+
     onFaceClick,
+
+    onFaceHover,
+
+    onFaceLeave,
+
     disabled = false
+
 }) {
+
     if (!tooth) {
+
         return null;
+
     }
 
     const {
@@ -47,42 +60,126 @@ function ClinicalTooth({
     } = CLINICAL_TOOTH_GEOMETRY;
 
     function getFace(faceId) {
-        return tooth.faces?.[faceId] ?? DEFAULT_FACE;
+
+        return (
+            tooth.faces?.[faceId] ??
+            DEFAULT_FACE
+        );
+
     }
 
     function handleFaceClick(faceId) {
+
         if (disabled) {
+
             return;
+
         }
 
         onFaceClick?.(
             tooth.number,
             faceId
         );
+
+    }
+
+    function handleFaceHover(
+        event,
+        faceId
+    ) {
+
+        const face =
+            getFace(faceId);
+
+        onFaceHover?.({
+
+            event,
+
+            toothNumber:
+                tooth.number,
+
+            faceId,
+
+            face
+
+        });
+
+    }
+
+    function getAriaLabel(
+        faceId,
+        face
+    ) {
+
+        const baseLabel =
+            `${FACE_LABELS[faceId]} de la pieza ${tooth.number}`;
+
+        if (!face.treatment) {
+
+            return baseLabel;
+
+        }
+
+        return (
+            `${baseLabel}, ` +
+            `${face.treatment.name}, ` +
+            `estado ${face.status}`
+        );
+
     }
 
     return (
+
         <g
             className="clinicalTooth"
-            aria-label={`Pieza dental ${tooth.number}`}
+            aria-label={
+                `Pieza dental ${tooth.number}`
+            }
         >
+
             {FACE_ORDER.map((faceId) => {
-                const face = getFace(faceId);
+
+                const face =
+                    getFace(faceId);
 
                 return (
+
                     <FaceSector
                         key={faceId}
                         id={faceId}
-                        path={FACE_SECTOR_PATHS[faceId]}
-                        fill={getFaceColor(face)}
-                        selected={Boolean(face.selected)}
+                        path={
+                            FACE_SECTOR_PATHS[
+                                faceId
+                            ]
+                        }
+                        fill={
+                            getFaceColor(face)
+                        }
+                        selected={
+                            Boolean(
+                                face.selected
+                            )
+                        }
                         disabled={disabled}
                         ariaLabel={
-                            `${FACE_LABELS[faceId]} de la pieza ${tooth.number}`
+                            getAriaLabel(
+                                faceId,
+                                face
+                            )
                         }
-                        onClick={handleFaceClick}
+                        onClick={
+                            handleFaceClick
+                        }
+                        onHover={
+                            handleFaceHover
+                        }
+                        onLeave={
+                            onFaceLeave
+                        }
                     />
+
                 );
+
             })}
 
             <CenterFace
@@ -90,15 +187,33 @@ function ClinicalTooth({
                 centerX={centerX}
                 centerY={centerY}
                 radius={innerRadius}
-                fill={getFaceColor(getFace("center"))}
-                selected={Boolean(
-                    getFace("center").selected
-                )}
+                fill={
+                    getFaceColor(
+                        getFace("center")
+                    )
+                }
+                selected={
+                    Boolean(
+                        getFace("center")
+                            .selected
+                    )
+                }
                 disabled={disabled}
                 ariaLabel={
-                    `${FACE_LABELS.center} de la pieza ${tooth.number}`
+                    getAriaLabel(
+                        "center",
+                        getFace("center")
+                    )
                 }
-                onClick={handleFaceClick}
+                onClick={
+                    handleFaceClick
+                }
+                onHover={
+                    handleFaceHover
+                }
+                onLeave={
+                    onFaceLeave
+                }
             />
 
             <ToothOutline
@@ -106,8 +221,11 @@ function ClinicalTooth({
                 centerY={centerY}
                 radius={outerRadius}
             />
+
         </g>
+
     );
+
 }
 
 export default ClinicalTooth;

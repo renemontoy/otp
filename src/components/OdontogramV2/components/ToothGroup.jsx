@@ -1,4 +1,5 @@
-import ClinicalTooth from "./ClinicalTooth/ClinicalTooth";
+import ClinicalTooth from
+    "./ClinicalTooth/ClinicalTooth";
 
 function ToothGroup({
 
@@ -10,7 +11,11 @@ function ToothGroup({
 
     numberY,
 
-    onFaceClick
+    onFaceClick,
+
+    onFaceHover,
+
+    onFaceLeave
 
 }) {
 
@@ -18,12 +23,22 @@ function ToothGroup({
 
         <g
             className="toothGroup"
-            transform={`translate(${x}, ${y})`}
+            transform={
+                `translate(${x}, ${y})`
+            }
         >
 
             <ClinicalTooth
                 tooth={tooth}
-                onFaceClick={onFaceClick}
+                onFaceClick={
+                    onFaceClick
+                }
+                onFaceHover={
+                    onFaceHover
+                }
+                onFaceLeave={
+                    onFaceLeave
+                }
             />
 
             <text
