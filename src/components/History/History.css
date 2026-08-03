@@ -1,95 +1,258 @@
-.historyCard{
+.historyCard {
+    padding: 20px;
 
-background:white;
+    background: #ffffff;
 
-padding:20px;
+    border: 1px solid #d9e2ec;
+    border-radius: 18px;
 
-border-radius:18px;
+    box-shadow:
+        0 8px 20px rgba(15, 23, 42, 0.05);
 
-box-shadow:
+    box-sizing: border-box;
+}
 
-0 2px 8px rgba(15,23,42,.03),
+.historyHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-0 20px 40px rgba(15,23,42,.05);
+    margin-bottom: 16px;
+}
+
+.historyHeader h3 {
+    margin: 0;
+
+    color: #1f2937;
+
+    font-size: 18px;
+}
+
+.historyCount {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 28px;
+    height: 28px;
+
+    padding: 0 8px;
+
+    border-radius: 999px;
+
+    background: #e8f0f7;
+
+    color: #173852;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.historyList {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    max-height: 420px;
+
+    padding-right: 6px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+}
+
+.historyList::-webkit-scrollbar {
+    width: 7px;
+}
+
+.historyList::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.historyList::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 999px;
+}
+
+.historyList::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+
+.historyItem {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        88px
+        minmax(0, 1fr)
+        auto;
+
+    gap: 14px;
+
+    padding: 14px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+.historyDate {
+    color: #64748b;
+
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.historyContent {
+    min-width: 0;
+}
+
+.historyItemHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-bottom: 6px;
+}
+
+.historyItemHeader strong {
+    color: #1f2937;
+
+    font-size: 14px;
+}
+
+.historyContent p {
+    margin: 3px 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.historyTeeth {
+    color: #334155 !important;
+}
+
+.historyObservations {
+    font-style: italic;
+}
+
+.historyStatus {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 4px 8px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.historyStatus--pendiente {
+    background: #fef3c7;
+
+    color: #92400e;
+}
+
+.historyStatus--completado {
+    background: #dcfce7;
+
+    color: #166534;
+}
+
+.historyStatus--cancelado {
+    background: #fee2e2;
+
+    color: #991b1b;
+}
+
+.historyColor {
+    width: 14px;
+    height: 14px;
+
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 1px #cbd5e1;
+}
+
+.historyMessage,
+.historyError {
+    padding: 14px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+}
+
+.historyMessage {
+    background: #f8fafc;
+
+    color: #64748b;
+}
+
+.historyError {
+    background: #fef2f2;
+
+    color: #b91c1c;
+}
+
+.historyEmpty {
+    padding: 24px;
+
+    border: 1px dashed #cbd5e1;
+    border-radius: 12px;
+
+    color: #64748b;
+
+    text-align: center;
+}
+
+.historyEmpty strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #334155;
+}
+
+.historyEmpty p {
+    margin: 0;
+
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+
+    .historyItem {
+        grid-template-columns:
+            minmax(0, 1fr)
+            auto;
+    }
+
+    .historyDate {
+        grid-column: 1 / -1;
+    }
 
 }
 
-.historyCard h3{
-
-margin-bottom:15px;
-
-}
-
-.historyItem{
-
-padding:12px 0;
-
-border-bottom:1px solid #ececec;
-
-position:relative;
-
-padding-left:20px;
-
-font-size:14px;
-
-}
-
-.historyItem:last-child{
-
-border:none;
-
-}
-
-.historyItem strong{
-
-display:block;
-
-margin-bottom:5px;
-
-color:#17334d;
-
-}
-
-.historyItem p{
-
-color:#666;
-
-}
-
-.historyItem::before{
-
-content:"";
-
-position:absolute;
-
-left:4px;
-
-top:10px;
-
-bottom:-12px;
-
-width:2px;
-
-background:#dfe9f2;
-
-}
-
-.historyItem::after{
-
-content:"";
-
-position:absolute;
-
-left:0;
-
-top:8px;
-
-width:10px;
-
-height:10px;
-
-background:#2ccbc0;
-
-border-radius:50%;
-
+@media (max-width: 900px) {
+    .historyList {
+        max-height: 360px;
+    }
 }

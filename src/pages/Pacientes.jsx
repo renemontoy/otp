@@ -4,7 +4,7 @@ import PatientProfile from "../components/PatientProfile/PatientProfile";
 import History from "../components/History/History";
 import UpcomingAppointments from "../components/UpcomingAppointments/UpcomingAppointments";
 import { useState, useEffect} from "react";    
-import {getPatients, createPatient, updatePatient} from "../supabase/patients";
+import {getPatients, createPatient, updatePatient, deactivatePatient} from "../supabase/patients";
 import PatientForm from "../components/PatientForm/PatientForm";
 import ExploracionForm from "../components/Exploracion/Exploracion";
 import OdontogramModule from "../components/OdontogramV2/OdontogramModule";
@@ -108,6 +108,82 @@ function Pacientes() {
     );
 
 }
+
+async function handleDeactivatePatient(patient) {
+
+    if (!patient?.id) {
+
+        return;
+
+    }
+
+    if (patient.status === false) {
+
+        return;
+
+    }
+
+    const patientName = [
+        patient.nombre,
+        patient.apellido
+    ]
+        .filter(Boolean)
+        .join(" ");
+
+    const confirmed = window.confirm(
+        `¿Deseas desactivar al paciente ${patientName}?`
+    );
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+    try {
+
+        await deactivatePatient(patient.id);
+
+        const updatedPatients =
+            await loadPatients();
+
+        /*
+            Si se desactivó al paciente actualmente
+            seleccionado, seleccionamos al siguiente
+            paciente activo.
+        */
+        if (selectedPatient?.id === patient.id) {
+
+            const nextActivePatient =
+                updatedPatients.find(
+                    (item) =>
+                        item.status === true &&
+                        item.id !== patient.id
+                );
+
+            setSelectedPatient(
+                nextActivePatient || null
+            );
+
+            setPanelMode("profile");
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Error al desactivar al paciente:",
+            error
+        );
+
+        alert(
+            "No fue posible desactivar al paciente."
+        );
+
+    }
+
+}
+
     return (
         <div className="dashboard">
 
@@ -123,7 +199,9 @@ function Pacientes() {
                     onCreatePatient={() => setPanelMode("create")}
                     onEditPatient={() => setPanelMode("edit")}
                     onOdontogramPatient={() => setPanelMode("odontogram")}
-                    onExploracionPatient={() => setPanelMode("exploracion")}                />
+                    onExploracionPatient={() => setPanelMode("exploracion")}
+                    onDeactivatePatient={handleDeactivatePatient}
+                                    />
                 </div>
 
                 <div className="rightColumn">
@@ -131,7 +209,9 @@ function Pacientes() {
                     {panelMode === "profile" && (
                         <>
                             <PatientProfile patient={selectedPatient}/>
-                            <History/>
+                            <History
+                            patientId={selectedPatient?.id}
+                            />
                             <UpcomingAppointments/>
                         </>
                     )}

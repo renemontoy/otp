@@ -1,24 +1,40 @@
-import { useState, useRef, useEffect } from "react";
+import {
+    useEffect,
+    useRef,
+    useState
+} from "react";
+
 import "./ActionMenu.css";
 
 function ActionMenu({
 
+    isActive = true,
+
     onEdit,
+
     onDeactivate,
+
     onOdontogram,
+
     onExploracion
 
 }) {
 
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] =
+        useState(false);
 
     const menuRef = useRef(null);
 
     useEffect(() => {
 
-        function handleClickOutside(e){
+        function handleClickOutside(event) {
 
-            if(menuRef.current && !menuRef.current.contains(e.target)){
+            if (
+                menuRef.current &&
+                !menuRef.current.contains(
+                    event.target
+                )
+            ) {
 
                 setOpen(false);
 
@@ -26,15 +42,29 @@ function ActionMenu({
 
         }
 
-        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener(
+            "mousedown",
+            handleClickOutside
+        );
 
         return () => {
 
-            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener(
+                "mousedown",
+                handleClickOutside
+            );
 
         };
 
     }, []);
+
+    function handleAction(action) {
+
+        setOpen(false);
+
+        action?.();
+
+    }
 
     return (
 
@@ -44,8 +74,13 @@ function ActionMenu({
         >
 
             <button
+                type="button"
                 className="menuButton"
-                onClick={() => setOpen(!open)}
+                aria-label="Abrir acciones del paciente"
+                aria-expanded={open}
+                onClick={() =>
+                    setOpen((previous) => !previous)
+                }
             >
 
                 ⋮
@@ -56,29 +91,60 @@ function ActionMenu({
 
                 <div className="menuDropdown">
 
-                    <button onClick={onEdit}>
+                    <button
+                        type="button"
+                        onClick={() =>
+                            handleAction(onEdit)
+                        }
+                    >
 
-                        Datos Personales
+                        Datos personales
 
                     </button>
 
-                    <button onClick={onOdontogram}>
+                    <button
+                        type="button"
+                        onClick={() =>
+                            handleAction(
+                                onOdontogram
+                            )
+                        }
+                    >
 
-                        Odontogrmama
+                        Odontograma
 
                     </button>
 
-                    <button onClick={onExploracion}>
+                    <button
+                        type="button"
+                        onClick={() =>
+                            handleAction(
+                                onExploracion
+                            )
+                        }
+                    >
 
                         Exploración
 
                     </button>
 
-                    <button onClick={onDeactivate}>
+                    {isActive && (
 
-                        Desactivar
+                        <button
+                            type="button"
+                            className="deactivateAction"
+                            onClick={() =>
+                                handleAction(
+                                    onDeactivate
+                                )
+                            }
+                        >
 
-                    </button>
+                            Desactivar
+
+                        </button>
+
+                    )}
 
                 </div>
 

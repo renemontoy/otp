@@ -1,140 +1,593 @@
 import ActionMenu from "../ActionMenu/ActionMenu";
 import "./PatientTable.css";
-import { useState, useEffect} from "react";
+
+import {
+    useEffect,
+    useMemo,
+    useState
+} from "react";
+
 import { FaSearch } from "react-icons/fa";
+
+const DEFAULT_PAGE_SIZE = 8;
+
+function normalizeText(value) {
+
+    return String(value ?? "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .trim();
+
+}
+
 function PatientTable({
-    patients,
+    patients = [],
     onSelectPatient,
     selectedPatient,
     onCreatePatient,
     onEditPatient,
     onOdontogramPatient,
-    onExploracionPatient
+    onExploracionPatient,
+    onDeactivatePatient
 }) {
 
+    const [searchTerm, setSearchTerm] =
+        useState("");
 
+    const [statusFilter, setStatusFilter] =
+        useState("all");
 
+    const [ageFilter, setAgeFilter] =
+        useState("all");
 
-return(
+    const [pageSize, setPageSize] =
+        useState(DEFAULT_PAGE_SIZE);
 
-<div className="tableCard">
+    const [currentPage, setCurrentPage] =
+        useState(1);
 
-<div className="tableHeader">
+    const filteredPatients = useMemo(() => {
 
+        const normalizedSearch =
+            normalizeText(searchTerm);
 
-<div className="search">
+        return patients.filter((patient) => {
 
-    <FaSearch />
+            const fullName = normalizeText(
+                `${patient.nombre ?? ""} ${patient.apellido ?? ""}`
+            );
 
-    <input
-        type="text"
-        placeholder="Buscar paciente"
-    />
+            const phone = normalizeText(
+                patient.telefono
+            );
 
-</div>
+            const address = normalizeText(
+                patient.domicilio
+            );
 
-<button className="newPatientButton" onClick={onCreatePatient}>
+            const age = Number(patient.edad);
 
-+ Nuevo Paciente
-</button>
-</div>
+            const matchesSearch =
+                normalizedSearch === "" ||
+                fullName.includes(normalizedSearch) ||
+                phone.includes(normalizedSearch) ||
+                address.includes(normalizedSearch) ||
+                String(patient.edad ?? "").includes(
+                    normalizedSearch
+                );
 
+            const matchesStatus =
+                statusFilter === "all" ||
+                (
+                    statusFilter === "active" &&
+                    patient.status === true
+                ) ||
+                (
+                    statusFilter === "inactive" &&
+                    patient.status === false
+                );
 
+            const matchesAge =
+                ageFilter === "all" ||
+                (
+                    ageFilter === "minor" &&
+                    age < 18
+                ) ||
+                (
+                    ageFilter === "adult" &&
+                    age >= 18 &&
+                    age < 60
+                ) ||
+                (
+                    ageFilter === "senior" &&
+                    age >= 60
+                );
 
-<table>
+            return (
+                matchesSearch &&
+                matchesStatus &&
+                matchesAge
+            );
 
-<thead>
+        });
 
-<tr>
+    }, [
+        patients,
+        searchTerm,
+        statusFilter,
+        ageFilter
+    ]);
 
-<th>Nombre</th>
+    const totalPages = Math.max(
+        1,
+        Math.ceil(
+            filteredPatients.length / pageSize
+        )
+    );
 
-<th>Edad</th>
+    useEffect(() => {
 
-<th>Teléfono</th>
+        setCurrentPage(1);
 
-<th>Dirección</th>
+    }, [
+        searchTerm,
+        statusFilter,
+        ageFilter,
+        pageSize
+    ]);
 
-<th>Estado</th>
+    useEffect(() => {
 
-<th></th>
+        if (currentPage > totalPages) {
 
-</tr>
+            setCurrentPage(totalPages);
 
-</thead>
+        }
 
-<tbody>
+    }, [
+        currentPage,
+        totalPages
+    ]);
 
-    {patients.map((patient) => (
+    const firstPatientIndex =
+        (currentPage - 1) * pageSize;
 
-        <tr onClick={() => onSelectPatient(patient)}>
+    const lastPatientIndex =
+        firstPatientIndex + pageSize;
 
-            <td className="patient">
+    const visiblePatients =
+        filteredPatients.slice(
+            firstPatientIndex,
+            lastPatientIndex
+        );
 
-                {patient.nombre} {patient.apellido}
+    const firstVisibleRecord =
+        filteredPatients.length === 0
+            ? 0
+            : firstPatientIndex + 1;
 
-            </td>
+    const lastVisibleRecord =
+        Math.min(
+            lastPatientIndex,
+            filteredPatients.length
+        );
 
-            <td>{patient.edad}</td>
+    function goToPreviousPage() {
 
-            <td>{patient.telefono}</td>
+        setCurrentPage((previous) =>
+            Math.max(1, previous - 1)
+        );
 
-            <td>{patient.domicilio}</td>
+    }
 
-            <td>
-            <span
-                className={`status ${
-                    patient.status ? "statusActive" : "statusInactive"
-                }`}
-            >
-                {patient.status ? "Activo" : "Inactivo"}
-            </span>
+    function goToNextPage() {
 
-            </td>
-            <td>
-            <ActionMenu
-                onEdit={() => {
+        setCurrentPage((previous) =>
+            Math.min(totalPages, previous + 1)
+        );
 
-                    onSelectPatient(patient);
+    }
 
-                    onEditPatient();
+    function getVisiblePageNumbers() {
 
-                }}
+        const startPage = Math.max(
+            1,
+            currentPage - 2
+        );
 
-                onDeactivate={() => {}}
+        const endPage = Math.min(
+            totalPages,
+            currentPage + 2
+        );
 
-                onOdontogram={() => {
-                    onOdontogramPatient();
-                }}
+        const pages = [];
 
-                onExploracion={() => {
-                    onExploracionPatient();
-                }}
+        for (
+            let page = startPage;
+            page <= endPage;
+            page += 1
+        ) {
 
+            pages.push(page);
 
-            />
-            </td>
-        </tr>
+        }
 
-    ))}
+        return pages;
 
-</tbody>
+    }
 
-</table>
+    return (
 
-<div className="pagination">
+        <div className="tableCard">
 
-<button>{"<"}</button>
+            <div className="tableHeader">
 
-<button className="current">1</button>
+                <div className="patientTableControls">
 
-<button>{">"}</button>
+                    <div className="search">
 
-</div>
+                        <FaSearch />
 
-</div>
+                        <input
+                            type="search"
+                            placeholder="Buscar por nombre, teléfono o dirección"
+                            value={searchTerm}
+                            onChange={(event) =>
+                                setSearchTerm(
+                                    event.target.value
+                                )
+                            }
+                        />
 
-)
+                    </div>
+
+                    <select
+                        className="patientFilter"
+                        value={statusFilter}
+                        onChange={(event) =>
+                            setStatusFilter(
+                                event.target.value
+                            )
+                        }
+                        aria-label="Filtrar por estado"
+                    >
+
+                        <option value="all">
+                            Todos los estados
+                        </option>
+
+                        <option value="active">
+                            Activos
+                        </option>
+
+                        <option value="inactive">
+                            Inactivos
+                        </option>
+
+                    </select>
+
+                    <select
+                        className="patientFilter"
+                        value={ageFilter}
+                        onChange={(event) =>
+                            setAgeFilter(
+                                event.target.value
+                            )
+                        }
+                        aria-label="Filtrar por edad"
+                    >
+
+                        <option value="all">
+                            Todas las edades
+                        </option>
+
+                        <option value="minor">
+                            Menores de 18
+                        </option>
+
+                        <option value="adult">
+                            Adultos
+                        </option>
+
+                        <option value="senior">
+                            Adultos mayores
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button
+                    type="button"
+                    className="newPatientButton"
+                    onClick={onCreatePatient}
+                >
+
+                    + Nuevo Paciente
+
+                </button>
+
+            </div>
+
+            <div className="patientTableWrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Nombre</th>
+
+                            <th>Edad</th>
+
+                            <th>Teléfono</th>
+
+                            <th>Dirección</th>
+
+                            <th>Estado</th>
+
+                            <th aria-label="Acciones" />
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {visiblePatients.length === 0 ? (
+
+                            <tr>
+
+                                <td
+                                    colSpan="6"
+                                    className="emptyPatients"
+                                >
+
+                                    No se encontraron pacientes
+                                    con los filtros seleccionados.
+
+                                </td>
+
+                            </tr>
+
+                        ) : (
+
+                            visiblePatients.map(
+                                (patient) => (
+
+                                    <tr
+                                        key={patient.id}
+                                        className={
+                                            selectedPatient?.id ===
+                                            patient.id
+                                                ? "selectedPatientRow"
+                                                : ""
+                                        }
+                                        onClick={() =>
+                                            onSelectPatient(
+                                                patient
+                                            )
+                                        }
+                                    >
+
+                                        <td className="patient">
+
+                                            {patient.nombre}{" "}
+                                            {patient.apellido}
+
+                                        </td>
+
+                                        <td>
+                                            {patient.edad ?? "-"}
+                                        </td>
+
+                                        <td>
+                                            {patient.telefono || "-"}
+                                        </td>
+
+                                        <td>
+                                            {patient.domicilio || "-"}
+                                        </td>
+
+                                        <td>
+
+                                            <span
+                                                className={
+                                                    `status ${
+                                                        patient.status
+                                                            ? "statusActive"
+                                                            : "statusInactive"
+                                                    }`
+                                                }
+                                            >
+
+                                                {patient.status
+                                                    ? "Activo"
+                                                    : "Inactivo"}
+
+                                            </span>
+
+                                        </td>
+
+                                        <td
+                                            className="patientActionsCell"
+                                            onClick={(event) =>
+                                                event.stopPropagation()
+                                            }
+                                        >
+
+                                            <ActionMenu
+
+                                                onEdit={() => {
+
+                                                    onSelectPatient(
+                                                        patient
+                                                    );
+
+                                                    onEditPatient();
+
+                                                }}
+
+                                                onDeactivate={() => {
+
+                                                    onSelectPatient(
+                                                        patient
+                                                    );
+
+                                                }}
+
+                                                onOdontogram={() => {
+
+                                                    onSelectPatient(
+                                                        patient
+                                                    );
+
+                                                    onOdontogramPatient();
+
+                                                }}
+
+                                                onExploracion={() => {
+
+                                                    onSelectPatient(
+                                                        patient
+                                                    );
+
+                                                    onExploracionPatient();
+
+                                                }}
+
+                                            />
+
+                                        </td>
+
+                                    </tr>
+
+                                )
+                            )
+
+                        )}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div className="paginationFooter">
+
+                <div className="paginationSummary">
+
+                    Mostrando{" "}
+
+                    <strong>
+                        {firstVisibleRecord}
+                    </strong>
+
+                    {" - "}
+
+                    <strong>
+                        {lastVisibleRecord}
+                    </strong>
+
+                    {" de "}
+
+                    <strong>
+                        {filteredPatients.length}
+                    </strong>
+
+                    {" pacientes"}
+
+                </div>
+
+                <div className="paginationControls">
+
+                    <select
+                        className="pageSizeSelect"
+                        value={pageSize}
+                        onChange={(event) =>
+                            setPageSize(
+                                Number(
+                                    event.target.value
+                                )
+                            )
+                        }
+                        aria-label="Pacientes por página"
+                    >
+
+                        <option value="8">
+                            8 por página
+                        </option>
+
+                        <option value="12">
+                            12 por página
+                        </option>
+
+                        <option value="20">
+                            20 por página
+                        </option>
+
+                    </select>
+
+                    <button
+                        type="button"
+                        className="paginationButton"
+                        disabled={currentPage === 1}
+                        onClick={goToPreviousPage}
+                        aria-label="Página anterior"
+                    >
+
+                        &lt;
+
+                    </button>
+
+                    {getVisiblePageNumbers().map(
+                        (page) => (
+
+                            <button
+                                type="button"
+                                key={page}
+                                className={
+                                    `paginationButton ${
+                                        currentPage === page
+                                            ? "current"
+                                            : ""
+                                    }`
+                                }
+                                onClick={() =>
+                                    setCurrentPage(page)
+                                }
+                            >
+
+                                {page}
+
+                            </button>
+
+                        )
+                    )}
+
+                    <button
+                        type="button"
+                        className="paginationButton"
+                        disabled={
+                            currentPage === totalPages
+                        }
+                        onClick={goToNextPage}
+                        aria-label="Página siguiente"
+                    >
+
+                        &gt;
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    );
 
 }
 
