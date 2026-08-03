@@ -192,3 +192,57 @@ export async function loadHistory(patientId) {
     return loadOdontogram(patientId);
 
 }
+
+export async function updateTreatmentGroupStatus({
+    groupId,
+    recordIds,
+    status
+}) {
+
+    const now = new Date().toISOString();
+
+    const updateData = {
+        estado: status,
+        updated_at: now
+    };
+
+    if (status === "Completado") {
+        updateData.fecha_realizacion = now;
+    }
+
+    if (status === "Cancelado") {
+        updateData.fecha_realizacion = null;
+    }
+
+    let query = supabase
+        .from("odontograma_tratamientos")
+        .update(updateData)
+        .eq("estado", "Pendiente");
+
+    if (groupId) {
+
+        query = query.eq("grupo_id", groupId);
+
+    } else if (
+        Array.isArray(recordIds) &&
+        recordIds.length > 0
+    ) {
+
+        query = query.in("id", recordIds);
+
+    } else {
+
+        throw new Error(
+            "No se proporcionó un grupo o registros para actualizar."
+        );
+
+    }
+
+    const { data, error } = await query.select();
+
+    if (error) {
+        throw error;
+    }
+
+    return data || [];
+}

@@ -31,9 +31,11 @@ function PendingTreatments() {
 
         pendingTreatments,
 
-        deletePendingTreatment,
+        completePendingTreatment,
 
-        pendingActionId,
+        cancelPendingTreatment,
+
+        pendingAction,
 
         isLoading,
 
@@ -41,23 +43,33 @@ function PendingTreatments() {
 
     } = useOdontogramContext();
 
-    function handleDelete(item) {
+function handleComplete(item) {
 
-        const confirmed = window.confirm(
+    const confirmed = window.confirm(
+        `¿Confirmas que el tratamiento "${item.treatmentName}" ya fue realizado?`
+    );
 
-            "¿Deseas eliminar este tratamiento pendiente?"
-
-        );
-
-        if (!confirmed) {
-
-            return;
-
-        }
-
-        deletePendingTreatment(item);
-
+    if (!confirmed) {
+        return;
     }
+
+    completePendingTreatment(item);
+
+}
+
+function handleCancel(item) {
+
+    const confirmed = window.confirm(
+        `¿Deseas cancelar el tratamiento "${item.treatmentName}"? El registro permanecerá en el historial.`
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    cancelPendingTreatment(item);
+
+}
 
     if (isLoading) {
 
@@ -243,34 +255,37 @@ function PendingTreatments() {
 
                         </div>
 
-                        <div className="treatmentActions">
+                            <div className="treatmentActions">
 
-                            <button
+                                <button
+                                    type="button"
+                                    className="completeButton"
+                                    disabled={Boolean(pendingAction)}
+                                    onClick={() => handleComplete(item)}
+                                >
 
-                                type="button"
+                                    {pendingAction?.id === item.id &&
+                                    pendingAction?.type === "complete"
+                                        ? "Completando..."
+                                        : "Completar"}
 
-                                className="deleteButton"
+                                </button>
 
-                                disabled={
+                                <button
+                                    type="button"
+                                    className="cancelTreatmentButton"
+                                    disabled={Boolean(pendingAction)}
+                                    onClick={() => handleCancel(item)}
+                                >
 
-                                    pendingActionId ===
-                                    item.id
+                                    {pendingAction?.id === item.id &&
+                                    pendingAction?.type === "cancel"
+                                        ? "Cancelando..."
+                                        : "Cancelar"}
 
-                                }
+                                </button>
 
-                                onClick={() =>
-                                    handleDelete(item)
-                                }
-
-                            >
-
-                                {pendingActionId === item.id
-                                    ? "Eliminando..."
-                                    : "Eliminar"}
-
-                            </button>
-
-                        </div>
+                            </div>
 
                     </article>
 

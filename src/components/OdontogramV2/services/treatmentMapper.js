@@ -25,28 +25,29 @@ const FACE_LABELS = {
 
 function normalizeStatus(status) {
 
-    const normalized =
-        String(status || "")
-            .trim()
-            .toLowerCase();
+    const normalized = String(status || "")
+        .trim()
+        .toLowerCase();
 
     if (normalized === "pendiente") {
-
         return "pendiente";
-
     }
 
     if (
         normalized === "completado" ||
         normalized === "realizado"
     ) {
-
         return "completado";
+    }
 
+    if (
+        normalized === "cancelado" ||
+        normalized === "cancelada"
+    ) {
+        return "cancelado";
     }
 
     return "healthy";
-
 }
 
 function getRelation(relation) {
@@ -124,30 +125,34 @@ export function mapDatabaseToOdontogram(rows) {
 
     rows.forEach((row) => {
 
-        const toothNumber =
-            String(row.numero_pieza);
-
+        const toothNumber = String(row.numero_pieza);
         const faceId = row.cara;
 
         if (!odontogram[toothNumber]) {
-
             return;
-
         }
 
         if (!VALID_FACES.includes(faceId)) {
-
             return;
+        }
 
+        const normalizedStatus =
+            normalizeStatus(row.estado);
+
+        /*
+            Un tratamiento cancelado permanece en
+            el historial, pero no representa el estado
+            actual de la cara.
+        */
+        if (normalizedStatus === "cancelado") {
+            return;
         }
 
         const faceKey =
             `${toothNumber}:${faceId}`;
 
         if (loadedFaces.has(faceKey)) {
-
             return;
-
         }
 
         loadedFaces.add(faceKey);
@@ -161,15 +166,9 @@ export function mapDatabaseToOdontogram(rows) {
         const face =
             odontogram[toothNumber].faces[faceId];
 
-        const normalizedStatus =
-            normalizeStatus(row.estado);
-
         face.selected = false;
-
         face.status = normalizedStatus;
-
-        face.notes =
-            row.observaciones || "";
+        face.notes = row.observaciones || "";
 
         face.updatedAt =
             row.updated_at ||
@@ -212,7 +211,6 @@ export function mapDatabaseToOdontogram(rows) {
 
             cost:
                 row.costo ?? null
-
         });
 
     });

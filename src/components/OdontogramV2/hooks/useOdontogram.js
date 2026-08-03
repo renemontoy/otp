@@ -36,7 +36,9 @@ import {
 
     loadOdontogram,
 
-    saveTreatment
+    saveTreatment,
+
+    updateTreatmentGroupStatus
 
 } from "../../../supabase/odontogram";
 
@@ -88,11 +90,8 @@ export function useOdontogram(patient) {
         useState(false);
 
     const [
-
-        pendingActionId,
-
-        setPendingActionId
-
+        pendingAction,
+        setPendingAction
     ] = useState(null);
 
     const [loadError, setLoadError] =
@@ -398,6 +397,84 @@ export function useOdontogram(patient) {
 
     }
 
+
+    async function changePendingTreatmentStatus(
+        item,
+        status,
+        actionType
+    ) {
+
+        if (!item) {
+            return;
+        }
+
+        setPendingAction({
+            id: item.id,
+            type: actionType
+        });
+
+        try {
+
+            const updatedRows =
+                await updateTreatmentGroupStatus({
+
+                    groupId: item.groupId,
+
+                    recordIds: item.recordIds,
+
+                    status
+
+                });
+
+            if (updatedRows.length === 0) {
+
+                throw new Error(
+                    "No se encontraron tratamientos pendientes para actualizar."
+                );
+
+            }
+
+            await reloadOdontogram();
+
+        } catch (error) {
+
+            console.error(
+                `Error al cambiar el tratamiento a ${status}:`,
+                error
+            );
+
+            alert(
+                `No fue posible cambiar el tratamiento a ${status.toLowerCase()}.`
+            );
+
+        } finally {
+
+            setPendingAction(null);
+
+        }
+
+    }
+
+    async function completePendingTreatment(item) {
+
+        await changePendingTreatmentStatus(
+            item,
+            "Completado",
+            "complete"
+        );
+
+    }
+
+    async function cancelPendingTreatment(item) {
+
+        await changePendingTreatmentStatus(
+            item,
+            "Cancelado",
+            "cancel"
+        );
+
+    }
+
     return {
 
         patient,
@@ -418,7 +495,9 @@ export function useOdontogram(patient) {
 
         pendingTreatments,
 
-        deletePendingTreatment,
+        completePendingTreatment,
+
+        cancelPendingTreatment,
 
         reloadOdontogram,
 
@@ -426,7 +505,7 @@ export function useOdontogram(patient) {
 
         isSaving,
 
-        pendingActionId,
+        pendingAction,
 
         loadError
 
