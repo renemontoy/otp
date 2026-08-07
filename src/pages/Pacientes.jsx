@@ -1,3 +1,4 @@
+import "./Pacientes.css";
 import StatsCards from "../components/StatsCards/StatsCards";
 import PatientTable from "../components/PatientTable/PatientTable";
 import PatientProfile from "../components/PatientProfile/PatientProfile";
@@ -186,41 +187,59 @@ async function handleTogglePatientStatus(patient) {
     }
 }
     return (
-        <div className="dashboard">
+        <div className="patientsPage">
 
+            <header className="patientsPageHeader">
+                <div>
+                    <h1>Pacientes</h1>
 
-            <div className="dashboardGrid">
-
-                <div className="leftColumn">
-
-                <PatientTable
-                    patients={patients}
-                    onSelectPatient={setSelectedPatient}
-                    selectedPatient={selectedPatient}
-                    onCreatePatient={() => setPanelMode("create")}
-                    onEditPatient={() => setPanelMode("edit")}
-                    onOdontogramPatient={() => setPanelMode("odontogram")}
-                    onExploracionPatient={() => setPanelMode("exploracion")}
-                    onTogglePatientStatus={handleTogglePatientStatus}
-                                    />
+                    <p>
+                        Gestiona la información y el historial de tus pacientes.
+                    </p>
                 </div>
+            </header>
 
-                <div className="rightColumn">
+            <div className="patientsLayout">
+
+                <main className="patientsMain">
+
+                    <PatientTable
+                        patients={patients}
+                        onSelectPatient={setSelectedPatient}
+                        selectedPatient={selectedPatient}
+                        onCreatePatient={() => setPanelMode("create")}
+                        onEditPatient={() => setPanelMode("edit")}
+                        onOdontogramPatient={() => setPanelMode("odontogram")}
+                        onExploracionPatient={() => setPanelMode("exploracion")}
+                        onTogglePatientStatus={handleTogglePatientStatus}
+                    />
+
+                </main>
+
+                <aside className="patientsSidebar">
 
                     {panelMode === "profile" && (
-                        <>
-                            <PatientProfile patient={selectedPatient}/>
-                            <History
-                            patientId={selectedPatient?.id}
+                        <div className="patientSummaryCard">
+
+                            <PatientProfile
+                                patient={selectedPatient}
                             />
-                            <UpcomingAppointments/>
-                        </>
+
+                            <History
+                                patientId={selectedPatient?.id}
+                            />
+
+                           {/* <UpcomingAppointments />*/}
+
+                        </div>
                     )}
 
                     {panelMode === "create" && (
                         <PatientForm
                             mode="create"
-                            onCancel={() => setPanelMode("profile")}
+                            onCancel={() =>
+                                setPanelMode("profile")
+                            }
                             onSave={handleCreatePatient}
                         />
                     )}
@@ -229,15 +248,10 @@ async function handleTogglePatientStatus(patient) {
                         <PatientForm
                             mode="edit"
                             patient={selectedPatient}
-                            onCancel={() => setPanelMode("profile")}
+                            onCancel={() =>
+                                setPanelMode("profile")
+                            }
                             onSave={handleUpdatePatient}
-                        />
-                    )}
-
-                    {panelMode === "odontogram" && (
-                        <OdontogramModule
-                            patient={selectedPatient}
-                            onCancel={() => setPanelMode("profile")}
                         />
                     )}
 
@@ -245,12 +259,14 @@ async function handleTogglePatientStatus(patient) {
                         <ExploracionForm
                             mode="edit"
                             patient={selectedPatient}
-                            onCancel={() => setPanelMode("profile")}
+                            onCancel={() =>
+                                setPanelMode("profile")
+                            }
                             onSave={handleUpdatePatient}
                         />
                     )}
 
-                </div>
+                </aside>
 
             </div>
 

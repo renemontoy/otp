@@ -9,7 +9,7 @@ import {
 
 import { FaSearch } from "react-icons/fa";
 
-const DEFAULT_PAGE_SIZE = 8;
+const DEFAULT_PAGE_SIZE = 6;
 
 function normalizeText(value) {
 
@@ -18,6 +18,25 @@ function normalizeText(value) {
         .replace(/[\u0300-\u036f]/g, "")
         .toLowerCase()
         .trim();
+
+}
+
+function getPatientInitials(patient) {
+
+    const firstName =
+        patient?.nombre
+            ?.trim()
+            ?.charAt(0) ?? "";
+
+    const lastName =
+        patient?.apellido
+            ?.trim()
+            ?.charAt(0) ?? "";
+
+    return (
+        `${firstName}${lastName}`.toUpperCase() ||
+        "P"
+    );
 
 }
 
@@ -228,97 +247,99 @@ function PatientTable({
 
     return (
 
-        <div className="tableCard">
+<div className="patientTableModule">
 
-            <div className="tableHeader">
+    <div className="patientTableToolbar">
 
-                <div className="patientTableControls">
 
-                    <div className="search">
+            <div className="search">
 
-                        <FaSearch />
+                <FaSearch />
 
-                        <input
-                            type="search"
-                            placeholder="Buscar por nombre, teléfono o dirección"
-                            value={searchTerm}
-                            onChange={(event) =>
-                                setSearchTerm(
-                                    event.target.value
-                                )
-                            }
-                        />
-
-                    </div>
-
-                    <select
-                        className="patientFilter"
-                        value={statusFilter}
-                        onChange={(event) =>
-                            setStatusFilter(
-                                event.target.value
-                            )
-                        }
-                        aria-label="Filtrar por estado"
-                    >
-
-                        <option value="all">
-                            Todos los estados
-                        </option>
-
-                        <option value="active">
-                            Activos
-                        </option>
-
-                        <option value="inactive">
-                            Inactivos
-                        </option>
-
-                    </select>
-
-                    <select
-                        className="patientFilter"
-                        value={ageFilter}
-                        onChange={(event) =>
-                            setAgeFilter(
-                                event.target.value
-                            )
-                        }
-                        aria-label="Filtrar por edad"
-                    >
-
-                        <option value="all">
-                            Todas las edades
-                        </option>
-
-                        <option value="minor">
-                            Menores de 18
-                        </option>
-
-                        <option value="adult">
-                            Adultos
-                        </option>
-
-                        <option value="senior">
-                            Adultos mayores
-                        </option>
-
-                    </select>
-
-                </div>
-
-                <button
-                    type="button"
-                    className="newPatientButton"
-                    onClick={onCreatePatient}
-                >
-
-                    + Nuevo Paciente
-
-                </button>
+                <input
+                    type="search"
+                    placeholder="Buscar por nombre, teléfono o dirección"
+                    value={searchTerm}
+                    onChange={(event) =>
+                        setSearchTerm(
+                            event.target.value
+                        )
+                    }
+                />
 
             </div>
 
+
+            <select
+                className="patientFilter"
+                value={statusFilter}
+                onChange={(event) =>
+                    setStatusFilter(
+                        event.target.value
+                    )
+                }
+                aria-label="Filtrar por estado"
+            >
+
+                <option value="all">
+                    Todos los estados
+                </option>
+
+                <option value="active">
+                    Activos
+                </option>
+
+                <option value="inactive">
+                    Inactivos
+                </option>
+
+            </select>
+
+
+            <select
+                className="patientFilter"
+                value={ageFilter}
+                onChange={(event) =>
+                    setAgeFilter(
+                        event.target.value
+                    )
+                }
+                aria-label="Filtrar por edad"
+            >
+
+                <option value="all">
+                    Todas las edades
+                </option>
+
+                <option value="minor">
+                    Menores de 18
+                </option>
+
+                <option value="adult">
+                    Adultos
+                </option>
+
+                <option value="senior">
+                    Adultos mayores
+                </option>
+
+            </select>
+
+    
+
+
+        <button
+            type="button"
+            className="newPatientButton"
+            onClick={onCreatePatient}
+        >
+
+            + Nuevo paciente
+
+        </button>
+
+    </div>
+        <div className="tableCard">
             <div className="patientTableWrapper">
 
                 <table>
@@ -381,10 +402,25 @@ function PatientTable({
                                         }
                                     >
 
-                                        <td className="patient">
+                                        <td>
 
-                                            {patient.nombre}{" "}
-                                            {patient.apellido}
+                                            <div className="patientIdentity">
+
+                                                <div className="patientAvatar">
+
+                                                    {getPatientInitials(patient)}
+
+                                                </div>
+
+
+                                                <div className="patientName">
+
+                                                    {patient.nombre}{" "}
+                                                    {patient.apellido}
+
+                                                </div>
+
+                                            </div>
 
                                         </td>
 
@@ -514,8 +550,8 @@ function PatientTable({
                         aria-label="Pacientes por página"
                     >
 
-                        <option value="8">
-                            8 por página
+                        <option value="6">
+                            6 por página
                         </option>
 
                         <option value="12">
@@ -580,7 +616,7 @@ function PatientTable({
                     </button>
 
                 </div>
-
+            </div>
             </div>
 
         </div>

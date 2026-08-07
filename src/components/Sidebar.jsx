@@ -1,25 +1,25 @@
 import "../styles/Sidebar.css";
+
 import { NavLink } from "react-router-dom";
 
 import {
-
     FaHome,
     FaUserFriends,
-    FaNotesMedical,
     FaCalendarAlt,
-    FaTeeth,
-    FaMoneyCheckAlt,
+    FaTooth,
+    FaNotesMedical,
+    FaCreditCard,
     FaChartBar,
     FaCog
-
 } from "react-icons/fa";
+
 
 const items = [
 
     {
-        text: "Dashboard",
+        text: "Inicio",
         icon: <FaHome />,
-        path: "/"
+        disabled: true
     },
 
     {
@@ -29,68 +29,149 @@ const items = [
     },
 
     {
-        text: "Citas",
+        text: "Agenda",
         icon: <FaCalendarAlt />,
         path: "/agenda"
     },
 
-    /*{{
-        text: "Configuración",
-        icon: <FaCog />,
-        path: "/settings"
+    {
+        text: "Odontograma",
+        icon: <FaTooth />,
+        disabled: true
+    },
+
+    {
+        text: "Tratamientos",
+        icon: <FaNotesMedical />,
+        disabled: true
+    },
+
+    {
+        text: "Pagos",
+        icon: <FaCreditCard />,
+        disabled: true
+    },
+
+    {
+        text: "Reportes",
+        icon: <FaChartBar />,
+        disabled: true
     }
-    }*/
+
 ];
 
-function Sidebar(){
 
-    return(
+function Sidebar() {
 
-        <aside className="sidebar">
+    return (
 
-            <div className="logo">
+        <div className="sidebar">
 
-            {/*    <div className="logoIcon"></div>*/}
+            <div className="sidebarBrand">
 
-                <h2>MOOST ERP</h2>
+                <div className="sidebarBrandIcon">
+
+                    <FaTooth />
+
+                </div>
+
+
+                <div className="sidebarBrandText">
+
+                    <strong>
+                        Dr. Pedro Murillo
+                    </strong>
+
+                    <span>
+                        Clínica Dental
+                    </span>
+
+                </div>
 
             </div>
 
-            {/* <div className="avatar"> 
 
-                <img
-                    src="https://i.pravatar.cc/120"
-                    alt="Avatar"
-                /> 
+            <nav className="sidebarNavigation">
 
-            </div> */}
+                {items.map((item) => {
 
-            <nav>
+                    if (item.disabled) {
 
-                {items.map((item) => (
+                        return (
 
-                    <NavLink
-                        key={item.path}
-                        to={item.path}
-                        className={({ isActive }) =>
-                            isActive ? "menu active" : "menu"
-                        }
-                    >
+                            <div
+                                key={item.text}
+                                className="sidebarMenuItem sidebarMenuItemDisabled"
+                            >
 
-                        {item.icon}
+                                <span className="sidebarMenuIcon">
+                                    {item.icon}
+                                </span>
 
-                        <span>{item.text}</span>
+                                <span>
+                                    {item.text}
+                                </span>
 
-                    </NavLink>
+                            </div>
 
-                ))}
+                        );
+
+                    }
+
+
+                    return (
+
+                        <NavLink
+                            key={item.path}
+                            to={item.path}
+                            className={({ isActive }) =>
+                                isActive
+                                    ? "sidebarMenuItem active"
+                                    : "sidebarMenuItem"
+                            }
+                        >
+
+                            <span className="sidebarMenuIcon">
+                                {item.icon}
+                            </span>
+
+                            <span>
+                                {item.text}
+                            </span>
+
+                        </NavLink>
+
+                    );
+
+                })}
 
             </nav>
 
-        </aside>
 
-    )
+            <div className="sidebarBottom">
+
+                <div className="sidebarDivider" />
+
+
+                <div className="sidebarMenuItem sidebarMenuItemDisabled">
+
+                    <span className="sidebarMenuIcon">
+                        <FaCog />
+                    </span>
+
+                    <span>
+                        Configuración
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    );
 
 }
 
-export default Sidebar
+
+export default Sidebar;

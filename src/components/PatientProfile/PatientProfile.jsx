@@ -1,54 +1,285 @@
 import "./PatientProfile.css";
 
+import {
+    FaUser,
+    FaNotesMedical
+} from "react-icons/fa";
+
+
+function getPatientInitials(patient) {
+
+    const firstName =
+        patient?.nombre
+            ?.trim()
+            ?.charAt(0) ?? "";
+
+    const lastName =
+        patient?.apellido
+            ?.trim()
+            ?.charAt(0) ?? "";
+
+    return (
+        `${firstName}${lastName}`.toUpperCase() ||
+        "P"
+    );
+
+}
+
+
+function formatBirthDate(date) {
+
+    if (!date) {
+        return "Sin información";
+    }
+
+    const normalizedDate =
+        /^\d{4}-\d{2}-\d{2}$/.test(date)
+            ? `${date}T00:00:00`
+            : date;
+
+    const parsedDate =
+        new Date(normalizedDate);
+
+    if (Number.isNaN(parsedDate.getTime())) {
+        return date;
+    }
+
+    return new Intl.DateTimeFormat(
+        "es-MX",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    ).format(parsedDate);
+
+}
+
+
 function PatientProfile({ patient }) {
 
     if (!patient) {
-                return (
-            <div className="patientProfile">
-                <p>Cargando paciente...</p>
+
+        return (
+
+            <div className="patientProfileLoading">
+
+                Cargando paciente...
+
             </div>
+
         );
+
     }
+
+
     return (
-        <div className="patientProfile">
 
-            <div className="profileHeader">
+        <section className="patientProfile">
 
 
-                <div>
+            {/* HEADER DEL PACIENTE */}
 
-                    <h2>{patient.nombre} {patient.apellido}</h2>
+            <div className="patientProfileHeader">
+
+                <div className="patientProfileAvatar">
+
+                    {getPatientInitials(patient)}
+
+                </div>
+
+
+                <div className="patientProfileIdentity">
+
+                    <h2>
+
+                        {patient.nombre}{" "}
+                        {patient.apellido}
+
+                    </h2>
+
+                    <span
+                        className={
+                            patient.status
+                                ? "patientProfileStatus patientProfileStatusActive"
+                                : "patientProfileStatus patientProfileStatusInactive"
+                        }
+                    >
+
+                        {patient.status
+                            ? "Activo"
+                            : "Inactivo"}
+
+                    </span>
 
                 </div>
 
             </div>
 
-            <div className="profileSection">
 
-                <h3>Datos Personales</h3>
+            {/* DATOS PERSONALES */}
 
-                <p><strong>Fecha Nac:</strong> {patient.fecha_nacimiento}</p>
+            <div className="patientProfileSection">
 
-                <p><strong>Domicilio:</strong> {patient.domicilio}</p>
+                <div className="patientProfileSectionTitle">
+
+                    <span className="patientProfileSectionIcon">
+
+                        <FaUser />
+
+                    </span>
+
+                    <h3>
+                        Datos personales
+                    </h3>
+
+                </div>
+
+
+                <div className="patientProfileDetails">
+
+                    <div className="patientProfileRow">
+
+                        <span className="patientProfileLabel">
+
+                            Fecha de nacimiento
+
+                        </span>
+
+                        <span className="patientProfileValue">
+
+                            {formatBirthDate(
+                                patient.fecha_nacimiento
+                            )}
+
+                        </span>
+
+                    </div>
+
+
+                    <div className="patientProfileRow">
+
+                        <span className="patientProfileLabel">
+
+                            Domicilio
+
+                        </span>
+
+                        <span className="patientProfileValue">
+
+                            {patient.domicilio ||
+                                "Sin información"}
+
+                        </span>
+
+                    </div>
+
+                </div>
 
             </div>
 
-            <div className="profileSection">
 
-                <h3>Historial Médico</h3>
+            {/* HISTORIAL MÉDICO */}
 
-                <p><strong>Antecedentes Padre:</strong> {patient.antecedentes_padre || "Ninguno"}</p>
+            <div className="patientProfileSection">
 
-                <p><strong>Antecedentes Madre:</strong> {patient.antecedentes_madre || "Ninguno"}</p>
+                <div className="patientProfileSectionTitle">
 
-                <p><strong>Antecedentes Hermanos:</strong> {patient.antecedentes_hermanos || "Ninguno"}</p>
+                    <span className="patientProfileSectionIcon">
 
-                <p><strong>Antecedentes Personales:</strong> {patient.antecedentes_personales || "Ninguno"}</p>
+                        <FaNotesMedical />
+
+                    </span>
+
+                    <h3>
+                        Historial médico
+                    </h3>
+
+                </div>
+
+
+                <div className="patientProfileDetails">
+
+                    <div className="patientProfileRow">
+
+                        <span className="patientProfileLabel">
+
+                            Antecedentes padre
+
+                        </span>
+
+                        <span className="patientProfileValue">
+
+                            {patient.antecedentes_padre ||
+                                "Ninguno"}
+
+                        </span>
+
+                    </div>
+
+
+                    <div className="patientProfileRow">
+
+                        <span className="patientProfileLabel">
+
+                            Antecedentes madre
+
+                        </span>
+
+                        <span className="patientProfileValue">
+
+                            {patient.antecedentes_madre ||
+                                "Ninguno"}
+
+                        </span>
+
+                    </div>
+
+
+                    <div className="patientProfileRow">
+
+                        <span className="patientProfileLabel">
+
+                            Antecedentes hermanos
+
+                        </span>
+
+                        <span className="patientProfileValue">
+
+                            {patient.antecedentes_hermanos ||
+                                "Ninguno"}
+
+                        </span>
+
+                    </div>
+
+
+                    <div className="patientProfileRow">
+
+                        <span className="patientProfileLabel">
+
+                            Antecedentes personales
+
+                        </span>
+
+                        <span className="patientProfileValue">
+
+                            {patient.antecedentes_personales ||
+                                "Ninguno"}
+
+                        </span>
+
+                    </div>
+
+                </div>
 
             </div>
 
-        </div>
+        </section>
+
     );
+
 }
+
 
 export default PatientProfile;

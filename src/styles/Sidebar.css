@@ -1,102 +1,229 @@
-.sidebar{
+/* ========================================
+   SIDEBAR
+======================================== */
 
-    width:230px;
-    background:#173852;
-    color:white;
+.sidebar {
+    display: flex;
+    flex-direction: column;
 
-    display:flex;
-    flex-direction:column;
+    width: 100%;
+    height: 100%;
 
-    min-height:100vh;
-    padding-top:12px;
+    padding: 0 16px 20px;
 
-}
+    background: #ffffff;
 
-.logo{
+    color: #334155;
 
-    display:flex;
-    align-items:center;
-
-    gap:12px;
-
-    padding:24px;
-
-    font-size:20px;
-    font-weight:700;
-
-}
-
-.logoIcon{
-
-    width:30px;
-    height:30px;
-
-    border-radius:12px;
-
-    background:#2ad0c9;
-
-}
-
-.avatar{
-
-    display:flex;
-    justify-content:center;
-
-    margin-bottom:30px;
-
-}
-
-.avatar img{
-
-    width:95px;
-
-    height:95px;
-
-    border-radius:50%;
-
-    border:6px solid rgba(255,255,255,.12);
-
-}
-
-nav{
-
-    display:flex;
-    flex-direction:column;
-
-    gap:10px;
-
-    padding:0 14px;
-
-}
-
-.menu{
-    display:flex;
-
-    align-items:center;
-
-    gap:15px;
-
-    padding:14px;
-
-    border-radius:12px;
-
-    color:white;
-
-    text-decoration:none;
-
-    transition:.2s;
-
-}
-
-.menu:hover{
-
-    background:#294864;
-
+    box-sizing: border-box;
 }
 
 
-.menu.active{
+/* ========================================
+   BRAND
+======================================== */
 
-    background:#294864;
+.sidebarBrand {
+    display: flex;
+    align-items: center;
 
+    gap: 12px;
+
+    height: 64px;
+
+    padding: 0 14px;
+
+    border-bottom: 1px solid #eef2f6;
+
+    margin: 0 -16px 28px;
+
+    padding-left: 24px;
+}
+
+
+.sidebarBrandIcon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #23b8c7,
+            #1586ad
+        );
+
+    color: #ffffff;
+
+    font-size: 19px;
+
+    box-shadow:
+        0 4px 12px
+        rgba(21, 134, 173, 0.18);
+}
+
+
+.sidebarBrandText {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+}
+
+
+.sidebarBrandText strong {
+    overflow: hidden;
+
+    color: #17345a;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    line-height: 1.25;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.sidebarBrandText span {
+    margin-top: 2px;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+}
+
+
+/* ========================================
+   NAVIGATION
+======================================== */
+
+.sidebarNavigation {
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+
+    padding: 0;
+}
+
+
+.sidebarMenuItem {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    width: 100%;
+
+    min-height: 44px;
+
+    padding: 0 14px;
+
+    border-radius: 10px;
+
+    color: #475569;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    text-decoration: none;
+
+    box-sizing: border-box;
+
+    transition:
+        background 150ms ease,
+        color 150ms ease;
+}
+
+
+.sidebarMenuIcon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 20px;
+
+    flex-shrink: 0;
+
+    color: #64748b;
+
+    font-size: 16px;
+
+    transition: color 150ms ease;
+}
+
+
+.sidebarMenuItem:hover {
+    background: #f5f8fc;
+
+    color: #17345a;
+}
+
+
+.sidebarMenuItem:hover .sidebarMenuIcon {
+    color: #15569d;
+}
+
+
+/* ========================================
+   ACTIVE ITEM
+======================================== */
+
+.sidebarMenuItem.active {
+    background: #edf5fd;
+
+    color: #15569d;
+
+    font-weight: 600;
+}
+
+
+.sidebarMenuItem.active .sidebarMenuIcon {
+    color: #15569d;
+}
+
+
+/* ========================================
+   DISABLED / FUTURE SECTIONS
+======================================== */
+
+.sidebarMenuItemDisabled {
+    cursor: default;
+}
+
+
+.sidebarMenuItemDisabled:hover {
+    background: #f8fafc;
+}
+
+
+/* ========================================
+   BOTTOM
+======================================== */
+
+.sidebarBottom {
+    margin-top: auto;
+}
+
+
+.sidebarDivider {
+    width: 100%;
+    height: 1px;
+
+    margin-bottom: 12px;
+
+    background: #e5eaf0;
 }

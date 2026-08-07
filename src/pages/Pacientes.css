@@ -1,0 +1,150 @@
+.patientsPage {
+    width: 100%;
+    min-width: 0;
+
+    padding: 28px 30px 32px;
+
+    box-sizing: border-box;
+}
+
+
+/* ================================
+   HEADER
+================================ */
+
+.patientsPage {
+    width: 100%;
+    min-width: 0;
+
+    padding: 22px 28px 28px;
+
+    box-sizing: border-box;
+}
+
+
+.patientsPageHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+}
+
+
+.patientsPageHeader h1 {
+    margin: 0;
+
+    color: #172033;
+
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.2;
+
+    letter-spacing: -0.02em;
+}
+
+
+.patientsPageHeader p {
+    margin: 4px 0 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.45;
+}
+
+/* ================================
+   LAYOUT
+================================ */
+
+.patientsLayout {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        360px;
+
+    gap: 24px;
+
+    align-items: start;
+
+    width: 100%;
+}
+
+
+/* ================================
+   PATIENT TABLE
+================================ */
+
+.patientsMain {
+    min-width: 0;
+}
+
+
+/* ================================
+   RIGHT PATIENT PANEL
+================================ */
+
+.patientsSidebar {
+    min-width: 0;
+}
+
+
+.patientSummaryCard {
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid #e5eaf0;
+    border-radius: 16px;
+
+    box-shadow:
+        0 2px 8px
+        rgba(15, 23, 42, 0.04);
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 1200px) {
+
+    .patientsLayout {
+        grid-template-columns:
+            minmax(0, 1fr)
+            330px;
+
+        gap: 18px;
+    }
+
+}
+
+
+@media (max-width: 1000px) {
+
+    .patientsLayout {
+        grid-template-columns: 1fr;
+    }
+
+
+    .patientsSidebar {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .patientsPage {
+        padding: 20px 16px;
+    }
+
+
+    .patientsPageHeader h1 {
+        font-size: 23px;
+    }
+
+}

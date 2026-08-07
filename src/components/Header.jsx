@@ -1,62 +1,74 @@
 import "../styles/Header.css";
 
 import {
-
-    FaSearch,
     FaBell,
-    FaCog
-
+    FaQuestionCircle,
+    FaChevronDown
 } from "react-icons/fa";
 
-function Header(){
 
-    return(
+function Header() {
+
+    return (
 
         <header className="header">
 
-            <div>
+            <div className="headerSpacer" />
 
-                <h1>
 
-                    <strong>Dr. Pedro Murillo</strong>
+            <div className="headerRight">
 
-                    {/*<span> - Dr. Pedro Murillo</span>*/}
+                <button
+                    className="headerIconButton"
+                    type="button"
+                    aria-label="Notificaciones"
+                >
 
-                </h1>
+                    <FaBell />
 
-            </div>
+                    <span className="notificationBadge">
+                        3
+                    </span>
 
-           {/*  <div className="headerRight">
+                </button>
 
-               <div className="search">
 
-                    <FaSearch />
+                <button
+                    className="headerIconButton"
+                    type="button"
+                    aria-label="Ayuda"
+                >
 
-                    <input
-                        type="text"
-                        placeholder="Buscar pacientes, citas..."
+                    <FaQuestionCircle />
+
+                </button>
+
+
+                <div className="headerUser">
+
+                    <div className="headerAvatar">
+                        PM
+                    </div>
+
+
+                    <span className="headerUserName">
+                        Dr. Pedro Murillo
+                    </span>
+
+
+                    <FaChevronDown
+                        className="headerUserArrow"
                     />
 
                 </div>
 
-                <button>
-
-                    <FaBell />
-
-                </button>
-
-                <button>
-
-                    <FaCog />
-
-                </button>
-
-            </div>*/}
+            </div>
 
         </header>
 
-    )
+    );
 
 }
 
-export default Header
+
+export default Header;

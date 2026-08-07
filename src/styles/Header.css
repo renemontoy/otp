@@ -1,112 +1,190 @@
-.header{
+/* ========================================
+   HEADER
+======================================== */
 
-    height:82px;
+.header {
+    display: flex;
 
-    display:flex;
+    align-items: center;
+    justify-content: space-between;
 
-    align-items:center;
+    width: 100%;
+    height: 64px;
 
-    justify-content:space-between;
+    padding: 0 28px;
 
-    padding:0 35px;
+    background: #ffffff;
 
-    background:white;
-
-    border-bottom:1px solid #ececec;
-
+    box-sizing: border-box;
 }
 
-.header h1{
 
-    font-size:34px;
+/* ========================================
+   RIGHT SIDE
+======================================== */
 
-    color:#1f2937;
+.headerRight {
+    display: flex;
+    align-items: center;
 
+    gap: 10px;
+
+    margin-left: auto;
 }
 
-.header span{
 
-    color:#666;
+/* ========================================
+   ICON BUTTON
+======================================== */
 
-    font-weight:400;
+.headerIconButton {
+    position: relative;
 
-    font-size:20px;
+    display: flex;
 
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 9px;
+
+    background: transparent;
+
+    color: #52637a;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition:
+        background 150ms ease,
+        color 150ms ease;
 }
 
-.headerRight{
 
-    display:flex;
+.headerIconButton:hover {
+    background: #f1f5f9;
 
-    align-items:center;
-
-    gap:18px;
-
+    color: #15569d;
 }
 
-.search{
 
-    display:flex;
+/* ========================================
+   NOTIFICATION BADGE
+======================================== */
 
-    border:1px solid #dde7ef;
+.notificationBadge {
+    position: absolute;
 
-    align-items:center;
+    top: 2px;
+    right: 2px;
 
-    gap:12px;
+    display: flex;
 
-    width:340px;
+    align-items: center;
+    justify-content: center;
 
-    padding:12px 18px;
+    min-width: 15px;
+    height: 15px;
 
-    border-radius:14px;
+    padding: 0 4px;
 
-    background:white;
+    border: 2px solid #ffffff;
 
+    border-radius: 999px;
 
+    background: #15569d;
+
+    color: #ffffff;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    line-height: 1;
 }
 
-.search svg{
 
-    color:#7b8794;
+/* ========================================
+   USER
+======================================== */
 
+.headerUser {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-left: 8px;
+
+    padding-left: 16px;
+
+    border-left: 1px solid #e5eaf0;
 }
 
-.search input{
 
-    border:none;
+.headerAvatar {
+    display: flex;
 
-    outline:none;
+    align-items: center;
+    justify-content: center;
 
-    width:100%;
+    width: 34px;
+    height: 34px;
 
-    background:none;
+    flex-shrink: 0;
 
-    font-size:15px;
+    border-radius: 50%;
 
+    background: #e7f0fb;
+
+    color: #15569d;
+
+    font-size: 12px;
+    font-weight: 700;
 }
 
-.header button{
 
-    width:44px;
+.headerUserName {
+    color: #27364b;
 
-    height:44px;
+    font-size: 13px;
+    font-weight: 600;
 
-    border:1px solid #e7edf4;
-
-    background:white;
-
-    border-radius:50%;
-
-    cursor:pointer;
-
-    font-size:18px;
-
-    transition:.2s;
-
+    white-space: nowrap;
 }
 
-.header button:hover{
 
-    background:#eef5fb;
+.headerUserArrow {
+    color: #94a3b8;
+
+    font-size: 9px;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 800px) {
+
+    .header {
+        padding: 0 18px;
+    }
+
+
+    .headerUserName {
+        display: none;
+    }
+
+
+    .headerUser {
+        padding-left: 10px;
+    }
 
 }

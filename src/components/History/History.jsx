@@ -122,9 +122,14 @@ function History({
 
             <div className="historyHeader">
 
-                <h3>
-                    Cronología de historial
-                </h3>
+                <div>
+
+                    <h3>
+                        Cronología reciente
+                    </h3>
+
+                </div>
+
 
                 {!isLoading && (
 
@@ -138,6 +143,7 @@ function History({
 
             </div>
 
+
             {isLoading && (
 
                 <p className="historyMessage">
@@ -148,6 +154,7 @@ function History({
 
             )}
 
+
             {!isLoading && error && (
 
                 <p className="historyError">
@@ -157,6 +164,7 @@ function History({
                 </p>
 
             )}
+
 
             {!isLoading &&
             !error &&
@@ -179,6 +187,7 @@ function History({
 
             )}
 
+
             {!isLoading &&
             !error &&
             history.length > 0 && (
@@ -198,6 +207,21 @@ function History({
 
                             </div>
 
+
+                            <div className="historyTimelineMarker">
+
+                                <span
+                                    className="historyTimelineDot"
+                                    style={{
+                                        backgroundColor:
+                                            item.treatmentColor ||
+                                            "#3b82f6"
+                                    }}
+                                />
+
+                            </div>
+
+
                             <div className="historyContent">
 
                                 <div className="historyItemHeader">
@@ -207,6 +231,7 @@ function History({
                                         {item.treatmentName}
 
                                     </strong>
+
 
                                     <span
                                         className={
@@ -220,6 +245,7 @@ function History({
 
                                 </div>
 
+
                                 <p className="historyTeeth">
 
                                     Pieza(s):{" "}
@@ -227,6 +253,7 @@ function History({
                                     {item.teeth.join(", ")}
 
                                 </p>
+
 
                                 {item.materialName && (
 
@@ -240,6 +267,7 @@ function History({
 
                                 )}
 
+
                                 {item.observations && (
 
                                     <p className="historyObservations">
@@ -251,18 +279,6 @@ function History({
                                 )}
 
                             </div>
-
-                            {item.treatmentColor && (
-
-                                <span
-                                    className="historyColor"
-                                    style={{
-                                        backgroundColor:
-                                            item.treatmentColor
-                                    }}
-                                />
-
-                            )}
 
                         </article>
 

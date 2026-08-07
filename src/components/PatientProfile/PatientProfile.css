@@ -1,102 +1,277 @@
-.patientProfile{
+/* ========================================
+   PATIENT PROFILE
+======================================== */
 
-background:white;
+.patientProfile {
+    width: 100%;
 
-border-radius:18px;
+    background: transparent;
 
-padding:22px;
+    box-sizing: border-box;
+}
 
-box-shadow:
 
-0 2px 8px rgba(15,23,42,.03),
+/* ========================================
+   PATIENT HEADER
+======================================== */
 
-0 20px 40px rgba(15,23,42,.05);
+.patientProfileHeader {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 20px 20px 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5f9fe 0%,
+            #eef6fd 100%
+        );
+
+    border-bottom:
+        1px solid
+        #e5edf5;
+}
+
+
+.patientProfileAvatar {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #dceafb;
+
+    color: #15569d;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    letter-spacing: 0.02em;
+}
+
+
+.patientProfileIdentity {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    min-width: 0;
+
+    flex: 1;
+}
+
+
+.patientProfileIdentity h2 {
+    min-width: 0;
+
+    margin: 0;
+
+    overflow: hidden;
+
+    color: #203047;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    letter-spacing: -0.01em;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.patientProfileStatus {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    padding: 4px 8px;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    line-height: 1.2;
+}
+
+
+.patientProfileStatusActive {
+    background: #dcf5e8;
+
+    color: #21825f;
+}
+
+
+.patientProfileStatusInactive {
+    background: #fce8e7;
+
+    color: #b4534d;
+}
+
+
+/* ========================================
+   SECTIONS
+======================================== */
+
+.patientProfileSection {
+    padding: 20px 20px 4px;
+}
+
+
+.patientProfileSection +
+.patientProfileSection {
+    padding-top: 18px;
+}
+
+
+.patientProfileSectionTitle {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding-bottom: 10px;
+
+    border-bottom:
+        1px solid
+        #edf1f5;
+}
+
+
+.patientProfileSectionIcon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 25px;
+    height: 25px;
+
+    border-radius: 7px;
+
+    background: #edf5fd;
+
+    color: #3973ad;
+
+    font-size: 11px;
+}
+
+
+.patientProfileSectionTitle h3 {
+    margin: 0;
+
+    color: #304156;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+/* ========================================
+   DETAIL ROWS
+======================================== */
+
+.patientProfileDetails {
+    padding-top: 7px;
+}
+
+
+.patientProfileRow {
+    display: grid;
+
+    grid-template-columns:
+        minmax(120px, 0.9fr)
+        minmax(0, 1.1fr);
+
+    gap: 12px;
+
+    padding: 7px 0;
+}
+
+
+.patientProfileLabel {
+    color: #8794a5;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    line-height: 1.4;
+}
+
+
+.patientProfileValue {
+    overflow-wrap: anywhere;
+
+    color: #46566a;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    line-height: 1.45;
+
+    text-align: right;
+}
+
+
+/* ========================================
+   LOADING
+======================================== */
+
+.patientProfileLoading {
+    padding: 28px 20px;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 1100px) {
+
+    .patientProfileRow {
+        grid-template-columns:
+            160px
+            minmax(0, 1fr);
+    }
 
 }
 
-.profileHeader{
 
-display:flex;
+@media (max-width: 600px) {
 
-gap:18px;
+    .patientProfileRow {
+        grid-template-columns: 1fr;
 
-align-items:center;
-
-margin-bottom:10px;
-
-}
-
-.profileHeader img{
-
-width:110px;
-
-height:110px;
-
-border-radius:16px;
-
-object-fit:cover;
-
-}
-
-.profileHeader h2{
-
-font-size: 30px;
-
-color:#263238;
+        gap: 3px;
+    }
 
 
-}
-
-.profileHeader small{
-
-display:block;
-
-color:#666;
-
-margin-bottom:6px;
-
-}
-
-.profileHeader h1{
-
-font-size:40px;
-
-color:#17334d;
-
-}
-
-.profileSection{
-
-padding-top:16px;
-
-margin-top:10px;
-
-border-top:1px solid #eef2f6;
-
-}
-
-.profileSection h3{
-
-margin-bottom:10px;
-
-font-size:20px;
-
-color:#263238;
-
-}
-
-.profileSection p{
-
-margin:7px 0;
-
-font-size:14px;
-
-color:#666;
-
-}
-
-.profileSection strong{
-
-color:#222;
+    .patientProfileValue {
+        text-align: left;
+    }
 
 }
