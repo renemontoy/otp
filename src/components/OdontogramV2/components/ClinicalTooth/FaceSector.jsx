@@ -55,12 +55,6 @@ function FaceSector({
 
     function handlePointerEnter(event) {
 
-        if (disabled) {
-
-            return;
-
-        }
-
         onHover?.(
             event,
             id
@@ -71,7 +65,6 @@ function FaceSector({
     function handlePointerMove(event) {
 
         if (
-            disabled ||
             event.pointerType !== "mouse"
         ) {
 
@@ -89,7 +82,6 @@ function FaceSector({
     function handlePointerDown(event) {
 
         if (
-            disabled ||
             event.pointerType === "mouse"
         ) {
 
@@ -97,10 +89,6 @@ function FaceSector({
 
         }
 
-        /*
-            En iPad y pantallas táctiles no existe
-            hover. Mostramos el tooltip al tocar.
-        */
         onHover?.(
             event,
             id

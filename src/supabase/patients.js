@@ -38,6 +38,27 @@ export async function updatePatient(id, patient) {
 
 }
 
+export async function updatePatientStatus(
+    patientId,
+    status
+) {
+
+    const { data, error } = await supabase
+        .from("pacientes")
+        .update({
+            status
+        })
+        .eq("id", patientId)
+        .select("id, status")
+        .single();
+
+    if (error) {
+        throw error;
+    }
+
+    return data;
+}
+
 export async function deactivatePatient(patientId) {
 
     if (!patientId) {

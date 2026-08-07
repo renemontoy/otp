@@ -69,3 +69,12 @@
 .menuDropdown .deactivateAction:hover {
     background: #fef2f2;
 }
+
+.menuDropdown .activateAction {
+    color: #166534;
+}
+
+.menuDropdown .activateAction:hover {
+    background: #f0fdf4;
+}
+

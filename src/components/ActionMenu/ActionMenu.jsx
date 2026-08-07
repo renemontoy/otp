@@ -7,17 +7,11 @@ import {
 import "./ActionMenu.css";
 
 function ActionMenu({
-
-    isActive = true,
-
+    isActive,
     onEdit,
-
-    onDeactivate,
-
+    onToggleStatus,
     onOdontogram,
-
     onExploracion
-
 }) {
 
     const [open, setOpen] =
@@ -128,23 +122,21 @@ function ActionMenu({
 
                     </button>
 
-                    {isActive && (
-
-                        <button
-                            type="button"
-                            className="deactivateAction"
-                            onClick={() =>
-                                handleAction(
-                                    onDeactivate
-                                )
-                            }
-                        >
-
-                            Desactivar
-
-                        </button>
-
-                    )}
+                    <button
+                        type="button"
+                        className={
+                            isActive
+                                ? "deactivateAction"
+                                : "activateAction"
+                        }
+                        onClick={() =>
+                            handleAction(onToggleStatus)
+                        }
+                    >
+                        {isActive
+                            ? "Desactivar"
+                            : "Activar"}
+                    </button>
 
                 </div>
 

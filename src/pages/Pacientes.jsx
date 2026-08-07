@@ -4,7 +4,7 @@ import PatientProfile from "../components/PatientProfile/PatientProfile";
 import History from "../components/History/History";
 import UpcomingAppointments from "../components/UpcomingAppointments/UpcomingAppointments";
 import { useState, useEffect} from "react";    
-import {getPatients, createPatient, updatePatient, deactivatePatient} from "../supabase/patients";
+import {getPatients, createPatient, updatePatient, deactivatePatient, updatePatientStatus} from "../supabase/patients";
 import PatientForm from "../components/PatientForm/PatientForm";
 import ExploracionForm from "../components/Exploracion/Exploracion";
 import OdontogramModule from "../components/OdontogramV2/OdontogramModule";
@@ -109,18 +109,13 @@ function Pacientes() {
 
 }
 
-async function handleDeactivatePatient(patient) {
+async function handleTogglePatientStatus(patient) {
 
     if (!patient?.id) {
-
-        console.error(
-            "Paciente sin ID:",
-            patient
-        );
-
         return;
-
     }
+
+    const newStatus = !patient.status;
 
     const patientName = [
         patient.nombre,
@@ -129,33 +124,36 @@ async function handleDeactivatePatient(patient) {
         .filter(Boolean)
         .join(" ");
 
+    const action =
+        newStatus
+            ? "activar"
+            : "desactivar";
+
     const confirmed = window.confirm(
-        `¿Deseas desactivar al paciente ${patientName}?`
+        `¿Deseas ${action} al paciente ${patientName}?`
     );
 
     if (!confirmed) {
-
         return;
-
     }
 
     try {
 
-        const deactivatedPatient =
-            await deactivatePatient(patient.id);
+        const updatedPatient =
+            await updatePatientStatus(
+                patient.id,
+                newStatus
+            );
 
         setPatients((previousPatients) =>
 
             previousPatients.map((item) =>
 
-                item.id === deactivatedPatient.id
-
+                item.id === updatedPatient.id
                     ? {
                         ...item,
-                        status:
-                            deactivatedPatient.status
+                        status: updatedPatient.status
                     }
-
                     : item
 
             )
@@ -164,16 +162,12 @@ async function handleDeactivatePatient(patient) {
 
         if (
             selectedPatient?.id ===
-            deactivatedPatient.id
+            updatedPatient.id
         ) {
 
             setSelectedPatient((previous) => ({
-
                 ...previous,
-
-                status:
-                    deactivatedPatient.status
-
+                status: updatedPatient.status
             }));
 
         }
@@ -181,16 +175,16 @@ async function handleDeactivatePatient(patient) {
     } catch (error) {
 
         console.error(
-            "Error al desactivar paciente:",
+            "Error al cambiar estado del paciente:",
             error
         );
 
-        alert(error.message);
+        alert(
+            "No fue posible cambiar el estado del paciente."
+        );
 
     }
-
 }
-
     return (
         <div className="dashboard">
 
@@ -207,7 +201,7 @@ async function handleDeactivatePatient(patient) {
                     onEditPatient={() => setPanelMode("edit")}
                     onOdontogramPatient={() => setPanelMode("odontogram")}
                     onExploracionPatient={() => setPanelMode("exploracion")}
-                    onDeactivatePatient={handleDeactivatePatient}
+                    onTogglePatientStatus={handleTogglePatientStatus}
                                     />
                 </div>
 

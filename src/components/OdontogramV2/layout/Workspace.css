@@ -1,21 +1,15 @@
 .workspace {
     flex: 1;
-    min-height: 0;
-
     display: grid;
-
-    grid-template-rows:
-        minmax(280px, 40vh)
-        minmax(230px, 1fr);
-
-    row-gap: 8px;
-
-    padding: 8px 12px 12px;
-
-    box-sizing: border-box;
+    grid-template-rows: auto 1fr;
+    gap: 14px;
+    padding: 18px 22px 22px;
     overflow: hidden;
+    box-sizing: border-box;
+}
 
-    background: #eef2f7;
+.workspaceTop {
+    min-height: 0;
 }
 
 /* Contenedor exterior del canvas */
@@ -38,18 +32,11 @@
 
 /* Zona completa inferior */
 .workspaceBottom {
-    min-width: 0;
-    min-height: 0;
-
     display: grid;
-
-    grid-template-columns:
-        minmax(300px, 320px)
-        minmax(0, 1fr);
-
-    gap: 12px;
-
-    overflow: hidden;
+    grid-template-columns: 380px minmax(0, 1fr);
+    gap: 14px;
+    min-height: 300px;
+    align-items: stretch;
 }
 
 /* Frames inferiores */
@@ -57,16 +44,9 @@
 .workspaceRight {
     min-width: 0;
     min-height: 0;
-
-    background: #ffffff;
-
-    border: 1px solid #d9e2ec;
-    border-radius: 16px;
-
-    box-shadow:
-        0 8px 20px rgba(15, 23, 42, 0.05);
-
-    box-sizing: border-box;
+    background: white;
+    border: 1px solid #dbe3ee;
+    border-radius: 18px;
     overflow: hidden;
 }
 

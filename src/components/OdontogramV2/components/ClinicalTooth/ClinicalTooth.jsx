@@ -1,6 +1,7 @@
 import FaceSector from "./FaceSector";
 import CenterFace from "./CenterFace";
 import ToothOutline from "./ToothOutline";
+import InitialConditionOverlay from "./InitialConditionOverlay";
 
 import {
     CLINICAL_TOOTH_GEOMETRY,
@@ -11,12 +12,14 @@ import {
     getFaceColor
 } from "../../utils/getFaceColor";
 
+
 const FACE_ORDER = [
     "top",
     "right",
     "bottom",
     "left"
 ];
+
 
 const FACE_LABELS = {
     top: "Cara superior",
@@ -26,11 +29,13 @@ const FACE_LABELS = {
     center: "Cara central"
 };
 
+
 const DEFAULT_FACE = {
     selected: false,
     status: "healthy",
     treatment: null
 };
+
 
 function ClinicalTooth({
 
@@ -38,19 +43,42 @@ function ClinicalTooth({
 
     onFaceClick,
 
+    onToothClick,
+
+    /*
+        Tooltip original del
+        plan de tratamiento.
+    */
     onFaceHover,
 
     onFaceLeave,
+
+    /*
+        Tooltip nuevo del
+        estado inicial.
+    */
+    onInitialFaceHover,
+
+    onInitialFaceLeave,
+
+    selectionScope = "cara",
+
+    selectedFaceIds = null,
+
+    toothSelected = false,
+
+    faceFillOverrides = {},
+
+    initialFindings = [],
 
     disabled = false
 
 }) {
 
     if (!tooth) {
-
         return null;
-
     }
+
 
     const {
         centerX,
@@ -59,7 +87,13 @@ function ClinicalTooth({
         innerRadius
     } = CLINICAL_TOOTH_GEOMETRY;
 
-    function getFace(faceId) {
+
+    /*
+        Obtiene una cara del diente.
+    */
+    function getFace(
+        faceId
+    ) {
 
         return (
             tooth.faces?.[faceId] ??
@@ -68,29 +102,237 @@ function ClinicalTooth({
 
     }
 
-    function handleFaceClick(faceId) {
+
+    /*
+        Determina si una cara debe
+        aparecer seleccionada.
+    */
+    function isFaceSelected(
+        faceId,
+        face
+    ) {
+
+        /*
+            Estado inicial:
+            selección de pieza completa.
+        */
+        if (
+            selectionScope === "pieza" &&
+            toothSelected
+        ) {
+
+            return true;
+
+        }
+
+
+        /*
+            Estado inicial:
+            selección individual de caras.
+        */
+        if (
+            Array.isArray(
+                selectedFaceIds
+            )
+        ) {
+
+            return selectedFaceIds.includes(
+                faceId
+            );
+
+        }
+
+
+        /*
+            Plan de tratamiento:
+            comportamiento original.
+        */
+        return Boolean(
+            face.selected
+        );
+
+    }
+
+
+    /*
+        ==================================================
+        CLICK
+        ==================================================
+
+        FaceSector y CenterFace ya envían
+        su faceId al callback.
+
+        Por eso NO debemos envolver aquí
+        el evento con () => ...
+    */
+    function handleFaceClick(
+        faceId
+    ) {
 
         if (disabled) {
+            return;
+        }
+
+
+        /*
+            Condición aplicada a
+            pieza completa.
+        */
+        if (
+            selectionScope === "pieza"
+        ) {
+
+            onToothClick?.(
+                tooth.number
+            );
 
             return;
 
         }
 
-        onFaceClick?.(
+
+        /*
+            Condición aplicada
+            por cara.
+        */
+        if (
+            selectionScope === "cara"
+        ) {
+
+            onFaceClick?.(
+                tooth.number,
+                faceId
+            );
+
+        }
+
+    }
+
+    function handleCenterClick() {
+
+        if (disabled) {
+            return;
+        }
+
+
+        /*
+            Selección de pieza completa
+        */
+        if (
+            selectionScope === "pieza"
+        ) {
+
+            onToothClick?.(
+                tooth.number
+            );
+
+            return;
+
+        }
+
+
+        /*
+            Selección por cara
+        */
+        if (
+            selectionScope === "cara"
+        ) {
+
+            onFaceClick?.(
+                tooth.number,
+                "center"
+            );
+
+        }
+
+    }
+
+    function handleCenterHover(
+        event
+    ) {
+
+        const face =
+            getFace(
+                "center"
+            );
+
+
+        /*
+            Tooltip del plan
+            de tratamiento
+        */
+        onFaceHover?.({
+
+            event,
+
+            toothNumber:
+                tooth.number,
+
+            faceId:
+                "center",
+
+            face
+
+        });
+
+
+        /*
+            Tooltip del
+            estado inicial
+        */
+        onInitialFaceHover?.(
+
             tooth.number,
-            faceId
+
+            "center",
+
+            initialFindings,
+
+            event
+
         );
 
     }
 
+    function handleCenterLeave() {
+
+        onFaceLeave?.();
+
+        onInitialFaceLeave?.();
+
+    }
+
+    /*
+        ==================================================
+        HOVER
+        ==================================================
+
+        FaceSector / CenterFace llaman:
+
+        onHover(event, id)
+
+        Debemos conservar ese contrato.
+    */
     function handleFaceHover(
         event,
         faceId
     ) {
 
         const face =
-            getFace(faceId);
+            getFace(
+                faceId
+            );
 
+
+        /*
+            TOOLTIP ORIGINAL
+            PLAN DE TRATAMIENTO
+
+            IMPORTANTE:
+
+            El Odontogram original espera
+            un solo objeto.
+        */
         onFaceHover?.({
 
             event,
@@ -104,8 +346,46 @@ function ClinicalTooth({
 
         });
 
+
+        /*
+            TOOLTIP NUEVO
+            ESTADO INICIAL
+
+            Este callback solamente existirá
+            cuando estemos en el modo
+            Estado inicial.
+        */
+        onInitialFaceHover?.(
+
+            tooth.number,
+
+            faceId,
+
+            initialFindings,
+
+            event
+
+        );
+
     }
 
+
+    /*
+        Cierra cualquiera de los
+        dos tooltips.
+    */
+    function handleFaceLeave() {
+
+        onFaceLeave?.();
+
+        onInitialFaceLeave?.();
+
+    }
+
+
+    /*
+        Texto accesible.
+    */
     function getAriaLabel(
         faceId,
         face
@@ -114,11 +394,13 @@ function ClinicalTooth({
         const baseLabel =
             `${FACE_LABELS[faceId]} de la pieza ${tooth.number}`;
 
+
         if (!face.treatment) {
 
             return baseLabel;
 
         }
+
 
         return (
             `${baseLabel}, ` +
@@ -128,98 +410,294 @@ function ClinicalTooth({
 
     }
 
+
     return (
 
         <g
+
             className="clinicalTooth"
+
             aria-label={
                 `Pieza dental ${tooth.number}`
             }
+
         >
 
-            {FACE_ORDER.map((faceId) => {
+            {/*
+                =========================================
+                CUATRO CARAS EXTERNAS
+                =========================================
+            */}
+
+            {FACE_ORDER.map(
+                (faceId) => {
+
+                    const face =
+                        getFace(
+                            faceId
+                        );
+
+
+                    const selected =
+                        isFaceSelected(
+                            faceId,
+                            face
+                        );
+
+
+                    /*
+                        Esta copia solamente afecta
+                        la representación visual.
+                    */
+                    const visualFace = {
+
+                        ...face,
+
+                        selected
+
+                    };
+
+
+                    const fill =
+
+                        selected
+
+                            ? getFaceColor(
+                                visualFace
+                            )
+
+                            : (
+                                faceFillOverrides[
+                                    faceId
+                                ] ||
+                                getFaceColor(
+                                    visualFace
+                                )
+                            );
+
+
+                    return (
+
+                        <FaceSector
+
+                            key={
+                                faceId
+                            }
+
+                            id={
+                                faceId
+                            }
+
+                            path={
+                                FACE_SECTOR_PATHS[
+                                    faceId
+                                ]
+                            }
+
+                            fill={
+                                fill
+                            }
+
+                            selected={
+                                selected
+                            }
+
+                            disabled={
+                                disabled
+                            }
+
+                            ariaLabel={
+                                getAriaLabel(
+                                    faceId,
+                                    face
+                                )
+                            }
+
+
+                            /*
+                                IMPORTANTE:
+
+                                FaceSector ya envía
+                                faceId.
+                            */
+                            onClick={
+                                handleFaceClick
+                            }
+
+
+                            /*
+                                FaceSector ya envía:
+
+                                event,
+                                faceId
+                            */
+                            onHover={
+                                handleFaceHover
+                            }
+
+
+                            onLeave={
+                                handleFaceLeave
+                            }
+
+                        />
+
+                    );
+
+                }
+            )}
+
+
+            {/*
+                =========================================
+                CARA CENTRAL
+                =========================================
+            */}
+
+            {(() => {
 
                 const face =
-                    getFace(faceId);
+                    getFace(
+                        "center"
+                    );
+
+
+                const selected =
+                    isFaceSelected(
+                        "center",
+                        face
+                    );
+
+
+                const visualFace = {
+                    ...face,
+                    selected
+                };
+
+
+                const fill =
+
+                    selected
+
+                        ? getFaceColor(
+                            visualFace
+                        )
+
+                        : (
+                            faceFillOverrides.center ||
+                            getFaceColor(
+                                visualFace
+                            )
+                        );
+
 
                 return (
 
-                    <FaceSector
-                        key={faceId}
-                        id={faceId}
-                        path={
-                            FACE_SECTOR_PATHS[
-                                faceId
-                            ]
+                    <CenterFace
+
+                        id="center"
+
+                        centerX={
+                            centerX
                         }
+
+                        centerY={
+                            centerY
+                        }
+
+                        radius={
+                            innerRadius
+                        }
+
                         fill={
-                            getFaceColor(face)
+                            fill
                         }
+
                         selected={
-                            Boolean(
-                                face.selected
-                            )
+                            selected
                         }
-                        disabled={disabled}
+
+                        disabled={
+                            disabled
+                        }
+
                         ariaLabel={
                             getAriaLabel(
-                                faceId,
+                                "center",
                                 face
                             )
                         }
+
                         onClick={
-                            handleFaceClick
+                            handleCenterClick
                         }
+
                         onHover={
-                            handleFaceHover
+                            handleCenterHover
                         }
+
                         onLeave={
-                            onFaceLeave
+                            handleCenterLeave
                         }
+
                     />
 
                 );
 
-            })}
+            })()}
 
-            <CenterFace
-                id="center"
-                centerX={centerX}
-                centerY={centerY}
-                radius={innerRadius}
-                fill={
-                    getFaceColor(
-                        getFace("center")
-                    )
+            {/*
+                =========================================
+                SÍMBOLOS DEL ESTADO INICIAL
+
+                M1
+                M2
+                M3
+                E
+                PF
+                PR
+                X
+                etc.
+                =========================================
+            */}
+
+            <InitialConditionOverlay
+
+                findings={
+                    initialFindings
                 }
-                selected={
-                    Boolean(
-                        getFace("center")
-                            .selected
-                    )
+
+                radius={
+                    outerRadius
                 }
-                disabled={disabled}
-                ariaLabel={
-                    getAriaLabel(
-                        "center",
-                        getFace("center")
-                    )
-                }
-                onClick={
-                    handleFaceClick
-                }
-                onHover={
-                    handleFaceHover
-                }
-                onLeave={
-                    onFaceLeave
-                }
+
             />
 
+
+            {/*
+                =========================================
+                CONTORNO DEL DIENTE
+                =========================================
+            */}
+
             <ToothOutline
-                centerX={centerX}
-                centerY={centerY}
-                radius={outerRadius}
+
+                centerX={
+                    centerX
+                }
+
+                centerY={
+                    centerY
+                }
+
+                radius={
+                    outerRadius
+                }
+
+                selected={
+                    toothSelected
+                }
+
             />
 
         </g>
@@ -227,5 +705,6 @@ function ClinicalTooth({
     );
 
 }
+
 
 export default ClinicalTooth;

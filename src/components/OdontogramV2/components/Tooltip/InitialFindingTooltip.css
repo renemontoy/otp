@@ -1,0 +1,210 @@
+.initialFindingTooltip {
+    position: fixed;
+    z-index: 9999;
+
+    width: min(
+        300px,
+        calc(100vw - 24px)
+    );
+
+    padding: 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #d9e2ec;
+    border-radius: 12px;
+
+    box-shadow:
+        0 12px 30px rgba(15, 23, 42, 0.16);
+
+    box-sizing: border-box;
+
+    color: #334155;
+
+    pointer-events: none;
+
+    animation:
+        treatmentTooltipEnter
+        120ms ease-out;
+}
+
+
+/*
+    CABECERA
+
+    Equivalente a .tooltipHeader
+*/
+.initialFindingTooltipHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 10px;
+}
+
+
+/*
+    Pieza 21
+*/
+.initialFindingTooltipHeader strong {
+    color: #1f2937;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+/*
+    Cara Superior / Central / etc.
+*/
+.initialFindingTooltipHeader span {
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+
+/*
+    LISTA DE HALLAZGOS
+*/
+.initialFindingTooltipContent {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    max-height: 220px;
+
+    overflow-y: auto;
+}
+
+
+/*
+    CADA HALLAZGO
+*/
+.initialFindingTooltipItem {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+/*
+    Separador cuando hay
+    varios hallazgos en la misma pieza.
+*/
+.initialFindingTooltipItem +
+.initialFindingTooltipItem {
+    padding-top: 10px;
+
+    border-top:
+        1px solid #e2e8f0;
+}
+
+
+/*
+    NOMBRE DE LA CONDICIÓN
+
+    Ejemplo:
+    ● Caries
+    ● Movilidad 1
+    ● Endodoncia
+*/
+.initialFindingTooltipCondition {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    color: #1f2937;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+/*
+    Indicador de color
+*/
+.initialFindingTooltipColor {
+    flex: 0 0 auto;
+
+    width: 12px;
+    height: 12px;
+
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 1px #cbd5e1;
+}
+
+
+/*
+    Cara específica del hallazgo
+*/
+.initialFindingTooltipFace {
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+
+/*
+    Observaciones
+*/
+.initialFindingTooltipObservations {
+    padding-top: 6px;
+
+    color: #475569;
+
+    font-size: 12px;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+}
+
+
+/*
+    SCROLL INTERNO
+*/
+.initialFindingTooltipContent::-webkit-scrollbar {
+    width: 6px;
+}
+
+
+.initialFindingTooltipContent::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+.initialFindingTooltipContent::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+
+    border-radius: 999px;
+}
+
+
+/*
+    MISMA ANIMACIÓN DEL
+    TOOLTIP DE TRATAMIENTOS
+*/
+@keyframes treatmentTooltipEnter {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(3px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}

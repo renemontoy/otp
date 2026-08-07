@@ -37,7 +37,7 @@ function PatientTable({
 
     onExploracionPatient,
 
-    onDeactivatePatient
+    onTogglePatientStatus
 
 }) {
 
@@ -427,51 +427,36 @@ function PatientTable({
                                             }
                                         >
 
-                                            <ActionMenu
+                                        <ActionMenu
+                                            isActive={patient.status}
 
-                                                onEdit={() => {
+                                            onEdit={() => {
 
-                                                    onSelectPatient(
-                                                        patient
-                                                    );
+                                                onSelectPatient(patient);
+                                                onEditPatient();
 
-                                                    onEditPatient();
+                                            }}
 
-                                                }}
+                                            onToggleStatus={() => {
 
-                                                onDeactivate={() => {
+                                                onTogglePatientStatus(patient);
 
-                                                    console.log(
-                                                        "Paciente enviado a desactivar:",
-                                                        patient
-                                                    );
+                                            }}
 
-                                                    onDeactivatePatient(patient);
+                                            onOdontogram={() => {
 
-                                                }}
+                                                onSelectPatient(patient);
+                                                onOdontogramPatient();
 
+                                            }}
 
-                                                onOdontogram={() => {
+                                            onExploracion={() => {
 
-                                                    onSelectPatient(
-                                                        patient
-                                                    );
+                                                onSelectPatient(patient);
+                                                onExploracionPatient();
 
-                                                    onOdontogramPatient();
-
-                                                }}
-
-                                                onExploracion={() => {
-
-                                                    onSelectPatient(
-                                                        patient
-                                                    );
-
-                                                    onExploracionPatient();
-
-                                                }}
-
-                                            />
+                                            }}
+                                        />
 
                                         </td>
 

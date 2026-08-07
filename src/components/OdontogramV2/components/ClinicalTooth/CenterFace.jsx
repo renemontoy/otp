@@ -27,21 +27,17 @@ function CenterFace({
     function handleClick() {
 
         if (disabled) {
-
             return;
-
         }
 
         onClick?.(id);
-
     }
+
 
     function handleKeyDown(event) {
 
         if (disabled) {
-
             return;
-
         }
 
         if (
@@ -57,68 +53,63 @@ function CenterFace({
 
     }
 
-    function handlePointerEnter(event) {
+function handlePointerEnter(event) {
 
-        if (disabled) {
+    onHover?.(
+        event,
+        id
+    );
 
-            return;
+}
 
-        }
 
-        onHover?.(
-            event,
-            id
-        );
+function handlePointerMove(event) {
 
-    }
+    if (
+        event.pointerType !== "mouse"
+    ) {
 
-    function handlePointerMove(event) {
-
-        if (
-            disabled ||
-            event.pointerType !== "mouse"
-        ) {
-
-            return;
-
-        }
-
-        onHover?.(
-            event,
-            id
-        );
+        return;
 
     }
 
-    function handlePointerDown(event) {
+    onHover?.(
+        event,
+        id
+    );
 
-        if (
-            disabled ||
-            event.pointerType === "mouse"
-        ) {
+}
 
-            return;
 
-        }
+function handlePointerDown(event) {
 
-        onHover?.(
-            event,
-            id
-        );
+    if (
+        event.pointerType === "mouse"
+    ) {
+
+        return;
+
+    }
+
+    onHover?.(
+        event,
+        id
+    );
+
+}
+
+
+function handlePointerLeave(event) {
+
+    if (
+        event.pointerType === "mouse"
+    ) {
+
+        onLeave?.();
 
     }
 
-    function handlePointerLeave(event) {
-
-        if (
-            event.pointerType === "mouse"
-        ) {
-
-            onLeave?.();
-
-        }
-
-    }
+}
 
     return (
 
