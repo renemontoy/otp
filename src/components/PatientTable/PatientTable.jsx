@@ -9,7 +9,7 @@ import {
 
 import { FaSearch } from "react-icons/fa";
 
-const DEFAULT_PAGE_SIZE = 6;
+const DEFAULT_PAGE_SIZE = 12;
 
 function normalizeText(value) {
 
