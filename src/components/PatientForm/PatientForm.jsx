@@ -2,9 +2,21 @@ import "./PatientForm.css";
 import { useState, useEffect} from "react"; 
 import PersonalDataStep from "./Steps/PersonalDataStep";
 import FamilyDataStep from "./Steps/FamilyDataStep";
-import MedicalDataStep from "./Steps/MedicalDataStep";
 import AntecedentesStep from "./Steps/AntecedentesStep";
-
+const patientFormSteps = [
+    {
+        number: 1,
+        title: "Datos personales"
+    },
+    {
+        number: 2,
+        title: "Antecedentes"
+    },
+    {
+        number: 3,
+        title: "Datos familiares"
+    }
+];
 function PatientForm({ mode, patient, onCancel, onSave }) {
 
     const [formData, setFormData] = useState({
@@ -217,24 +229,79 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
 
         <div className="patientFormCard">
 
-            {/*<h2>
+            <div className="patientFormHeader">
 
-                {mode === "create"
+                <div>
 
-                    ? "Nuevo Paciente"
+                    <span className="patientFormEyebrow">
+                        Expediente clínico
+                    </span>
 
-                    : "Editar Paciente"}
+                    <h2>
 
-            </h2>*/}
+                        {mode === "create"
+                            ? "Nuevo paciente"
+                            : "Editar paciente"}
 
-            {step === 1 && (
+                    </h2>
+
+                    {mode === "edit" && patient && (
+
+                        <p>
+                            {patient.nombre} {patient.apellido}
+                        </p>
+
+                    )}
+
+                </div>
+
+
+                <span className="patientFormStepCounter">
+
+                    {step} / {patientFormSteps.length}
+
+                </span>
+
+            </div>
+
+
+            <div className="patientFormProgress">
+
+                <div className="patientFormProgressHeader">
+
+                    <span>
+                        Paso {step}
+                    </span>
+
+                    <strong>
+                        {patientFormSteps[step - 1].title}
+                    </strong>
+
+                </div>
+
+
+                <div className="patientFormProgressBar">
+
+                    <div
+                        className="patientFormProgressValue"
+                        style={{
+                            width:
+                                `${(step / patientFormSteps.length) * 100}%`
+                        }}
+                    />
+
+                </div>
+
+            </div>
+
+
+            <div className="patientFormContent">
+
+                {step === 1 && (
 
                     <PersonalDataStep
-
                         formData={formData}
-
                         handleChange={handleChange}
-
                     />
 
                 )}
@@ -243,84 +310,95 @@ function PatientForm({ mode, patient, onCancel, onSave }) {
                 {step === 2 && (
 
                     <AntecedentesStep
-
                         formData={formData}
-
                         handleChange={handleChange}
-
                     />
 
                 )}
+
 
                 {step === 3 && (
 
                     <FamilyDataStep
-
                         formData={formData}
-
                         handleChange={handleChange}
-
                     />
 
                 )}
 
-                <div className="formButtons">
+            </div>
 
-                    {step == 1 ? (
 
-                        <button
+            <div className="patientFormFooter">
 
-                            className="cancelButton"
-                            onClick={() => onCancel()}
+                {step === 1 ? (
 
-                        >
+                    <button
+                        type="button"
+                        className="patientFormSecondaryButton"
+                        onClick={onCancel}
+                    >
 
-                            Cancelar
+                        Cancelar
 
-                        </button>
+                    </button>
 
-                    ) : (
+                ) : (
 
-                        <button
+                    <button
+                        type="button"
+                        className="patientFormSecondaryButton"
+                        onClick={() =>
+                            setStep(
+                                (current) =>
+                                    current - 1
+                            )
+                        }
+                    >
 
-                            className="cancelButton"
-                            onClick={() => setStep(step - 1)}
+                        ← Anterior
 
-                        >
+                    </button>
 
-                            Anterior
+                )}
 
-                        </button>
 
-                    )}
+                {step < patientFormSteps.length ? (
 
-                    {step < 3 ? (
+                    <button
+                        type="button"
+                        className="patientFormPrimaryButton"
+                        onClick={() =>
+                            setStep(
+                                (current) =>
+                                    current + 1
+                            )
+                        }
+                    >
 
-                        <button
-                            className="saveButton"
-                            onClick={() => setStep(step + 1)}
+                        Siguiente →
 
-                        >
+                    </button>
 
-                            Siguiente
+                ) : (
 
-                        </button>
+                    <button
+                        type="button"
+                        className="patientFormPrimaryButton"
+                        onClick={() =>
+                            onSave(formData)
+                        }
+                    >
 
-                    ) : (
+                        {mode === "create"
+                            ? "Guardar paciente"
+                            : "Guardar cambios"}
 
-                        <button
-                            className="saveButton"
-                            onClick={() => onSave(formData)}
+                    </button>
 
-                        >
+                )}
 
-                            Guardar
-
-                        </button>
-
-                    )}
-
-                </div>
+            </div>
 
         </div>
 

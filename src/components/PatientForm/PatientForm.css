@@ -1,113 +1,575 @@
-.patientFormCard{
+/* ========================================
+   PATIENT FORM CARD
+======================================== */
 
-    background:white;
-
-    border-radius:20px;
-
-    padding:25px;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.05);
-
-}
-
-.patientFormCard h2{
-
-    margin-bottom:25px;
-
-}
-
-.formGroup{
-
-    display:flex;
-
-    flex-direction:column;
-
-    margin-bottom:18px;
-
-}
-
-.formGroup label{
-
-    font-size:14px;
-
-    font-weight:600;
-
-    margin-bottom:6px;
-
-    color:#5d6877;
-
-}
-
-.formGroup input{
-
-    padding:12px;
-
-    border:1px solid #d9e2ec;
-
-    border-radius:10px;
-
-    outline:none;
-
-    font-size:15px;
-
-}
-
-.formGroup input:focus{
-
-    border-color:#173852;
-
-}
-
-.formButtons{
-
-    display:flex;
-
-    justify-content:flex-end;
-
-    gap:10px;
-
-    margin-top:20px;
-
-}
-
-.cancelButton{
-
-    border:none;
-
-    background:#eceff4;
-
-    padding:10px 18px;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-}
-
-.saveButton{
-
-    border:none;
-
-    background:#173852;
-
-    color:white;
-
-    padding:10px 18px;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-}
-
-
-
-.formGroup input,
-.formGroup select {
+.patientFormCard {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
+    height: 100%;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid #e5eaf0;
+    border-radius: 16px;
+
+    box-shadow:
+        0 2px 8px
+        rgba(15, 23, 42, 0.04);
+
     box-sizing: border-box;
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+.patientFormHeader {
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 14px;
+
+    flex: 0 0 auto;
+
+    padding: 18px 18px 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5f9fe,
+            #eef6fd
+        );
+
+    border-bottom:
+        1px solid
+        #e5edf5;
+}
+
+
+.patientFormEyebrow {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #4f7cab;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.06em;
+
+    text-transform: uppercase;
+}
+
+
+.patientFormHeader h2 {
+    margin: 0;
+
+    color: #203047;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    line-height: 1.25;
+
+    letter-spacing: -0.01em;
+}
+
+
+.patientFormHeader p {
+    margin: 3px 0 0;
+
+    color: #7a899b;
+
+    font-size: 10.5px;
+
+    line-height: 1.35;
+}
+
+
+.patientFormStepCounter {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    min-width: 42px;
+    height: 25px;
+
+    padding: 0 8px;
+
+    border-radius: 999px;
+
+    background: #ffffff;
+
+    color: #3973ad;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    box-shadow:
+        0 1px 3px
+        rgba(15, 23, 42, 0.06);
+}
+
+
+/* ========================================
+   PROGRESS
+======================================== */
+
+.patientFormProgress {
+    flex: 0 0 auto;
+
+    padding: 13px 18px;
+
+    background: #ffffff;
+
+    border-bottom:
+        1px solid
+        #eef2f6;
+}
+
+
+.patientFormProgressHeader {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 8px;
+}
+
+
+.patientFormProgressHeader span {
+    color: #94a3b8;
+
+    font-size: 9px;
+    font-weight: 600;
+}
+
+
+.patientFormProgressHeader strong {
+    color: #526173;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+.patientFormProgressBar {
+    width: 100%;
+    height: 4px;
+
+    overflow: hidden;
+
+    background: #e9eff5;
+
+    border-radius: 999px;
+}
+
+
+.patientFormProgressValue {
+    height: 100%;
+
+    background: #3973ad;
+
+    border-radius: inherit;
+
+    transition:
+        width 220ms ease;
+}
+
+
+/* ========================================
+   SCROLLABLE CONTENT
+======================================== */
+
+.patientFormContent {
+    flex: 1;
+
+    min-height: 0;
+
+    padding: 16px 18px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        #cbd5e1
+        transparent;
+}
+
+
+.patientFormContent::-webkit-scrollbar {
+    width: 5px;
+}
+
+
+.patientFormContent::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+.patientFormContent::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+
+    border-radius: 999px;
+}
+
+
+/* ========================================
+   FORM GROUP
+======================================== */
+
+/*
+    Las clases formGroup vienen de tus Steps.
+    Las encapsulamos dentro de PatientForm para
+    evitar afectar otros formularios.
+*/
+
+.patientFormCard .formGroup {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+
+    margin-bottom: 12px;
+}
+
+
+.patientFormCard .formGroup:last-child {
+    margin-bottom: 0;
+}
+
+
+.patientFormCard .formGroup label {
+    margin: 0;
+
+    color: #526173;
+
+    font-size: 10.5px;
+    font-weight: 600;
+
+    line-height: 1.4;
+}
+
+
+/* ========================================
+   INPUTS / SELECTS / TEXTAREAS
+======================================== */
+
+.patientFormCard
+.formGroup
+input:not([type="radio"]):not([type="checkbox"]),
+.patientFormCard
+.formGroup
+select,
+.patientFormCard
+.formGroup
+textarea {
+    width: 100%;
+
+    min-width: 0;
+    min-height: 38px;
+
+    padding: 8px 10px;
+
+    border: 1px solid #d9e2ec;
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #334155;
+
+    font-family: inherit;
+    font-size: 11.5px;
+
+    outline: none;
+
+    box-sizing: border-box;
+
+    transition:
+        border-color 150ms ease,
+        box-shadow 150ms ease;
+}
+
+
+.patientFormCard
+.formGroup
+input:not([type="radio"]):not([type="checkbox"]):focus,
+.patientFormCard
+.formGroup
+select:focus,
+.patientFormCard
+.formGroup
+textarea:focus {
+    border-color: #8eb5de;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(21, 86, 157, 0.07);
+}
+
+
+.patientFormCard
+.formGroup
+input::placeholder,
+.patientFormCard
+.formGroup
+textarea::placeholder {
+    color: #a4afbd;
+}
+
+
+.patientFormCard
+.formGroup
+textarea {
+    min-height: 72px;
+    max-height: 130px;
+
+    resize: vertical;
+
+    line-height: 1.4;
+}
+
+
+/* ========================================
+   DISABLED
+======================================== */
+
+.patientFormCard
+.formGroup
+input:disabled,
+.patientFormCard
+.formGroup
+select:disabled,
+.patientFormCard
+.formGroup
+textarea:disabled {
+    background: #f8fafc;
+
+    color: #94a3b8;
+
+    cursor: not-allowed;
+
+    opacity: 1;
+}
+
+
+/* ========================================
+   CHECKBOX / RADIO SUPPORT
+======================================== */
+
+.patientFormCard
+input[type="checkbox"],
+.patientFormCard
+input[type="radio"] {
+    width: 15px;
+    height: 15px;
+
+    flex: 0 0 auto;
+
+    margin: 0;
+
+    accent-color: #15569d;
+
+    cursor: pointer;
+}
+
+
+.patientFormCard .checkboxGroup {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px 12px;
+
+    margin-top: 4px;
+}
+
+
+.patientFormCard .checkboxGroup label {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin: 0;
+
+    color: #526173;
+
+    font-size: 10.5px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+.patientFormFooter {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    flex: 0 0 auto;
+
+    padding: 13px 18px;
+
+    border-top:
+        1px solid
+        #eef2f6;
+
+    background: #fafbfd;
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.patientFormSecondaryButton,
+.patientFormPrimaryButton {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 36px;
+
+    padding: 0 14px;
+
+    border-radius: 9px;
+
+    font-family: inherit;
+    font-size: 10.5px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 150ms ease,
+        border-color 150ms ease,
+        box-shadow 150ms ease;
+}
+
+
+.patientFormSecondaryButton {
+    border: 1px solid #d9e2ec;
+
+    background: #ffffff;
+
+    color: #526173;
+}
+
+
+.patientFormSecondaryButton:hover {
+    background: #f8fafc;
+
+    border-color: #cbd5e1;
+}
+
+
+.patientFormPrimaryButton {
+    border: 1px solid #15569d;
+
+    background: #15569d;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 2px 6px
+        rgba(21, 86, 157, 0.14);
+}
+
+
+.patientFormPrimaryButton:hover {
+    background: #104780;
+
+    border-color: #104780;
+}
+
+
+/* ========================================
+   SHORT LAPTOP
+======================================== */
+
+@media (max-height: 800px) {
+
+    .patientFormHeader {
+        padding:
+            14px
+            16px
+            12px;
+    }
+
+
+    .patientFormProgress {
+        padding:
+            10px
+            16px;
+    }
+
+
+    .patientFormContent {
+        padding:
+            12px
+            16px;
+    }
+
+
+    .patientFormCard .formGroup {
+        margin-bottom: 9px;
+    }
+
+
+    .patientFormFooter {
+        padding:
+            10px
+            16px;
+    }
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+
+    .patientFormHeader,
+    .patientFormProgress,
+    .patientFormContent,
+    .patientFormFooter {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+
+
+    .patientFormSecondaryButton,
+    .patientFormPrimaryButton {
+        flex: 1;
+    }
+
 }
