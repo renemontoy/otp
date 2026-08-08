@@ -5,10 +5,12 @@ import PatientProfile from "../components/PatientProfile/PatientProfile";
 import History from "../components/History/History";
 import UpcomingAppointments from "../components/UpcomingAppointments/UpcomingAppointments";
 import { useState, useEffect} from "react";    
-import {getPatients, createPatient, updatePatient, deactivatePatient, updatePatientStatus} from "../supabase/patients";
+import {getPatients, createPatient, updatePatient} from "../supabase/patients";
 import PatientForm from "../components/PatientForm/PatientForm";
 import ExploracionForm from "../components/Exploracion/Exploracion";
 import OdontogramModule from "../components/OdontogramV2/OdontogramModule";
+import { getExploracionStatus } from "../supabase/exploraciones";
+import { getInitialEvaluationStatus } from "../supabase/initialOdontogram";
 
 function Pacientes() {
 
@@ -17,6 +19,26 @@ function Pacientes() {
     const [selectedPatient, setSelectedPatient] = useState(null);
 
     const [panelMode, setPanelMode] = useState("profile");
+
+    const [
+        exploracionStatus,
+        setExploracionStatus
+    ] = useState(null);
+
+    const [
+        loadingExploracionStatus,
+        setLoadingExploracionStatus
+    ] = useState(false);
+
+    const [
+        odontogramStatus,
+        setOdontogramStatus
+    ] = useState(null);
+
+    const [
+        loadingOdontogramStatus,
+        setLoadingOdontogramStatus
+    ] = useState(false);
 
     async function loadPatients() {
 
@@ -37,6 +59,104 @@ function Pacientes() {
         }
 
     }
+
+    async function loadExploracionStatus(patientId) {
+
+        if (!patientId) {
+
+            setExploracionStatus(null);
+
+            return;
+        }
+
+        try {
+
+            setLoadingExploracionStatus(true);
+
+            const data =
+                await getExploracionStatus(patientId);
+
+            setExploracionStatus(data);
+
+        } catch (error) {
+
+            console.error(
+                "Error obteniendo estado de exploración:",
+                error
+            );
+
+            setExploracionStatus(null);
+
+        } finally {
+
+            setLoadingExploracionStatus(false);
+
+        }
+
+    }
+
+    async function loadOdontogramStatus(
+        patientId
+    ) {
+
+        if (!patientId) {
+
+            setOdontogramStatus(null);
+
+            return;
+        }
+
+        try {
+
+            setLoadingOdontogramStatus(true);
+
+            const data =
+                await getInitialEvaluationStatus(
+                    patientId
+                );
+
+            setOdontogramStatus(data);
+
+        } catch (error) {
+
+            console.error(
+                "Error obteniendo estado del odontograma:",
+                error
+            );
+
+            setOdontogramStatus(null);
+
+        } finally {
+
+            setLoadingOdontogramStatus(false);
+
+        }
+
+    }
+
+    useEffect(() => {
+
+        if (!selectedPatient?.id) {
+            return;
+        }
+
+        loadExploracionStatus(
+            selectedPatient.id
+        );
+
+        loadOdontogramStatus(
+            selectedPatient.id
+        );
+
+    }, [selectedPatient?.id]);
+
+    useEffect(() => {
+
+        loadExploracionStatus(
+            selectedPatient?.id
+        );
+
+    }, [selectedPatient?.id]);
 
     useEffect(() => {
         loadPatients();
@@ -103,89 +223,20 @@ function Pacientes() {
 
         <OdontogramModule
             patient={selectedPatient}
-            onCancel={() => setPanelMode("profile")}
+            onCancel={async () => {
+
+                await loadOdontogramStatus(
+                    selectedPatient.id
+                );
+
+                setPanelMode("profile");
+
+            }}
         />
-
     );
 
 }
 
-async function handleTogglePatientStatus(patient) {
-
-    if (!patient?.id) {
-        return;
-    }
-
-    const newStatus = !patient.status;
-
-    const patientName = [
-        patient.nombre,
-        patient.apellido
-    ]
-        .filter(Boolean)
-        .join(" ");
-
-    const action =
-        newStatus
-            ? "activar"
-            : "desactivar";
-
-    const confirmed = window.confirm(
-        `¿Deseas ${action} al paciente ${patientName}?`
-    );
-
-    if (!confirmed) {
-        return;
-    }
-
-    try {
-
-        const updatedPatient =
-            await updatePatientStatus(
-                patient.id,
-                newStatus
-            );
-
-        setPatients((previousPatients) =>
-
-            previousPatients.map((item) =>
-
-                item.id === updatedPatient.id
-                    ? {
-                        ...item,
-                        status: updatedPatient.status
-                    }
-                    : item
-
-            )
-
-        );
-
-        if (
-            selectedPatient?.id ===
-            updatedPatient.id
-        ) {
-
-            setSelectedPatient((previous) => ({
-                ...previous,
-                status: updatedPatient.status
-            }));
-
-        }
-
-    } catch (error) {
-
-        console.error(
-            "Error al cambiar estado del paciente:",
-            error
-        );
-
-        alert(
-            "No fue posible cambiar el estado del paciente."
-        );
-
-    }
-}
     return (
         <div className="patientsPage">
 
@@ -202,16 +253,13 @@ async function handleTogglePatientStatus(patient) {
             <div className="patientsLayout">
 
                 <main className="patientsMain">
-
                     <PatientTable
                         patients={patients}
                         onSelectPatient={setSelectedPatient}
                         selectedPatient={selectedPatient}
-                        onCreatePatient={() => setPanelMode("create")}
-                        onEditPatient={() => setPanelMode("edit")}
-                        onOdontogramPatient={() => setPanelMode("odontogram")}
-                        onExploracionPatient={() => setPanelMode("exploracion")}
-                        onTogglePatientStatus={handleTogglePatientStatus}
+                        onCreatePatient={() =>
+                            setPanelMode("create")
+                        }
                     />
 
                 </main>
@@ -220,11 +268,31 @@ async function handleTogglePatientStatus(patient) {
 
                     {panelMode === "profile" && (
                         <div className="patientSummaryCard">
-
                             <PatientProfile
                                 patient={selectedPatient}
-                            />
 
+                                exploracion={exploracionStatus}
+                                loadingExploracion={
+                                    loadingExploracionStatus
+                                }
+
+                                odontogram={odontogramStatus}
+                                loadingOdontogram={
+                                    loadingOdontogramStatus
+                                }
+
+                                onEditPatient={() =>
+                                    setPanelMode("edit")
+                                }
+
+                                onOpenExploracion={() =>
+                                    setPanelMode("exploracion")
+                                }
+
+                                onOpenOdontogram={() =>
+                                    setPanelMode("odontogram")
+                                }
+                            />
                             <History
                                 patientId={selectedPatient?.id}
                             />
@@ -261,9 +329,15 @@ async function handleTogglePatientStatus(patient) {
                             onCancel={() =>
                                 setPanelMode("profile")
                             }
-                            onSave={() =>
-                                setPanelMode("profile")
-                            }
+                            onSave={async () => {
+
+                                await loadExploracionStatus(
+                                    selectedPatient.id
+                                );
+
+                                setPanelMode("profile");
+
+                            }}
                         />
                     )}
 

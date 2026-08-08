@@ -1,4 +1,3 @@
-import ActionMenu from "../ActionMenu/ActionMenu";
 import "./PatientTable.css";
 
 import {
@@ -49,14 +48,6 @@ function PatientTable({
     selectedPatient,
 
     onCreatePatient,
-
-    onEditPatient,
-
-    onOdontogramPatient,
-
-    onExploracionPatient,
-
-    onTogglePatientStatus
 
 }) {
 
@@ -356,8 +347,6 @@ function PatientTable({
 
                             <th>Estado</th>
 
-                            <th aria-label="Acciones" />
-
                         </tr>
 
                     </thead>
@@ -447,46 +436,6 @@ function PatientTable({
                                                     : "Inactivo"}
 
                                             </span>
-
-                                        </td>
-
-                                        <td
-                                            className="patientActionsCell"
-                                            onClick={(event) =>
-                                                event.stopPropagation()
-                                            }
-                                        >
-
-                                        <ActionMenu
-                                            isActive={patient.status}
-
-                                            onEdit={() => {
-
-                                                onSelectPatient(patient);
-                                                onEditPatient();
-
-                                            }}
-
-                                            onToggleStatus={() => {
-
-                                                onTogglePatientStatus(patient);
-
-                                            }}
-
-                                            onOdontogram={() => {
-
-                                                onSelectPatient(patient);
-                                                onOdontogramPatient();
-
-                                            }}
-
-                                            onExploracion={() => {
-
-                                                onSelectPatient(patient);
-                                                onExploracionPatient();
-
-                                            }}
-                                        />
 
                                         </td>
 

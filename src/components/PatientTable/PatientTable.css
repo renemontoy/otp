@@ -1,4 +1,26 @@
 /* ========================================
+   PATIENT TABLE CARD
+======================================== */
+
+.tableCard {
+    width: 100%;
+    min-width: 0;
+
+    padding: 4px 18px 16px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5eaf0;
+    border-radius: 16px;
+
+    box-shadow:
+        0 2px 8px
+        rgba(15, 23, 42, 0.04);
+
+    box-sizing: border-box;
+}
+
+/* ========================================
    PATIENT TABLE MODULE
 ======================================== */
 
@@ -14,20 +36,19 @@
 
 
 /* ========================================
-   TOOLBAR
+   FILTER TOOLBAR CARD
 ======================================== */
 
 .patientTableToolbar {
     display: flex;
-
     align-items: center;
     justify-content: space-between;
 
-    gap: 20px;
+    gap: 16px;
 
     width: 100%;
 
-    padding: 16px 18px;
+    padding: 16px 20px;
 
     background: #ffffff;
 
@@ -42,6 +63,11 @@
 }
 
 
+
+.patientTableControls {
+    display: grid;
+}
+
 /* ========================================
    SEARCH
 ======================================== */
@@ -51,9 +77,8 @@
     align-items: center;
 
     width: 100%;
-    max-width: 470px;
+    max-width: 460px;
     min-width: 0;
-
     height: 40px;
 
     padding: 0 13px;
@@ -63,15 +88,8 @@
 
     background: #ffffff;
 
-    color: #64748b;
-
     box-sizing: border-box;
-
-    transition:
-        border-color 150ms ease,
-        box-shadow 150ms ease;
 }
-
 
 .search:focus-within {
     border-color: #8eb5de;
@@ -96,24 +114,58 @@
 
     width: 100%;
     min-width: 0;
-    height: 100%;
-
-    padding: 0 10px;
 
     border: none;
     outline: none;
 
     background: transparent;
 
-    color: #334155;
-
-    font-family: inherit;
     font-size: 13px;
 }
 
-
 .search input::placeholder {
     color: #94a3b8;
+}
+
+
+/* ========================================
+   FILTERS
+======================================== */
+
+.patientFilter {
+    width: 100%;
+    min-width: 0;
+    height: 40px;
+
+    padding: 0 34px 0 14px;
+
+    border: 1px solid #dce3eb;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #475569;
+
+    font-size: 13px;
+
+    outline: none;
+    cursor: pointer;
+
+    box-sizing: border-box;
+}
+
+
+.patientFilter:hover {
+    border-color: #c5d0dc;
+}
+
+
+.patientFilter:focus {
+    border-color: #8eb5de;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(21, 86, 157, 0.07);
 }
 
 
@@ -123,7 +175,6 @@
 
 .newPatientButton {
     display: inline-flex;
-
     align-items: center;
     justify-content: center;
 
@@ -138,10 +189,8 @@
     border-radius: 10px;
 
     background: #15569d;
-
     color: #ffffff;
 
-    font-family: inherit;
     font-size: 13px;
     font-weight: 600;
 
@@ -152,13 +201,7 @@
     box-shadow:
         0 3px 8px
         rgba(21, 86, 157, 0.14);
-
-    transition:
-        background-color 150ms ease,
-        box-shadow 150ms ease,
-        transform 150ms ease;
 }
-
 
 .newPatientButton:hover {
     background: #104780;
@@ -175,35 +218,11 @@
 
 
 /* ========================================
-   TABLE CARD
-======================================== */
-
-.tableCard {
-    width: 100%;
-    min-width: 0;
-
-    padding: 4px 18px 16px;
-
-    background: #ffffff;
-
-    border: 1px solid #e5eaf0;
-    border-radius: 16px;
-
-    box-shadow:
-        0 2px 8px
-        rgba(15, 23, 42, 0.04);
-
-    box-sizing: border-box;
-}
-
-
-/* ========================================
    TABLE WRAPPER
 ======================================== */
 
 .patientTableWrapper {
     width: 100%;
-    min-width: 0;
 
     overflow-x: auto;
 }
@@ -215,88 +234,67 @@
 
 .patientTableWrapper table {
     width: 100%;
-    min-width: 700px;
+    min-width: 0;
 
     border-collapse: collapse;
-
     table-layout: fixed;
 }
-
-
-/* ========================================
-   COLUMN WIDTHS
-
-   1 = Nombre
-   2 = Edad
-   3 = Teléfono
-   4 = Estado
-   5 = Acciones
-
-   Nombre no recibe width fijo,
-   por lo que utiliza todo el
-   espacio disponible.
-======================================== */
-
-
-/* Edad */
 
 .patientTableWrapper th:nth-child(2),
 .patientTableWrapper td:nth-child(2) {
     width: 90px;
-
-    white-space: nowrap;
 }
 
-
 /* Teléfono */
-
 .patientTableWrapper th:nth-child(3),
 .patientTableWrapper td:nth-child(3) {
     width: 170px;
-
-    white-space: nowrap;
 }
-
 
 /* Estado */
-
 .patientTableWrapper th:nth-child(4),
 .patientTableWrapper td:nth-child(4) {
-    width: 120px;
-
-    white-space: nowrap;
+    width: 110px;
 }
-
 
 /* Acciones */
-
 .patientTableWrapper th:nth-child(5),
 .patientTableWrapper td:nth-child(5) {
-    width: 48px;
+    width: 52px;
 }
 
+.patientTableWrapper th:nth-child(2),
+.patientTableWrapper td:nth-child(2),
+.patientTableWrapper th:nth-child(3),
+.patientTableWrapper td:nth-child(3),
+.patientTableWrapper th:nth-child(4),
+.patientTableWrapper td:nth-child(4) {
+    white-space: nowrap;
+}
 
 /* ========================================
    TABLE HEADER
 ======================================== */
 
 .patientTableWrapper thead {
-    border-bottom: 1px solid #e8edf3;
+    border-bottom:
+        1px solid
+        #e8edf3;
 }
 
 
 .patientTableWrapper th {
-    padding: 13px 12px;
+    padding: 12px 12px;
 
-    color: #8492a6;
+    color: #8a98aa;
 
     font-size: 11px;
     font-weight: 600;
 
-    letter-spacing: 0.01em;
+    letter-spacing: 0.02em;
 
     text-align: left;
-    vertical-align: middle;
+    white-space: nowrap;
 }
 
 
@@ -305,32 +303,37 @@
 ======================================== */
 
 .patientTableWrapper td {
-    padding: 14px 12px;
+    padding: 8px 12px;
 
-    border-bottom: 1px solid #eef2f6;
+    border-bottom:
+        1px solid
+        #eef2f6;
 
     color: #526173;
 
     font-size: 13px;
+
+    font-weight: 400;
 
     vertical-align: middle;
 }
 
 
 .patientTableWrapper tbody tr:last-child td {
-    border-bottom: none;
+    border-bottom: 0;
 }
 
 
 /* ========================================
-   PATIENT ROW
+   ROW INTERACTIONS
 ======================================== */
 
 .patientTableWrapper tbody tr {
     cursor: pointer;
 
     transition:
-        background-color 120ms ease;
+        background-color
+        120ms ease;
 }
 
 
@@ -360,13 +363,12 @@ td:first-child {
 
 .patientIdentity {
     display: flex;
-
     align-items: center;
 
     gap: 11px;
 
-    width: 100%;
     min-width: 0;
+    width: 100%;
 }
 
 
@@ -379,7 +381,7 @@ td:first-child {
     width: 34px;
     height: 34px;
 
-    flex: 0 0 34px;
+    flex-shrink: 0;
 
     border-radius: 50%;
 
@@ -387,7 +389,7 @@ td:first-child {
 
     color: #28619e;
 
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
 
     letter-spacing: 0.02em;
@@ -395,9 +397,9 @@ td:first-child {
 
 
 .patientName {
-    width: 100%;
     min-width: 0;
     max-width: none;
+    width: 100%;
 
     overflow: hidden;
 
@@ -409,10 +411,8 @@ td:first-child {
     line-height: 1.35;
 
     white-space: nowrap;
-
     text-overflow: ellipsis;
 }
-
 
 /* ========================================
    STATUS
@@ -428,10 +428,10 @@ td:first-child {
 
     padding: 4px 9px;
 
-    border: none;
+    border: 0;
     border-radius: 999px;
 
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 600;
 
     line-height: 1.3;
@@ -457,7 +457,7 @@ td:first-child {
 ======================================== */
 
 .patientActionsCell {
-    width: 48px;
+    width: 42px;
 
     padding-left: 4px !important;
     padding-right: 4px !important;
@@ -482,7 +482,7 @@ td:first-child {
 
 
 /* ========================================
-   PAGINATION FOOTER
+   PAGINATION
 ======================================== */
 
 .paginationFooter {
@@ -491,23 +491,21 @@ td:first-child {
     align-items: center;
     justify-content: space-between;
 
-    gap: 16px;
+    gap: 14px;
 
     margin-top: 8px;
     padding-top: 16px;
 
-    border-top: 1px solid #eef2f6;
+    border-top:
+        1px solid
+        #eef2f6;
 }
 
-
-/* ========================================
-   PAGINATION SUMMARY
-======================================== */
 
 .paginationSummary {
     color: #7c899a;
 
-    font-size: 11px;
+    font-size: 12px;
 }
 
 
@@ -518,30 +516,24 @@ td:first-child {
 }
 
 
-/* ========================================
-   PAGINATION CONTROLS
-======================================== */
-
 .paginationControls {
     display: flex;
-
     align-items: center;
 
-    gap: 6px;
+    gap: 5px;
 }
 
-
-/* ========================================
-   PAGE SIZE
-======================================== */
 
 .pageSizeSelect {
     height: 34px;
 
-    margin-right: 4px;
-    padding: 0 10px;
+    margin-right: 5px;
+    padding: 0 9px;
 
-    border: 1px solid #e2e8f0;
+    border:
+        1px solid
+        #e2e8f0;
+
     border-radius: 8px;
 
     background: #ffffff;
@@ -557,19 +549,10 @@ td:first-child {
 }
 
 
-.pageSizeSelect:hover {
-    border-color: #cbd5e1;
-}
-
-
 .pageSizeSelect:focus {
     border-color: #8eb5de;
 }
 
-
-/* ========================================
-   PAGINATION BUTTONS
-======================================== */
 
 .paginationButton {
     display: inline-flex;
@@ -582,7 +565,10 @@ td:first-child {
 
     padding: 0 8px;
 
-    border: 1px solid #e3e9ef;
+    border:
+        1px solid
+        #e3e9ef;
+
     border-radius: 8px;
 
     background: #ffffff;
@@ -596,7 +582,7 @@ td:first-child {
     cursor: pointer;
 
     transition:
-        background-color 120ms ease,
+        background 120ms ease,
         border-color 120ms ease,
         color 120ms ease;
 }
@@ -628,80 +614,84 @@ td:first-child {
 
 
 /* ========================================
-   SMALL LAPTOP / TABLET
+   LAPTOP
 ======================================== */
 
-@media (max-width: 1000px) {
+@media (max-width: 1250px) {
 
-    .search {
-        max-width: 400px;
+    .patientTableToolbar {
+        grid-template-columns:
+            minmax(240px, 1fr)
+            165px
+            165px
+            auto;
+
+        gap: 10px;
     }
 
 
-    .newPatientButton {
-        min-width: 165px;
+    .patientTableWrapper th,
+    .patientTableWrapper td {
+        padding-left: 9px;
+        padding-right: 9px;
     }
 
 
-    .patientTableWrapper th:nth-child(2),
-    .patientTableWrapper td:nth-child(2) {
-        width: 70px;
-    }
-
-
-    .patientTableWrapper th:nth-child(3),
-    .patientTableWrapper td:nth-child(3) {
-        width: 145px;
-    }
-
-
-    .patientTableWrapper th:nth-child(4),
-    .patientTableWrapper td:nth-child(4) {
-        width: 100px;
+    .patientName {
+        max-width: 170px;
     }
 
 }
 
 
 /* ========================================
-   MOBILE
+   SMALL LAPTOP / TABLET
+======================================== */
+
+@media (max-width: 1100px) {
+
+    .tableHeader {
+        grid-template-columns: 1fr;
+    }
+
+
+    .patientTableControls {
+        grid-template-columns:
+            minmax(220px, 1fr)
+            150px
+            150px;
+    }
+
+
+    .newPatientButton {
+        justify-self: end;
+    }
+
+}
+
+
+/* ========================================
+   MOBILE / NARROW TABLET
 ======================================== */
 
 @media (max-width: 700px) {
 
-    .patientTableModule {
-        gap: 12px;
-    }
-
-
-    .patientTableToolbar {
-        flex-direction: column;
-
-        align-items: stretch;
-
-        gap: 10px;
-
+    .tableCard {
         padding: 14px;
+
+        border-radius: 14px;
     }
 
 
-    .search {
-        max-width: none;
+    .patientTableControls {
+        grid-template-columns: 1fr;
     }
 
 
     .newPatientButton {
         width: 100%;
-        min-width: 0;
-    }
 
-
-    .tableCard {
-        padding:
-            4px 12px
-            14px;
-
-        border-radius: 14px;
+        justify-self: stretch;
     }
 
 
@@ -721,6 +711,96 @@ td:first-child {
         justify-content: center;
 
         flex-wrap: wrap;
+    }
+
+}
+
+@media (max-width: 1350px) {
+
+    .patientTableControls {
+        grid-template-columns:
+            minmax(240px, 1fr)
+            165px
+            165px;
+    }
+
+}
+
+
+@media (max-width: 1150px) {
+
+    .patientTableToolbar {
+        grid-template-columns: 1fr;
+    }
+
+
+    .patientTableControls {
+        grid-template-columns:
+            minmax(220px, 1fr)
+            170px
+            170px;
+    }
+
+
+    .newPatientButton {
+        justify-self: end;
+    }
+
+}
+
+
+@media (max-width: 750px) {
+
+    .patientTableToolbar {
+        padding: 14px;
+    }
+
+
+    .patientTableControls {
+        grid-template-columns: 1fr;
+    }
+
+
+    .newPatientButton {
+        width: 100%;
+
+        justify-self: stretch;
+    }
+
+}
+
+@media (max-width: 1050px) {
+
+    .patientTableToolbar {
+        grid-template-columns:
+            minmax(220px, 1fr)
+            170px
+            170px;
+    }
+
+
+    .newPatientButton {
+        grid-column: 1 / -1;
+
+        justify-self: end;
+    }
+
+}
+
+@media (max-width: 900px) {
+
+    .patientTableToolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search {
+        max-width: none;
+    }
+
+    .newPatientButton {
+        width: 100%;
+        min-width: 0;
     }
 
 }

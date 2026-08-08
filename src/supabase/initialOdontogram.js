@@ -471,3 +471,50 @@ export async function finalizeInitialEvaluation(
 
     return data;
 }
+
+export async function getInitialEvaluationStatus(
+    patientId
+) {
+
+    if (!patientId) {
+        return null;
+    }
+
+    const {
+        data,
+        error
+    } = await supabase
+
+        .from("odontograma_evaluaciones")
+
+        .select(`
+            id,
+            estado,
+            updated_at
+        `)
+
+        .eq(
+            "paciente_id",
+            patientId
+        )
+
+        .eq(
+            "tipo",
+            "Inicial"
+        )
+
+        .maybeSingle();
+
+
+    if (error) {
+
+        console.error(
+            "Error consultando estado odontograma:",
+            error
+        );
+
+        throw error;
+    }
+
+    return data;
+}

@@ -2,7 +2,8 @@ import "./PatientProfile.css";
 
 import {
     FaUser,
-    FaNotesMedical
+    FaNotesMedical,
+    FaClipboardCheck
 } from "react-icons/fa";
 
 
@@ -56,22 +57,57 @@ function formatBirthDate(date) {
 }
 
 
-function PatientProfile({ patient }) {
+    function PatientProfile({
+        patient,
 
-    if (!patient) {
+        exploracion,
+        loadingExploracion,
 
-        return (
+        odontogram,
+        loadingOdontogram,
 
-            <div className="patientProfileLoading">
+        onEditPatient,
+        onOpenExploracion,
+        onOpenOdontogram
+    }) {
 
-                Cargando paciente...
+        if (!patient) {
 
-            </div>
+            return (
 
-        );
+                <div className="patientProfileLoading">
+
+                    Cargando paciente...
+
+                </div>
+
+            );
+
+        }
+
+    function formatExplorationDate(date) {
+
+        if (!date) {
+            return "";
+        }
+
+        const parsedDate =
+            new Date(date);
+
+        if (Number.isNaN(parsedDate.getTime())) {
+            return "";
+        }
+
+        return new Intl.DateTimeFormat(
+            "es-MX",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        ).format(parsedDate);
 
     }
-
 
     return (
 
@@ -123,15 +159,28 @@ function PatientProfile({ patient }) {
 
                 <div className="patientProfileSectionTitle">
 
-                    <span className="patientProfileSectionIcon">
+                    <div className="patientProfileSectionHeading">
 
-                        <FaUser />
+                        <span className="patientProfileSectionIcon">
 
-                    </span>
+                            <FaUser />
 
-                    <h3>
-                        Datos personales
-                    </h3>
+                        </span>
+
+                        <h3>
+                            Datos personales
+                        </h3>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        className="patientProfileEditButton"
+                        onClick={onEditPatient}
+                    >
+                        Editar
+                    </button>
 
                 </div>
 
@@ -270,6 +319,164 @@ function PatientProfile({ patient }) {
                         </span>
 
                     </div>
+
+                </div>
+
+            </div>
+
+            {/* EXPEDIENTE CLÍNICO */}
+
+            <div className="patientProfileSection">
+
+                <div className="patientProfileSectionTitle">
+
+                    <span className="patientProfileSectionIcon">
+
+                        <FaClipboardCheck />
+
+                    </span>
+
+                    <h3>
+                        Expediente clínico
+                    </h3>
+
+                </div>
+
+                <div className="patientProfileClinicalItem">
+
+                    <div className="patientProfileClinicalInfo">
+
+                        <span className="patientProfileClinicalName">
+
+                            Odontograma inicial
+
+                        </span>
+
+
+                        {loadingOdontogram ? (
+
+                            <span className="patientProfileClinicalLoading">
+
+                                Consultando...
+
+                            </span>
+
+                        ) : odontogram?.estado === "Finalizado" ? (
+
+                            <div className="patientProfileClinicalMeta">
+
+                                <span className="patientProfileClinicalCompleted">
+
+                                    Finalizado
+
+                                </span>
+
+                            </div>
+
+                        ) : odontogram?.estado === "Borrador" ? (
+
+                            <div className="patientProfileClinicalMeta">
+
+                                <span className="patientProfileClinicalDraft">
+
+                                    En progreso
+
+                                </span>
+
+                            </div>
+
+                        ) : (
+
+                            <span className="patientProfileClinicalPending">
+
+                                Pendiente
+
+                            </span>
+
+                        )}
+
+                    </div>
+
+
+                    {!loadingOdontogram && (
+
+                        <button
+                            type="button"
+                            className="patientProfileClinicalButton"
+                            onClick={onOpenOdontogram}
+                        >
+
+                            {odontogram?.estado === "Finalizado"
+                                ? "Ver"
+                                : odontogram?.estado === "Borrador"
+                                    ? "Continuar"
+                                    : "Realizar"}
+
+                        </button>
+
+                    )}
+
+                </div>
+
+                <div className="patientProfileClinicalItem">
+
+                    <div className="patientProfileClinicalInfo">
+
+                        <span className="patientProfileClinicalName">
+                            Exploración clínica
+                        </span>
+
+
+                        {loadingExploracion ? (
+
+                            <span className="patientProfileClinicalLoading">
+                                Consultando...
+                            </span>
+
+                        ) : exploracion ? (
+
+                            <div className="patientProfileClinicalMeta">
+
+                                <span className="patientProfileClinicalCompleted">
+                                    Realizada
+                                </span>
+
+                                <span className="patientProfileClinicalDate">
+
+                                    {formatExplorationDate(
+                                        exploracion.fecha_exploracion
+                                    )}
+
+                                </span>
+
+                            </div>
+
+                        ) : (
+
+                            <span className="patientProfileClinicalPending">
+                                Pendiente
+                            </span>
+
+                        )}
+
+                    </div>
+
+
+                    {!loadingExploracion && (
+
+                        <button
+                            type="button"
+                            className="patientProfileClinicalButton"
+                            onClick={onOpenExploracion}
+                        >
+
+                            {exploracion
+                                ? "Ver / Editar"
+                                : "Realizar"}
+
+                        </button>
+
+                    )}
 
                 </div>
 

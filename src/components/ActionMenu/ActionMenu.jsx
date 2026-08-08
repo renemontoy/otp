@@ -9,9 +9,7 @@ import "./ActionMenu.css";
 function ActionMenu({
     isActive,
     onEdit,
-    onToggleStatus,
-    onOdontogram,
-    onExploracion
+    onToggleStatus
 }) {
 
     const [open, setOpen] =
@@ -93,32 +91,6 @@ function ActionMenu({
                     >
 
                         Datos personales
-
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={() =>
-                            handleAction(
-                                onOdontogram
-                            )
-                        }
-                    >
-
-                        Odontograma
-
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={() =>
-                            handleAction(
-                                onExploracion
-                            )
-                        }
-                    >
-
-                        Exploración
 
                     </button>
 

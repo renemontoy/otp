@@ -56,3 +56,22 @@ export async function updateExploracion(
 
     return data;
 }
+
+export async function getExploracionStatus(patientId) {
+
+    const { data, error } = await supabase
+        .from("exploraciones")
+        .select(`
+            id,
+            fecha_exploracion,
+            updated_at
+        `)
+        .eq("paciente_id", patientId)
+        .maybeSingle();
+
+    if (error) {
+        throw error;
+    }
+
+    return data;
+}
