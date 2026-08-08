@@ -462,3 +462,38 @@ input[type="radio"] {
     }
 
 }
+
+.explorationSaveError {
+    margin: 0 20px 12px;
+
+    padding: 10px 12px;
+
+    border: 1px solid #f2caca;
+    border-radius: 9px;
+
+    background: #fdf2f2;
+
+    color: #b4534d;
+
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.explorationInputError {
+    border-color: #d97872 !important;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(185, 70, 63, 0.06);
+}
+
+.explorationFieldError {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #b4534d;
+
+    font-size: 10px;
+    font-weight: 500;
+}

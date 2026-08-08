@@ -32,6 +32,7 @@ function TejidosBlandosDataStep2({
                 name="carrillos"
                 value={formData.carrillos}
                 options={[
+                    { value: "normal", label: "Sin alteraciones" },
                     { value: "linea_alba", label: "Línea alba o clusat" },
                     { value: "mordisqueo", label: "Mordisqueo" }
                 ]}
@@ -64,8 +65,9 @@ function TejidosBlandosDataStep2({
                 name="piso_boca"
                 value={formData.piso_boca}
                 options={[
+                    { value: "normal", label: "Sin alteraciones" },
                     { value: "agrandamientos", label: "Agrandamientos" },
-                    { value: "tonus", label: "Tonus" },
+                    { value: "torus", label: "Torus" },
                     { value: "unilateral", label: "Unilateral" },
                     { value: "bilateral", label: "Bilateral" },
                 ]}

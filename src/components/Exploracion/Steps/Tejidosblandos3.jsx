@@ -1,11 +1,12 @@
 import "../Exploracion.css";
 import { useState, useEffect } from "react";
 import RadioGroup from "../../Form/RadioGroup";
+import CheckboxGroup from "../../Form/CheckboxGroup";
 
 function TejidosBlandosDataStep3({
     formData,
-
-    handleChange
+    handleChange,
+    handleCheckboxChange  
 
 }){
 
@@ -45,15 +46,22 @@ function TejidosBlandosDataStep3({
                 value={formData.encias_textura}
                 onChange={handleChange}
             />
-            <RadioGroup
-                label=""
-                name="encias"
-                value={formData.encias}
+            <CheckboxGroup
+                label="Hallazgos"
+                values={formData}
                 options={[
-                    { value: "sangrado", label: "Sangrado" },
-                    { value: "exudado", label: "Exudado" }
+                    {
+                        name: "encias_sangrado",
+                        value: "sangrado",
+                        label: "Sangrado"
+                    },
+                    {
+                        name: "encias_exudado",
+                        value: "exudado",
+                        label: "Exudado"
+                    }
                 ]}
-                onChange={handleChange}
+                onChange={handleCheckboxChange}
             />
             <label
             >Otros (especificar):</label>

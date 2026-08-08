@@ -19,6 +19,7 @@ function CabezaCuelloDataStep({
             name="cabeza"
             value={formData.cabeza}
             options={[
+                { value: "normal", label: "Sin alteraciones" },
                 { value: "exostosis", label: "Exostosis" },
                 { value: "endostosis", label: "Endostosis" }
             ]}
@@ -42,6 +43,7 @@ function CabezaCuelloDataStep({
             name="cara"
             value={formData.cara}
             options={[
+                { value: "simetrica", label: "Simétrica" },
                 { value: "asimetrias_transversales", label: "Asimetrías transversales" },
                 { value: "asimetrias_longitudinales", label: "Asimetrías longitudinales" },
 
@@ -78,9 +80,10 @@ function CabezaCuelloDataStep({
             name="musculos"
             value={formData.musculos}
             options={[
+                { value: "normotonicos", label: "Normotónicos" },
                 { value: "hipotonicos", label: "Hipotónicos" },
                 { value: "hipertonicos", label: "Hipertónicos" },
-                { value: "epasticos", label: "Epásticos" },
+                { value: "espasticos", label: "Espásticos" },
             ]}
             onChange={handleChange}
         />

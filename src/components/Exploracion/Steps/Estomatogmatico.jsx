@@ -139,11 +139,23 @@ function EstomagoDataStep({
             name="plano_terminal_denticion_primaria"
             value={formData.plano_terminal_denticion_primaria}
             options={[
-                { value: "denticion_primaria", label: "Plano terminal en dentición primaria" },
-                { value: "escalon_mesial", label: "Escalón mesial" },
-                { value: "escalon_distal", label: "Escalón distal" },
-                { value: "plano_terminal_recto", label: "Plano terminal recto" },
-            ]}
+                    {
+                        value: "escalon_mesial",
+                        label: "Escalón mesial"
+                    },
+                    {
+                        value: "escalon_distal",
+                        label: "Escalón distal"
+                    },
+                    {
+                        value: "plano_terminal_recto",
+                        label: "Plano terminal recto"
+                    },
+                    {
+                        value: "na",
+                        label: "No aplica"
+                    }
+                ]}
             onChange={handleChange}
         />
             </div>

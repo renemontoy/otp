@@ -7,96 +7,181 @@ import EstomagoDataStep from "./Steps/Estomatogmatico";
 import TejidosBlandosDataStep2 from "./Steps/Tejidosblandos2";
 import TejidosBlandosDataStep3 from "./Steps/Tejidosblandos3";
 import { getExploracionByPatient, createExploracion, updateExploracion } from "../../supabase/exploraciones";
+const INITIAL_FORM_DATA = {
 
-function ExploracionForm({ mode, patient, onCancel, onSave }) {
+    // Signos vitales
+    peso: "",
+    talla: "",
+    complexion: "",
+    frecuencia_cardiaca: "",
+    tension_arterial: "",
+    frecuencia_respiratoria: "",
+    temperatura: "",
+    glucosa: "",
 
-    const initialFormData = {
+    // Cabeza y cuello
+    cabeza: "",
+    craneo: "",
+    cara: "",
+    perfil: "",
+    piel: "",
+    musculos: "",
+    cuello: "",
+    otros_cabeza_cuello: "",
 
-        // Signos vitales
-        peso: "",
-        talla: "",
-        complexion: "",
-        frecuencia_cardiaca: "",
-        tension_arterial: "",
-        frecuencia_respiratoria: "",
-        temperatura: "",
-        glucosa: "",
+    // Aparato estomatognático
+    ruidos: "",
+    chasquidos: "",
+    crepitacion: "",
+    dificultad_abrir_boca: "",
+    dolor_abertura: "",
+    fatiga_dolor_muscular: "",
+    disminucion_abertura: "",
+    desviacion_abertura: "",
+    desgastes: "",
+    bruxismo: "",
+    oclusion: "",
+    tipo_oclusion: "",
+    plano_terminal_denticion_primaria: "",
 
-        // Cabeza y cuello
-        cabeza: "",
-        craneo: "",
-        cara: "",
-        perfil: "",
-        piel: "",
-        musculos: "",
-        cuello: "",
-        otros_cabeza_cuello: "",
+    // Labios
+    resequedad: "",
+    labios_forma: "",
+    labios_color: "",
+    labios_defectos: "",
+    labios_especificar: "",
 
-        // Aparato estomatognático
-        ruidos: "",
-        chasquidos: "",
-        crepitacion: "",
-        dificultad_abrir_boca: "",
-        dolor_abertura: "",
-        fatiga_dolor_muscular: "",
-        disminucion_abertura: "",
-        desviacion_abertura: "",
-        desgastes: "",
-        bruxismo: "",
-        oclusion: "",
-        tipo_oclusion: "",
-        plano_terminal_denticion_primaria: "",
+    // Lengua
+    lengua: "",
+    lengua_especificar: "",
 
-        // Tejidos blandos - labios
-        resequedad: "",
-        labios_forma: "",
-        labios_color: "",
-        labios_defectos: "",
-        labios_especificar: "",
+    // Frenillos
+    frenillos_anomalias: "",
+    frenillos_especificar: "",
 
-        // Lengua
-        lengua: "",
-        lengua_especificar: "",
+    // Carrillos
+    carrillos_color: "",
+    carrillos: "",
+    carrillos_especificar: "",
 
-        // Frenillos
-        frenillos_anomalias: "",
-        frenillos_especificar: "",
+    // Piso de boca
+    piso_boca_color: "",
+    piso_boca: "",
+    piso_boca_especificar: "",
 
-        // Carrillos
-        carrillos_color: "",
-        carrillos: "",
-        carrillos_especificar: "",
+    // Paladar
+    paladar_color: "",
+    paladar_forma_tamano: "",
+    paladar: "",
+    uvula: "",
+    paladar_especificar: "",
 
-        // Piso de boca
-        piso_boca_color: "",
-        piso_boca: "",
-        piso_boca_especificar: "",
+    // Encías
+    encias_color: "",
+    encias_forma: "",
+    encias_textura: "",
+    encias_sangrado: false,
+    encias_exudado: false,
+    encias_especificar: "",
 
-        // Paladar
-        paladar_color: "",
-        paladar_forma_tamano: "",
-        paladar: "",
-        uvula: "",
-        paladar_especificar: "",
+    // Amígdalas
+    amigdalas: "",
+    amigdalas_inflamacion: "",
+    amigdalas_infeccion: "",
 
-        // Encías
-        encias_color: "",
-        encias_forma: "",
-        encias_textura: "",
-        encias: "",
-        encias_especificar: "",
+    // Saliva
+    saliva: "",
+    saliva_especificar: ""
+};
 
-        // Amígdalas
-        amigdalas: "",
-        amigdalas_inflamacion: "",
-        amigdalas_infeccion: "",
+function validateVitalSigns(data) {
 
-        // Saliva
-        saliva: "",
-        saliva_especificar: ""
-    };
+    const errors = {};
 
-    const [formData, setFormData] = useState(initialFormData);
+    function validateRange(
+        field,
+        min,
+        max,
+        message
+    ) {
+
+        const value = data[field];
+
+        if (
+            value === "" ||
+            value === null ||
+            value === undefined
+        ) {
+            return;
+        }
+
+        const number =
+            Number(value);
+
+        if (
+            Number.isNaN(number) ||
+            number < min ||
+            number > max
+        ) {
+
+            errors[field] =
+                message;
+
+        }
+
+    }
+
+
+    validateRange(
+        "peso",
+        1,
+        500,
+        "Ingresa un peso válido."
+    );
+
+    validateRange(
+        "talla",
+        30,
+        300,
+        "Ingresa una talla válida."
+    );
+
+    validateRange(
+        "frecuencia_cardiaca",
+        20,
+        250,
+        "Ingresa una frecuencia cardiaca válida."
+    );
+
+    validateRange(
+        "frecuencia_respiratoria",
+        5,
+        80,
+        "Ingresa una frecuencia respiratoria válida."
+    );
+
+    validateRange(
+        "temperatura",
+        30,
+        45,
+        "Ingresa una temperatura válida."
+    );
+
+    validateRange(
+        "glucosa",
+        20,
+        1000,
+        "Ingresa un nivel de glucosa válido."
+    );
+
+
+    return errors;
+}
+
+function ExploracionForm({ patient, onCancel, onSave }) {
+
+    const [formData, setFormData] =
+    useState(INITIAL_FORM_DATA);
 
     const [exploracionId, setExploracionId] =
         useState(null);
@@ -109,12 +194,35 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
     const [step, setStep] = useState(1);
 
+    const [errors, setErrors] =
+        useState({});
 
+    const [saveError, setSaveError] =
+        useState("");
+
+    function mapExploracionToForm(data) {
+
+        const form = {};
+
+        Object.keys(INITIAL_FORM_DATA).forEach(
+            (field) => {
+
+                form[field] =
+                    data?.[field] ?? "";
+
+            }
+        );
+
+        return form;
+    }
     useEffect(() => {
 
         async function loadExploracion() {
 
             if (!patient?.id) {
+
+                setLoading(false);
+
                 return;
             }
 
@@ -131,10 +239,9 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
                     setExploracionId(data.id);
 
-                    setFormData({
-                        ...initialFormData,
-                        ...data
-                    });
+                    setFormData(
+                        mapExploracionToForm(data)
+                    );
 
                 } else {
 
@@ -163,20 +270,126 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
     }, [patient?.id]);
 
-    function handleChange(e){
+    function handleChange(e) {
 
-    setFormData({
+        const {
+            name,
+            value
+        } = e.target;
 
-        ...formData,
 
-        [e.target.name]: e.target.value
+        setFormData(
+            (previous) => ({
+                ...previous,
+                [name]: value
+            })
+        );
 
-    });
-        
+
+        if (errors[name]) {
+
+            setErrors(
+                (previous) => ({
+                    ...previous,
+                    [name]: null
+                })
+            );
+
+        }
+
+
+        if (saveError) {
+            setSaveError("");
+        }
+
+    }
+
+    function handleCheckboxChange(e) {
+
+        const {
+            name,
+            checked
+        } = e.target;
+
+        setFormData(
+            (previous) => ({
+                ...previous,
+                [name]: checked
+            })
+        );
+
+    }
+
+    function handleNext() {
+
+        if (step === 1) {
+
+            const validationErrors =
+                validateVitalSigns(
+                    formData
+                );
+
+            if (
+                Object.keys(
+                    validationErrors
+                ).length > 0
+            ) {
+
+                setErrors(
+                    validationErrors
+                );
+
+                return;
+            }
+
+        }
+
+
+        setErrors({});
+
+
+        setStep(
+            (current) =>
+                Math.min(
+                    explorationSteps.length,
+                    current + 1
+                )
+        );
+
+    }
+
+    function handlePrevious() {
+
+        setStep(
+            (current) =>
+                Math.max(
+                    1,
+                    current - 1
+                )
+        );
+
     }
 
     async function handleSave() {
+        const validationErrors =
+            validateVitalSigns(
+                formData
+            );
 
+        if (
+            Object.keys(
+                validationErrors
+            ).length > 0
+        ) {
+
+            setErrors(
+                validationErrors
+            );
+
+            setStep(1);
+
+            return;
+        }
         if (!patient?.id) {
             return;
         }
@@ -262,6 +475,10 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
                 error
             );
 
+            setSaveError(
+                "No fue posible guardar la exploración. Intenta nuevamente."
+            );
+
         } finally {
 
             setSaving(false);
@@ -306,6 +523,10 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
     }
 
+    const currentStep =
+        explorationSteps[step - 1] ??
+        explorationSteps[0];
+
     return (
 
         <div className="explorationCard">
@@ -348,7 +569,7 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
                     </span>
 
                     <strong>
-                        {explorationSteps[step - 1].title}
+                        {currentStep.title}
                     </strong>
 
                 </div>
@@ -359,8 +580,15 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
                     <div
                         className="explorationProgressValue"
                         style={{
-                            width:
-                                `${(step / explorationSteps.length) * 100}%`
+                            width: `${
+                                (
+                                    Math.min(
+                                        Math.max(step, 1),
+                                        explorationSteps.length
+                                    ) /
+                                    explorationSteps.length
+                                ) * 100
+                            }%`
                         }}
                     />
 
@@ -376,6 +604,7 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
                     <SignosVitalesDataStep
                         formData={formData}
                         handleChange={handleChange}
+                        errors={errors}
                     />
 
                 )}
@@ -426,12 +655,23 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
                     <TejidosBlandosDataStep3
                         formData={formData}
                         handleChange={handleChange}
+                        handleCheckboxChange={
+                            handleCheckboxChange
+                        }
                     />
 
                 )}
 
             </div>
+            {saveError && (
 
+                <div className="explorationSaveError">
+
+                    {saveError}
+
+                </div>
+
+            )}
 
             <div className="explorationFooter">
 
@@ -452,12 +692,7 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
                     <button
                         type="button"
                         className="explorationSecondaryButton"
-                        onClick={() =>
-                            setStep(
-                                (current) =>
-                                    current - 1
-                            )
-                        }
+                        onClick={handlePrevious}
                     >
 
                         ← Anterior

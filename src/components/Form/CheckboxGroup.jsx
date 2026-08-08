@@ -1,54 +1,56 @@
-import "./RadioGroup.css";
+import "./CheckboxGroup.css";
 
-function RadioGroup({
+function CheckboxGroup({
     label,
-    name,
-    value,
     options,
+    values,
     onChange
 }) {
 
     return (
 
-        <div className="formGroup radioField">
+        <div className="formGroup checkboxField">
 
             {label && (
+
                 <span className="groupLabel">
                     {label}
                 </span>
+
             )}
 
-            <div
-                className="radioGroup"
-                role="radiogroup"
-                aria-label={label || name}
-            >
+            <div className="checkboxGroup">
 
                 {options.map((option) => {
 
                     const inputId =
-                        `${name}-${option.value}`
+                        `${option.name}-${option.value}`
                             .toLowerCase()
                             .replace(/\s+/g, "-");
 
                     return (
 
                         <label
-                            key={option.value}
+                            key={option.name}
                             htmlFor={inputId}
-                            className="radioOption"
+                            className="checkboxOption"
                         >
 
                             <input
                                 id={inputId}
-                                type="radio"
-                                name={name}
-                                value={option.value}
-                                checked={value === option.value}
+                                type="checkbox"
+                                name={option.name}
+                                checked={
+                                    Boolean(
+                                        values[
+                                            option.name
+                                        ]
+                                    )
+                                }
                                 onChange={onChange}
                             />
 
-                            <span className="radioLabel">
+                            <span className="checkboxLabel">
 
                                 {option.label}
 
@@ -68,4 +70,4 @@ function RadioGroup({
 
 }
 
-export default RadioGroup;
+export default CheckboxGroup;

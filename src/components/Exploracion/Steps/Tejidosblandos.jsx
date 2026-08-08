@@ -77,11 +77,12 @@ function TejidosBlandosDataStep({
                 name="lengua"
                 value={formData.lengua}
                 options={[
+                    { value: "normal", label: "Sin alteraciones" },
                     { value: "saburral", label: "Saburral" },
                     { value: "fisural", label: "Fisural" },
                     { value: "geografica", label: "Geográfica" },
                     { value: "descamacion", label: "Descamación" },
-                    { value: "tamaño_aumentado", label: "Tamaño aumentado" },
+                    { value: "tamano_aumentado", label: "Tamaño aumentado" },
 
                 ]}
                 onChange={handleChange}
