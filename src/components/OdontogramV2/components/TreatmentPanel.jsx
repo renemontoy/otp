@@ -178,61 +178,69 @@ function TreatmentPanel() {
     return (
 
         <div className="treatmentPanel">
-            <div className="formGroup">
-            <p>
 
-                Dientes seleccionados:
 
-            </p>
+            {/* CARAS SELECCIONADAS */}
 
-            <strong>
-                {formatSelectedFaces()}
-            </strong>
+            <div className="selectedTeeth">
+
+                <span>
+                    Caras seleccionadas
+                </span>
+
+                <strong>
+                    {formatSelectedFaces()}
+                </strong>
+
             </div>
 
+
+            {/* TRATAMIENTO */}
+
             <div className="formGroup">
-            <label>
+
+                <label>
                     Tratamiento
-            </label>
-            <select
-                name="treatmentId"
-                disabled={selectedFaces.length === 0}
-                value={treatmentData.treatmentId}
-                onChange={handleTreatmentChange}
+                </label>
 
-            >
-
-                <option value="">
-
-                    Seleccionar
-
-                </option>
-
-                {treatments.map((treatment) => (
-
-                <option
-
-                    key={treatment.id}
-
-                    value={treatment.id}
-
+                <select
+                    name="treatmentId"
+                    disabled={selectedFaces.length === 0}
+                    value={treatmentData.treatmentId}
+                    onChange={handleTreatmentChange}
                 >
 
-                    {treatment.nombre}
+                    <option value="">
+                        Seleccionar
+                    </option>
 
-                </option>
+                    {treatments.map((treatment) => (
 
-                ))}
+                        <option
+                            key={treatment.id}
+                            value={treatment.id}
+                        >
 
-            </select>
+                            {treatment.nombre}
+
+                        </option>
+
+                    ))}
+
+                </select>
+
             </div>
-            <div className="formGroup">
-            
+
+
+            {/* MATERIAL */}
+
             {materials.length > 0 && (
 
-                <>
+                <div className="formGroup">
 
-                    <label>Material</label>
+                    <label>
+                        Material
+                    </label>
 
                     <select
                         name="materialId"
@@ -251,45 +259,51 @@ function TreatmentPanel() {
                                 key={material.id}
                                 value={material.id}
                             >
+
                                 {material.nombre}
+
                             </option>
 
                         ))}
 
                     </select>
 
-                </>
+                </div>
 
             )}
-            </div>
-            <div className="formGroup">
-            <label>
-                Observaciones
-            </label>
-            <textarea
-                name="observations"
-                disabled={selectedFaces.length === 0}
-                value={treatmentData.observations}
-                onChange={handleChange}
 
-            />
+
+            {/* OBSERVACIONES */}
+
+            <div className="formGroup">
+
+                <label>
+                    Observaciones
+                </label>
+
+                <textarea
+                    name="observations"
+                    placeholder="Observaciones clínicas..."
+                    disabled={selectedFaces.length === 0}
+                    value={treatmentData.observations}
+                    onChange={handleChange}
+                />
+
             </div>
-            <div className="formButtons">
+
+
+            {/* ACCIONES */}
+
+            <div className="treatmentButtons">
 
                 <button
-
-                    className="saveButton"
-
+                    type="button"
+                    className="saveTreatment"
                     disabled={
-
                         selectedFaces.length === 0 ||
-
                         !treatmentData.treatmentId
-
                     }
-
                     onClick={saveSelectedTreatment}
-
                 >
 
                     Aplicar tratamiento
@@ -297,6 +311,7 @@ function TreatmentPanel() {
                 </button>
 
             </div>
+
         </div>
 
     );

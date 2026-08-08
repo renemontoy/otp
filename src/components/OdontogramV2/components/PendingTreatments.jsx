@@ -152,144 +152,145 @@ function handleCancel(item) {
 
             ) : (
 
-                pendingTreatments.map((item) => (
+            pendingTreatments.map((item) => (
 
-                    <article
+                <article
+                    key={item.id}
+                    className="pendingTreatmentCard"
+                >
 
-                        key={item.id}
+                    <div className="pendingTreatmentHeader">
 
-                        className="treatmentCard"
+                        <div className="pendingTreatmentTitle">
 
-                    >
+                            <div className="pendingTreatmentTitleRow">
 
-                        <div className="treatmentCardHeader">
+                                <h4>
+                                    {item.treatmentName}
+                                </h4>
 
-                            <div>
-
-                                <span className="treatmentStatus">
+                                <span className="pendingTreatmentStatus">
 
                                     {item.status}
 
                                 </span>
 
-                                <h4>
-
-                                    {item.treatmentName}
-
-                                </h4>
-
                             </div>
-
-                            {item.treatmentColor && (
-
-                                <span
-
-                                    className="treatmentColor"
-
-                                    style={{
-
-                                        backgroundColor:
-                                            item.treatmentColor
-
-                                    }}
-
-                                />
-
-                            )}
 
                         </div>
 
-                        <div className="treatmentDetail">
+
+                        {item.treatmentColor && (
+
+                            <span
+                                className="pendingTreatmentColor"
+                                style={{
+                                    backgroundColor:
+                                        item.treatmentColor
+                                }}
+                            />
+
+                        )}
+
+                    </div>
+
+
+                    <div className="pendingTreatmentDetails">
+
+                        <div className="pendingTreatmentDetail pendingTreatmentDetailWide">
 
                             <span>
                                 Piezas y caras
                             </span>
 
                             <strong>
-
                                 {item.teeth.join(", ")}
-
                             </strong>
 
                         </div>
 
-                        <div className="treatmentDetail">
+
+                        <div className="pendingTreatmentDetail">
 
                             <span>
                                 Material
                             </span>
 
                             <strong>
-
-                                {item.materialName || "-"}
-
+                                {item.materialName || "—"}
                             </strong>
 
                         </div>
 
-                        <div className="treatmentDetail">
+
+                        <div className="pendingTreatmentDetail pendingTreatmentDetailWide">
 
                             <span>
                                 Observaciones
                             </span>
 
                             <p>
-
-                                {item.observations || "-"}
-
+                                {item.observations || "—"}
                             </p>
 
                         </div>
 
-                        <div className="treatmentDetail">
+
+                        <div className="pendingTreatmentDetail">
 
                             <span>
                                 Fecha
                             </span>
 
                             <p>
-
                                 {formatDate(item.date)}
-
                             </p>
 
                         </div>
 
-                            <div className="treatmentActions">
+                    </div>
 
-                                <button
-                                    type="button"
-                                    className="completeButton"
-                                    disabled={Boolean(pendingAction)}
-                                    onClick={() => handleComplete(item)}
-                                >
 
-                                    {pendingAction?.id === item.id &&
-                                    pendingAction?.type === "complete"
-                                        ? "Completando..."
-                                        : "Completar"}
+                    <div className="pendingTreatmentActions">
 
-                                </button>
+                        <button
+                            type="button"
+                            className="completeButton"
+                            disabled={Boolean(pendingAction)}
+                            onClick={() =>
+                                handleComplete(item)
+                            }
+                        >
 
-                                <button
-                                    type="button"
-                                    className="cancelTreatmentButton"
-                                    disabled={Boolean(pendingAction)}
-                                    onClick={() => handleCancel(item)}
-                                >
+                            {pendingAction?.id === item.id &&
+                            pendingAction?.type === "complete"
+                                ? "Completando..."
+                                : "Completar"}
 
-                                    {pendingAction?.id === item.id &&
-                                    pendingAction?.type === "cancel"
-                                        ? "Cancelando..."
-                                        : "Cancelar"}
+                        </button>
 
-                                </button>
 
-                            </div>
+                        <button
+                            type="button"
+                            className="cancelTreatmentButton"
+                            disabled={Boolean(pendingAction)}
+                            onClick={() =>
+                                handleCancel(item)
+                            }
+                        >
 
-                    </article>
+                            {pendingAction?.id === item.id &&
+                            pendingAction?.type === "cancel"
+                                ? "Cancelando..."
+                                : "Cancelar"}
 
-                ))
+                        </button>
+
+                    </div>
+
+                </article>
+
+            ))
 
             )}
 

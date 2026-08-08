@@ -405,52 +405,37 @@ function InitialConditionPanel() {
 
             <div className="initialPanelHeader">
 
-                <div>
+                <div className="initialPanelHeaderText">
 
                     <h3>
-
                         {editingFinding
                             ? "Editar hallazgo"
                             : "Estado inicial"}
-
                     </h3>
-                    {isFinalized && (
 
-                        <div className="initialFinalizedMessage">
+                    {!isFinalized && (
+                        <p>
 
-                            <strong>
-                                Evaluación finalizada
-                            </strong>
+                            {editingFinding
+                                ? (
+                                    editingFinding.faceId
+                                        ? `Pieza ${editingFinding.toothNumber} · Cara ${editingFinding.faceId}`
+                                        : `Pieza ${editingFinding.toothNumber}`
+                                )
+                                : "Registra las condiciones actuales de la dentadura."}
 
-                            <p>
-                                El odontograma inicial está en
-                                modo de solo lectura.
-                            </p>
-
-                        </div>
-
+                        </p>
                     )}
-                    <p>
-
-                        {editingFinding
-                            ? (
-                                editingFinding.faceId
-                                    ? `Pieza ${editingFinding.toothNumber} · Cara ${editingFinding.faceId}`
-                                    : `Pieza ${editingFinding.toothNumber}`
-                            )
-                            : "Registra las condiciones actuales de la dentadura."}
-
-                    </p>
 
                 </div>
+
 
                 {evaluation && (
 
                     <span
                         className={
                             `initialEvaluationStatus ${
-                                evaluation.estado ===
-                                "Finalizado"
+                                evaluation.estado === "Finalizado"
                                     ? "finalized"
                                     : "draft"
                             }`
@@ -464,8 +449,24 @@ function InitialConditionPanel() {
                 )}
 
             </div>
+{isFinalized && (
+
+    <div className="initialFinalizedMessage">
+
+        <strong>
+            Evaluación finalizada
+        </strong>
+
+        <p>
+            El odontograma inicial está en modo de solo lectura.
+        </p>
+
+    </div>
+
+)}
 
 
+                
             <div className="initialFormGroup">
 
                 <label htmlFor="initialCondition">
