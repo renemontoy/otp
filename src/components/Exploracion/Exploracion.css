@@ -1,153 +1,464 @@
-.patientFormCard{
+/* ========================================
+   EXPLORATION CARD
+======================================== */
 
-    background:white;
-
-    border-radius:20px;
-
-    padding:25px;
-
-    box-shadow:0 10px 25px rgba(0,0,0,.05);
-
-}
-
-.patientFormCard h2{
-
-    margin-bottom:25px;
-
-}
-
-.formGroup{
-
-    display:flex;
-
-    flex-direction:column;
-
-    margin-bottom:18px;
-
-}
-
-.formGroup label{
-
-    font-size:14px;
-
-    font-weight:600;
-
-    margin-bottom:6px;
-
-    color:#5d6877;
-
-}
-
-.formGroup input:not([type="radio"]):not([type="checkbox"]) {
-    padding: 12px;
-
-    border: 1px solid #d9e2ec;
-    border-radius: 10px;
-
-    outline: none;
-
-    font-size: 15px;
-}
-
-.formGroup input:not([type="radio"]):not([type="checkbox"]):focus,
-.formGroup select:focus,
-.formGroup textarea:focus {
-    border-color: #173852;
-    outline: none;
-}
-
-.formButtons{
-
-    display:flex;
-
-    justify-content:flex-end;
-
-    gap:10px;
-
-    margin-top:20px;
-
-}
-
-.cancelButton{
-
-    border:none;
-
-    background:#eceff4;
-
-    padding:10px 18px;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-}
-
-.saveButton{
-
-    border:none;
-
-    background:#173852;
-
-    color:white;
-
-    padding:10px 18px;
-
-    border-radius:10px;
-
-    cursor:pointer;
-
-}
-
-.formGroup input:not([type="radio"]):not([type="checkbox"]),
-.formGroup select,
-.formGroup textarea {
+.explorationCard {
     width: 100%;
 
-    padding: 10px;
+    overflow: hidden;
 
-    border: 1px solid #d9e2ec;
-    border-radius: 8px;
+    background: #ffffff;
 
-    font-size: 14px;
+    border: 1px solid #e5eaf0;
+    border-radius: 16px;
+
+    box-shadow:
+        0 2px 8px
+        rgba(15, 23, 42, 0.04);
 
     box-sizing: border-box;
 }
 
-.checkboxGroup{
 
-    display:flex;
+/* ========================================
+   HEADER
+======================================== */
 
-    gap:20px;
+.explorationHeader {
+    display: flex;
 
-    flex-wrap:wrap;
+    align-items: flex-start;
+    justify-content: space-between;
 
-    margin-top:10px;
+    gap: 16px;
 
+    padding: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5f9fe,
+            #eef6fd
+        );
+
+    border-bottom: 1px solid #e5edf5;
 }
 
-.checkboxGroup label{
 
-    display:flex;
+.explorationEyebrow {
+    display: block;
 
-    align-items:center;
+    margin-bottom: 3px;
 
-    gap:6px;
+    color: #4f7cab;
 
-    font-size:14px;
+    font-size: 10px;
+    font-weight: 700;
 
+    letter-spacing: 0.06em;
+
+    text-transform: uppercase;
 }
 
-.checkboxGroup input[type="checkbox"] {
-    flex: 0 0 auto;
 
-    width: 16px;
-    height: 16px;
+.explorationHeader h2 {
+    margin: 0;
 
-    min-width: 16px;
-    min-height: 16px;
+    color: #203047;
+
+    font-size: 17px;
+    font-weight: 700;
+
+    letter-spacing: -0.01em;
+}
+
+
+.explorationHeader p {
+    margin: 3px 0 0;
+
+    color: #7a899b;
+
+    font-size: 11px;
+}
+
+
+.explorationStepCounter {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 42px;
+    height: 26px;
+
+    padding: 0 8px;
+
+    border-radius: 999px;
+
+    background: #ffffff;
+
+    color: #3973ad;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    box-shadow:
+        0 1px 3px
+        rgba(15, 23, 42, 0.06);
+}
+
+
+/* ========================================
+   PROGRESS
+======================================== */
+
+.explorationProgress {
+    padding: 16px 20px;
+
+    border-bottom: 1px solid #eef2f6;
+
+    background: #ffffff;
+}
+
+
+.explorationProgressHeader {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 9px;
+}
+
+
+.explorationProgressHeader span {
+    color: #94a3b8;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+.explorationProgressHeader strong {
+    overflow: hidden;
+
+    color: #46566a;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+.explorationProgressBar {
+    width: 100%;
+    height: 5px;
+
+    overflow: hidden;
+
+    background: #e9eff5;
+
+    border-radius: 999px;
+}
+
+
+.explorationProgressValue {
+    height: 100%;
+
+    background: #3973ad;
+
+    border-radius: inherit;
+
+    transition: width 220ms ease;
+}
+
+
+/* ========================================
+   CONTENT
+======================================== */
+
+.explorationContent {
+    padding: 20px;
+}
+
+
+/* ========================================
+   FORM GROUPS
+======================================== */
+
+.explorationCard .formGroup {
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+
+    margin-bottom: 16px;
+}
+
+
+.explorationCard .formGroup label {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    line-height: 1.4;
+}
+
+
+/* ========================================
+   INPUTS
+======================================== */
+
+.explorationCard
+.formGroup
+input:not([type="radio"]):not([type="checkbox"]),
+.explorationCard
+.formGroup
+select,
+.explorationCard
+.formGroup
+textarea {
+    width: 100%;
+
+    min-height: 40px;
+
+    padding: 9px 11px;
+
+    border: 1px solid #dce3eb;
+    border-radius: 9px;
+
+    outline: none;
+
+    background: #ffffff;
+
+    color: #334155;
+
+    font-family: inherit;
+    font-size: 12px;
+
+    box-sizing: border-box;
+
+    transition:
+        border-color 150ms ease,
+        box-shadow 150ms ease;
+}
+
+
+.explorationCard
+.formGroup
+textarea {
+    min-height: 88px;
+
+    resize: vertical;
+}
+
+
+.explorationCard
+.formGroup
+input:not([type="radio"]):not([type="checkbox"]):focus,
+.explorationCard
+.formGroup
+select:focus,
+.explorationCard
+.formGroup
+textarea:focus {
+    border-color: #8eb5de;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(21, 86, 157, 0.07);
+}
+
+
+/* ========================================
+   CHECKBOXES
+======================================== */
+
+.explorationCard .checkboxGroup {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px 14px;
+
+    margin-top: 4px;
+}
+
+
+.explorationCard .checkboxGroup label {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    margin: 0;
+
+    color: #526173;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    cursor: pointer;
+}
+
+
+.explorationCard
+.checkboxGroup
+input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+
+    min-width: 15px;
+    min-height: 15px;
 
     margin: 0;
     padding: 0;
 
-    accent-color: #173852;
+    accent-color: #15569d;
+
+    cursor: pointer;
+}
+
+
+/* ========================================
+   RADIO BUTTONS
+======================================== */
+
+.explorationCard
+input[type="radio"] {
+    width: 15px;
+    height: 15px;
+
+    margin: 0;
+
+    accent-color: #15569d;
+
+    cursor: pointer;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+.explorationFooter {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    padding: 15px 20px;
+
+    border-top: 1px solid #eef2f6;
+
+    background: #fafbfd;
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.explorationSecondaryButton,
+.explorationPrimaryButton {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 38px;
+
+    padding: 0 15px;
+
+    border-radius: 9px;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 150ms ease,
+        border-color 150ms ease,
+        box-shadow 150ms ease;
+}
+
+
+.explorationSecondaryButton {
+    border: 1px solid #dce3eb;
+
+    background: #ffffff;
+
+    color: #526173;
+}
+
+
+.explorationSecondaryButton:hover {
+    background: #f8fafc;
+
+    border-color: #cbd5e1;
+}
+
+
+.explorationPrimaryButton {
+    border: 1px solid #15569d;
+
+    background: #15569d;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 2px 6px
+        rgba(21, 86, 157, 0.14);
+}
+
+
+.explorationPrimaryButton:hover {
+    background: #104780;
+
+    border-color: #104780;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 600px) {
+
+    .explorationHeader,
+    .explorationContent {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+
+    .explorationProgress {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+
+    .explorationFooter {
+        padding:
+            14px 16px;
+    }
+
+
+    .explorationSecondaryButton,
+    .explorationPrimaryButton {
+        flex: 1;
+    }
+
 }

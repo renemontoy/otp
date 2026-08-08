@@ -258,7 +258,7 @@ function PatientTable({
 
                 <input
                     type="search"
-                    placeholder="Buscar por nombre, teléfono o dirección"
+                    placeholder="Buscar por nombre o teléfono"
                     value={searchTerm}
                     onChange={(event) =>
                         setSearchTerm(
@@ -270,7 +270,7 @@ function PatientTable({
             </div>
 
 
-            <select
+           {/*} <select
                 className="patientFilter"
                 value={statusFilter}
                 onChange={(event) =>
@@ -293,10 +293,10 @@ function PatientTable({
                     Inactivos
                 </option>
 
-            </select>
+            </select>*/}
 
 
-            <select
+           {/* <select
                 className="patientFilter"
                 value={ageFilter}
                 onChange={(event) =>
@@ -323,7 +323,7 @@ function PatientTable({
                     Adultos mayores
                 </option>
 
-            </select>
+            </select>*/}
 
     
 
@@ -353,8 +353,6 @@ function PatientTable({
                             <th>Edad</th>
 
                             <th>Teléfono</th>
-
-                            <th>Dirección</th>
 
                             <th>Estado</th>
 
@@ -430,10 +428,6 @@ function PatientTable({
 
                                         <td>
                                             {patient.telefono || "-"}
-                                        </td>
-
-                                        <td>
-                                            {patient.domicilio || "-"}
                                         </td>
 
                                         <td>

@@ -19,7 +19,7 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
     cabeza: "",
 
-    creaneo: "",
+    craneo: "",
 
     cara : "",
 
@@ -59,13 +59,13 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
                 perfil: patient.perfil || "",
 
-                piel: patient.perfil || "",
+                piel: patient.piel || "",
 
-                musculos: patient.perfil || "",
+                musculos: patient.musculos || "",
 
-                cuello: patient.perfil || "",
+                cuello: patient.cuello || "",
 
-                otros_cabeza_cuello: patient.perfil || ""
+                otros_cabeza_cuello: patient.otros_cabeza_cuellos || ""
 
                 });
 
@@ -116,150 +116,228 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
         
     }
 
+    const explorationSteps = [
+        {
+            number: 1,
+            title: "Signos vitales"
+        },
+        {
+            number: 2,
+            title: "Cabeza y cuello"
+        },
+        {
+            number: 3,
+            title: "Estomatognático"
+        },
+        {
+            number: 4,
+            title: "Tejidos blandos"
+        },
+        {
+            number: 5,
+            title: "Tejidos blandos"
+        },
+        {
+            number: 6,
+            title: "Tejidos blandos"
+        }
+    ];
 
     return (
 
-        <div className="patientFormCard">
+        <div className="explorationCard">
 
-            {/*<h2>
+            <div className="explorationHeader">
 
-                {mode === "create"
+                <div>
 
-                    ? "Nuevo Paciente"
+                    <span className="explorationEyebrow">
+                        Expediente clínico
+                    </span>
 
-                    : "Editar Paciente"}
+                    <h2>
+                        Exploración clínica
+                    </h2>
 
-            </h2>*/}
+                    <p>
+                        {patient?.nombre}{" "}
+                        {patient?.apellido}
+                    </p>
 
-            {step === 1 && (
+                </div>
+
+
+                <span className="explorationStepCounter">
+
+                    {step} / {explorationSteps.length}
+
+                </span>
+
+            </div>
+
+
+            <div className="explorationProgress">
+
+                <div className="explorationProgressHeader">
+
+                    <span>
+                        Paso {step}
+                    </span>
+
+                    <strong>
+                        {explorationSteps[step - 1].title}
+                    </strong>
+
+                </div>
+
+
+                <div className="explorationProgressBar">
+
+                    <div
+                        className="explorationProgressValue"
+                        style={{
+                            width:
+                                `${(step / explorationSteps.length) * 100}%`
+                        }}
+                    />
+
+                </div>
+
+            </div>
+
+
+            <div className="explorationContent">
+
+                {step === 1 && (
 
                     <SignosVitalesDataStep
-
                         formData={formData}
-
                         handleChange={handleChange}
-
                     />
 
                 )}
+
 
                 {step === 2 && (
 
                     <CabezaCuelloDataStep
-
                         formData={formData}
-
                         handleChange={handleChange}
-
                     />
 
                 )}
+
 
                 {step === 3 && (
 
                     <EstomagoDataStep
-
                         formData={formData}
-
                         handleChange={handleChange}
-
                     />
 
                 )}
+
 
                 {step === 4 && (
 
                     <TejidosBlandosDataStep
-
                         formData={formData}
-
                         handleChange={handleChange}
-
                     />
 
                 )}
+
 
                 {step === 5 && (
 
                     <TejidosBlandosDataStep2
-
                         formData={formData}
-
                         handleChange={handleChange}
-
                     />
 
                 )}
+
 
                 {step === 6 && (
 
                     <TejidosBlandosDataStep3
-
                         formData={formData}
-
                         handleChange={handleChange}
-
                     />
 
                 )}
 
-                <div className="formButtons">
+            </div>
 
-                    {step == 1 ? (
 
-                        <button
+            <div className="explorationFooter">
 
-                            className="cancelButton"
-                            onClick={() => onCancel()}
+                {step === 1 ? (
 
-                        >
+                    <button
+                        type="button"
+                        className="explorationSecondaryButton"
+                        onClick={onCancel}
+                    >
 
-                            Cancelar
+                        Cancelar
 
-                        </button>
+                    </button>
 
-                    ) : (
+                ) : (
 
-                        <button
+                    <button
+                        type="button"
+                        className="explorationSecondaryButton"
+                        onClick={() =>
+                            setStep(
+                                (current) =>
+                                    current - 1
+                            )
+                        }
+                    >
 
-                            className="cancelButton"
-                            onClick={() => setStep(step - 1)}
+                        ← Anterior
 
-                        >
+                    </button>
 
-                            Anterior
+                )}
 
-                        </button>
 
-                    )}
+                {step < explorationSteps.length ? (
 
-                    {step < 6 ? (
+                    <button
+                        type="button"
+                        className="explorationPrimaryButton"
+                        onClick={() =>
+                            setStep(
+                                (current) =>
+                                    current + 1
+                            )
+                        }
+                    >
 
-                        <button
-                            className="saveButton"
-                            onClick={() => setStep(step + 1)}
+                        Siguiente →
 
-                        >
+                    </button>
 
-                            Siguiente
+                ) : (
 
-                        </button>
+                    <button
+                        type="button"
+                        className="explorationPrimaryButton"
+                        onClick={() =>
+                            onSave(formData)
+                        }
+                    >
 
-                    ) : (
+                        Guardar exploración
 
-                        <button
-                            className="saveButton"
-                            onClick={() => onSave(formData)}
+                    </button>
 
-                        >
+                )}
 
-                            Guardar
-
-                        </button>
-
-                    )}
-
-                </div>
+            </div>
 
         </div>
 
