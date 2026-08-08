@@ -1,23 +1,38 @@
 .workspace {
     flex: 1;
+
     display: grid;
-    grid-template-rows: auto 1fr;
-    gap: 14px;
-    padding: 18px 22px 22px;
+
+    grid-template-rows:
+        minmax(220px, 32vh)
+        minmax(0, 1fr);
+
+    gap: 10px;
+
+    padding:
+        10px
+        16px
+        14px;
+
+    min-height: 0;
+
     overflow: hidden;
+
     box-sizing: border-box;
 }
+
 
 .workspaceTop {
     min-height: 0;
 }
 
-/* Contenedor exterior del canvas */
+
 .workspaceCanvas {
     min-width: 0;
     min-height: 0;
 
     display: flex;
+
     justify-content: center;
     align-items: center;
 
@@ -25,74 +40,99 @@
     margin: 0;
 
     background: transparent;
+
     border: none;
 
     overflow: hidden;
 }
 
-/* Zona completa inferior */
+
+/* ========================================
+   BOTTOM AREA
+======================================== */
+
 .workspaceBottom {
     display: grid;
-    grid-template-columns: 380px minmax(0, 1fr);
-    gap: 14px;
-    min-height: 300px;
+
+    grid-template-columns:
+        340px
+        minmax(0, 1fr);
+
+    gap: 10px;
+
+    min-width: 0;
+    min-height: 0;
+
     align-items: stretch;
 }
 
-/* Frames inferiores */
+
+/* ========================================
+   PANELS
+======================================== */
+
 .workspaceLeft,
 .workspaceRight {
     min-width: 0;
     min-height: 0;
-    background: white;
+
+    background: #ffffff;
+
     border: 1px solid #dbe3ee;
-    border-radius: 18px;
+    border-radius: 16px;
+
     overflow: hidden;
 }
 
-/*
-    El TreatmentPanel ya tiene su propio padding.
-    Evitamos una doble separación.
-*/
+
 .workspaceLeft {
     padding: 0;
 }
 
-/*
-    Mientras el panel derecho no tenga un componente
-    interior definitivo, conservamos padding.
-*/
+
 .workspaceRight {
     padding: 0;
+
     overflow: hidden;
 }
 
-/* Ajuste para pantallas con poca altura */
+
+/* ========================================
+   LOW HEIGHT LAPTOPS
+======================================== */
+
 @media (max-height: 850px) {
 
     .workspace {
         grid-template-rows:
-            minmax(250px, 38vh)
-            minmax(210px, 1fr);
+            minmax(195px, 29vh)
+            minmax(0, 1fr);
 
-        row-gap: 6px;
+        gap: 8px;
 
         padding:
-            6px
-            10px
+            8px
+            12px
             10px;
     }
 
 }
 
-/* Ajuste para pantallas más estrechas */
+
+/* ========================================
+   NARROW SCREENS
+======================================== */
+
 @media (max-width: 1100px) {
+
     .workspaceBottom {
         grid-template-columns:
             minmax(280px, 320px)
             minmax(0, 1fr);
     }
+
 }
+
 
 .workspaceToolbar,
 .workspaceCanvas,
