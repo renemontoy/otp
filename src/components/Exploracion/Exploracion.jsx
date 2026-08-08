@@ -6,103 +6,162 @@ import TejidosBlandosDataStep from "./Steps/Tejidosblandos";
 import EstomagoDataStep from "./Steps/Estomatogmatico";
 import TejidosBlandosDataStep2 from "./Steps/Tejidosblandos2";
 import TejidosBlandosDataStep3 from "./Steps/Tejidosblandos3";
+import { getExploracionByPatient, createExploracion, updateExploracion } from "../../supabase/exploraciones";
 
 function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
-    const [formData, setFormData] = useState({
+    const initialFormData = {
 
-    nombre: "",
+        // Signos vitales
+        peso: "",
+        talla: "",
+        complexion: "",
+        frecuencia_cardiaca: "",
+        tension_arterial: "",
+        frecuencia_respiratoria: "",
+        temperatura: "",
+        glucosa: "",
 
-    apellido: "",
+        // Cabeza y cuello
+        cabeza: "",
+        craneo: "",
+        cara: "",
+        perfil: "",
+        piel: "",
+        musculos: "",
+        cuello: "",
+        otros_cabeza_cuello: "",
 
-    edad: "",
+        // Aparato estomatognático
+        ruidos: "",
+        chasquidos: "",
+        crepitacion: "",
+        dificultad_abrir_boca: "",
+        dolor_abertura: "",
+        fatiga_dolor_muscular: "",
+        disminucion_abertura: "",
+        desviacion_abertura: "",
+        desgastes: "",
+        bruxismo: "",
+        oclusion: "",
+        tipo_oclusion: "",
+        plano_terminal_denticion_primaria: "",
 
-    cabeza: "",
+        // Tejidos blandos - labios
+        resequedad: "",
+        labios_forma: "",
+        labios_color: "",
+        labios_defectos: "",
+        labios_especificar: "",
 
-    craneo: "",
+        // Lengua
+        lengua: "",
+        lengua_especificar: "",
 
-    cara : "",
+        // Frenillos
+        frenillos_anomalias: "",
+        frenillos_especificar: "",
 
-    perfil: "",
+        // Carrillos
+        carrillos_color: "",
+        carrillos: "",
+        carrillos_especificar: "",
 
-    piel: "",
+        // Piso de boca
+        piso_boca_color: "",
+        piso_boca: "",
+        piso_boca_especificar: "",
 
-    musculos: "",
+        // Paladar
+        paladar_color: "",
+        paladar_forma_tamano: "",
+        paladar: "",
+        uvula: "",
+        paladar_especificar: "",
 
-    cuello: "",
+        // Encías
+        encias_color: "",
+        encias_forma: "",
+        encias_textura: "",
+        encias: "",
+        encias_especificar: "",
 
-    otros_cabeza_cuello: ""
+        // Amígdalas
+        amigdalas: "",
+        amigdalas_inflamacion: "",
+        amigdalas_infeccion: "",
 
-    });
+        // Saliva
+        saliva: "",
+        saliva_especificar: ""
+    };
 
+    const [formData, setFormData] = useState(initialFormData);
+
+    const [exploracionId, setExploracionId] =
+        useState(null);
+
+    const [loading, setLoading] =
+        useState(true);
+
+    const [saving, setSaving] =
+        useState(false);
 
     const [step, setStep] = useState(1);
 
 
     useEffect(() => {
 
-        if (mode === "edit" && patient) {
+        async function loadExploracion() {
 
-            setFormData({
+            if (!patient?.id) {
+                return;
+            }
 
-                nombre: patient.nombre || "",
+            try {
 
-                apellido: patient.apellido || "",
+                setLoading(true);
 
-                edad: patient.edad || "",
+                const data =
+                    await getExploracionByPatient(
+                        patient.id
+                    );
 
-                cabeza: patient.cabeza || "",
+                if (data) {
 
-                craneo: patient.craneo || "",
+                    setExploracionId(data.id);
 
-                cara: patient.cara || "",
+                    setFormData({
+                        ...initialFormData,
+                        ...data
+                    });
 
-                perfil: patient.perfil || "",
+                } else {
 
-                piel: patient.piel || "",
+                    setExploracionId(null);
 
-                musculos: patient.musculos || "",
+                    setFormData(initialFormData);
 
-                cuello: patient.cuello || "",
+                }
 
-                otros_cabeza_cuello: patient.otros_cabeza_cuellos || ""
+            } catch (error) {
 
-                });
+                console.error(
+                    "Error cargando exploración:",
+                    error
+                );
 
-        }
+            } finally {
 
-        if (mode === "create") {
+                setLoading(false);
 
-            setFormData({
-
-            nombre: "",
-
-            apellido: "",
-
-            edad: "",
-
-            fecha_nacimiento: "",
-
-            cabeza: "",
-            
-            craneo:"",
-
-            cara:"",
-
-            perfil: "",
-
-            piel: "",
-
-            musculos: "",
-
-            cuello: "",
-
-            otros_cabeza_cuello: ""
-        });
+            }
 
         }
 
-    }, [mode, patient]);
+        loadExploracion();
+
+    }, [patient?.id]);
 
     function handleChange(e){
 
@@ -116,6 +175,100 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
         
     }
 
+    async function handleSave() {
+
+        if (!patient?.id) {
+            return;
+        }
+
+        try {
+
+            setSaving(true);
+
+            const {
+                id,
+                paciente_id,
+                fecha_exploracion,
+                created_at,
+                updated_at,
+                ...exploracionData
+            } = formData;
+
+
+            const dataToSave = {
+                ...exploracionData,
+
+                peso:
+                    exploracionData.peso === ""
+                        ? null
+                        : Number(exploracionData.peso),
+
+                talla:
+                    exploracionData.talla === ""
+                        ? null
+                        : Number(exploracionData.talla),
+
+                frecuencia_cardiaca:
+                    exploracionData.frecuencia_cardiaca === ""
+                        ? null
+                        : Number(exploracionData.frecuencia_cardiaca),
+
+                frecuencia_respiratoria:
+                    exploracionData.frecuencia_respiratoria === ""
+                        ? null
+                        : Number(exploracionData.frecuencia_respiratoria),
+
+                temperatura:
+                    exploracionData.temperatura === ""
+                        ? null
+                        : Number(exploracionData.temperatura),
+
+                glucosa:
+                    exploracionData.glucosa === ""
+                        ? null
+                        : Number(exploracionData.glucosa)
+            };
+
+
+            if (exploracionId) {
+
+                await updateExploracion(
+                    exploracionId,
+                    dataToSave
+                );
+
+            } else {
+
+                const nuevaExploracion =
+                    await createExploracion(
+                        patient.id,
+                        dataToSave
+                    );
+
+                setExploracionId(
+                    nuevaExploracion.id
+                );
+
+            }
+
+            if (onSave) {
+                onSave();
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Error guardando exploración:",
+                error
+            );
+
+        } finally {
+
+            setSaving(false);
+
+        }
+
+    }
     const explorationSteps = [
         {
             number: 1,
@@ -142,6 +295,16 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
             title: "Tejidos blandos"
         }
     ];
+
+    if (loading) {
+
+        return (
+            <div className="explorationCard">
+                Cargando exploración...
+            </div>
+        );
+
+    }
 
     return (
 
@@ -323,17 +486,16 @@ function ExploracionForm({ mode, patient, onCancel, onSave }) {
 
                 ) : (
 
-                    <button
-                        type="button"
-                        className="explorationPrimaryButton"
-                        onClick={() =>
-                            onSave(formData)
-                        }
-                    >
-
-                        Guardar exploración
-
-                    </button>
+                <button
+                    type="button"
+                    className="explorationPrimaryButton"
+                    onClick={handleSave}
+                    disabled={saving}
+                >
+                    {saving
+                        ? "Guardando..."
+                        : "Guardar exploración"}
+                </button>
 
                 )}
 

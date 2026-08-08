@@ -23,7 +23,7 @@ function TejidosBlandosDataStep2({
             >Color</label>
                 <input
                 type="text"
-                name="carrilos_color"
+                name="carrillos_color"
                 value={formData.carrillos_color}
                 onChange={handleChange}
             />
@@ -41,7 +41,7 @@ function TejidosBlandosDataStep2({
             >Otros (especificar):</label>
                 <input
                 type="text"
-                name="carrilos_especificar"
+                name="carrillos_especificar"
                 value={formData.carrillos_especificar}
                 onChange={handleChange}
             />
@@ -90,7 +90,7 @@ function TejidosBlandosDataStep2({
                 <input
                 type="text"
                 name="paladar_color"
-                value={formData.piso_boca_color}
+                value={formData.paladar_color}
                 onChange={handleChange}
             />
             <label
@@ -98,8 +98,8 @@ function TejidosBlandosDataStep2({
             >Forma y Tamaño</label>
                 <input
                 type="text"
-                name="paladar_forma_tamaño"
-                value={formData.paladar_forma_tamaño}
+                name="paladar_forma_tamano"
+                value={formData.paladar_forma_tamano}
                 onChange={handleChange}
             />
             <RadioGroup
@@ -124,11 +124,11 @@ function TejidosBlandosDataStep2({
             style={{marginTop:10}}
             >Otros (especificar):</label>
                 <input
-                type="text"
-                name="piso_boca_especificar"
-                value={formData.piso_boca_especificar}
-                onChange={handleChange}
-            />
+                    type="text"
+                    name="paladar_especificar"
+                    value={formData.paladar_especificar}
+                    onChange={handleChange}
+                />
             </div>
 
             </div>

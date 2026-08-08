@@ -257,12 +257,13 @@ async function handleTogglePatientStatus(patient) {
 
                     {panelMode === "exploracion" && (
                         <ExploracionForm
-                            mode="edit"
                             patient={selectedPatient}
                             onCancel={() =>
                                 setPanelMode("profile")
                             }
-                            onSave={handleUpdatePatient}
+                            onSave={() =>
+                                setPanelMode("profile")
+                            }
                         />
                     )}
 

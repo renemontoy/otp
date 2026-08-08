@@ -59,8 +59,8 @@ function TejidosBlandosDataStep3({
             >Otros (especificar):</label>
                 <input
                 type="text"
-                name="carrilos_especificar"
-                value={formData.carrillos_especificar}
+                name="encias_especificar"
+                value={formData.encias_especificar}
                 onChange={handleChange}
             />
             </div>

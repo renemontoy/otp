@@ -30,7 +30,7 @@ function SignosVitalesDataStep({
                 <label>Talla</label>
 
                 <input
-                    type="text"
+                    type="number"
                     name="talla"
                     value={formData.talla}
                     onChange={handleChange}
