@@ -237,6 +237,14 @@ function Pacientes() {
 
 }
 
+function handleSelectPatient(patient) {
+
+    setSelectedPatient(patient);
+
+    setPanelMode("profile");
+
+}
+
     return (
         <div className="patientsPage">
 
@@ -255,7 +263,7 @@ function Pacientes() {
                 <main className="patientsMain">
                     <PatientTable
                         patients={patients}
-                        onSelectPatient={setSelectedPatient}
+                        onSelectPatient={handleSelectPatient}
                         selectedPatient={selectedPatient}
                         onCreatePatient={() =>
                             setPanelMode("create")
