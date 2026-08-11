@@ -120,6 +120,7 @@ function TejidosBlandosDataStep3({
                 options={[
                     { value: "normal", label: "Normal" },
                     { value: "disminuida", label: "Disminuida" },
+                    { value: "aumentada", label: "Aumentada" },
                 ]}
                 onChange={handleChange}
             />
