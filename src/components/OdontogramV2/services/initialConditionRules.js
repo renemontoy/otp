@@ -12,8 +12,7 @@ const INCOMPATIBILITIES = {
         "movilidad_1",
         "movilidad_2",
         "movilidad_3",
-        "endodoncia",
-        "protesis_fija"
+        "endodoncia"
     ]),
 
     caries: new Set([
@@ -43,7 +42,6 @@ const INCOMPATIBILITIES = {
     ]),
 
     protesis_fija: new Set([
-        "ausente"
     ])
 
 };

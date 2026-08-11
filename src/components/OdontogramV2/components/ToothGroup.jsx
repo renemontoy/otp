@@ -1,6 +1,6 @@
 import ClinicalTooth from
     "./ClinicalTooth/ClinicalTooth";
-
+import ToothNumber from "./ToothNumber";
 
 function ToothGroup({
 
@@ -12,6 +12,8 @@ function ToothGroup({
     numberY,
 
     onFaceClick,
+
+    onToothNumberClick,
 
     onFaceHover,
     onFaceLeave,
@@ -101,26 +103,25 @@ function ToothGroup({
         />
 
 
-            <text
+        <ToothNumber
 
-                className="toothNumber"
+            number={
+                tooth.number
+            }
 
-                x="0"
+            x={
+                0
+            }
 
-                y={
-                    numberY
-                }
+            y={
+                numberY
+            }
 
-                textAnchor="middle"
+            onClick={
+                onToothNumberClick
+            }
 
-                dominantBaseline="middle"
-
-            >
-
-                {tooth.number}
-
-            </text>
-
+        />
         </g>
 
     );

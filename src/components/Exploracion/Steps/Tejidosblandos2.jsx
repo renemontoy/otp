@@ -67,9 +67,7 @@ function TejidosBlandosDataStep2({
                 options={[
                     { value: "normal", label: "Sin alteraciones" },
                     { value: "agrandamientos", label: "Agrandamientos" },
-                    { value: "torus", label: "Torus" },
-                    { value: "unilateral", label: "Unilateral" },
-                    { value: "bilateral", label: "Bilateral" },
+                    { value: "torus", label: "Torus" }
                 ]}
                 onChange={handleChange}
             />

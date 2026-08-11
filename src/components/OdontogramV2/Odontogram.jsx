@@ -26,7 +26,9 @@ function Odontogram() {
 
         odontogram,
 
-        toggleFaceSelection
+        toggleFaceSelection,
+
+        toggleToothSelection
 
     } = useOdontogramContext();
 
@@ -195,6 +197,11 @@ function Odontogram() {
                             onFaceClick={
                                 toggleFaceSelection
                             }
+
+                            onToothNumberClick ={
+                                toggleToothSelection
+                            }
+
                             onFaceHover={
                                 handleFaceHover
                             }

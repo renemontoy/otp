@@ -178,6 +178,8 @@ function Pacientes() {
 
             const newPatient = await createPatient(formData);
 
+            await loadPatients();
+
             setPatients((prev) => [...prev, newPatient]);
 
             setSelectedPatient(newPatient);

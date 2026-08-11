@@ -134,42 +134,42 @@ function validateVitalSigns(data) {
 
     validateRange(
         "peso",
-        1,
+        0,
         500,
         "Ingresa un peso válido."
     );
 
     validateRange(
         "talla",
-        30,
+        0,
         300,
         "Ingresa una talla válida."
     );
 
     validateRange(
         "frecuencia_cardiaca",
-        20,
+        0,
         250,
         "Ingresa una frecuencia cardiaca válida."
     );
 
     validateRange(
         "frecuencia_respiratoria",
-        5,
+        0,
         80,
         "Ingresa una frecuencia respiratoria válida."
     );
 
     validateRange(
         "temperatura",
-        30,
+        0,
         45,
         "Ingresa una temperatura válida."
     );
 
     validateRange(
         "glucosa",
-        20,
+        0,
         1000,
         "Ingresa un nivel de glucosa válido."
     );

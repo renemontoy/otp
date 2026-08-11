@@ -9,13 +9,14 @@ import {
 
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
+
 import ProtectedRoute, {
     PublicOnlyRoute
 } from "./components/ProtectedRoute";
 
 import Pacientes from "./pages/Pacientes";
-import Agenda from "./pages/Agenda";
 import Login from "./pages/Login";
+import AgendaModule from "./components/Agenda/AgendaModule";
 
 function AppLayout() {
 
@@ -79,7 +80,7 @@ function App() {
 
                     <Route
                         path="/agenda"
-                        element={<Agenda />}
+                        element={<AgendaModule />}
                     />
 
                 </Route>

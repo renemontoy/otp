@@ -4,7 +4,11 @@ export async function getPatients() {
 
     const { data, error } = await supabase
         .from("pacientes")
-        .select("*");
+        .select("*")
+        .order("created_at", {
+            ascending: false
+        });
+
 
     if (error) throw error;
 
