@@ -1,20 +1,102 @@
-function ToothNumber({ number }) {
+function ToothNumber({
+
+    number,
+
+    x,
+
+    y,
+
+    onClick
+
+}) {
+
+    function handleClick(
+        event
+    ) {
+
+        event.stopPropagation();
+
+        onClick?.(
+            number
+        );
+
+    }
+
+
+    function handleKeyDown(
+        event
+    ) {
+
+        if (
+            event.key !== "Enter" &&
+            event.key !== " "
+        ) {
+
+            return;
+
+        }
+
+
+        event.preventDefault();
+
+        onClick?.(
+            number
+        );
+
+    }
+
 
     return (
 
         <text
-            x="20"
-            y="-8"
+
+            x={
+                x
+            }
+
+            y={
+                y
+            }
+
             textAnchor="middle"
-            fontSize="8"
-            fontWeight="600"
-            fill="#475569"
+
+            role="button"
+
+            tabIndex={
+                onClick
+                    ? 0
+                    : undefined
+            }
+
+            onClick={
+                handleClick
+            }
+
+            onKeyDown={
+                handleKeyDown
+            }
+
+            style={{
+
+                cursor:
+                    onClick
+                        ? "pointer"
+                        : "default",
+
+                userSelect:
+                    "none"
+
+            }}
+
         >
+
             {number}
+
         </text>
 
     );
 
 }
+
 
 export default ToothNumber;

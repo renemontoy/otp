@@ -125,6 +125,96 @@ export function useOdontogram(patient) {
 
     }
 
+    const FACE_IDS = [
+        "top",
+        "right",
+        "bottom",
+        "left",
+        "center"
+    ];
+
+
+    function toggleToothSelection(
+        toothNumber
+    ) {
+
+        setOdontogram(
+            (previous) => {
+
+                const tooth =
+                    previous[toothNumber];
+
+
+                if (!tooth) {
+                    return previous;
+                }
+
+
+                /*
+                    Revisamos si ya están
+                    seleccionadas todas las caras.
+                */
+                const allSelected =
+                    FACE_IDS.every(
+                        (faceId) =>
+                            tooth.faces?.[
+                                faceId
+                            ]?.selected
+                    );
+
+
+                const updatedFaces = {
+                    ...tooth.faces
+                };
+
+
+                /*
+                    Si todas estaban seleccionadas,
+                    las deseleccionamos.
+
+                    Si faltaba aunque sea una,
+                    seleccionamos todas.
+                */
+                FACE_IDS.forEach(
+                    (faceId) => {
+
+                        updatedFaces[
+                            faceId
+                        ] = {
+
+                            ...updatedFaces[
+                                faceId
+                            ],
+
+                            selected:
+                                !allSelected
+
+                        };
+
+                    }
+                );
+
+
+                return {
+
+                    ...previous,
+
+                    [toothNumber]: {
+
+                        ...tooth,
+
+                        faces:
+                            updatedFaces
+
+                    }
+
+                };
+
+            }
+        );
+
+    }
+
     const selectedFaces = useMemo(() => {
 
         const faces = [];
@@ -482,6 +572,8 @@ export function useOdontogram(patient) {
         odontogram,
 
         toggleFaceSelection,
+
+        toggleToothSelection,
 
         selectedFaces,
 
