@@ -188,3 +188,111 @@
     }
 
 }
+
+.headerUserMenu {
+    position: relative;
+}
+
+.headerUser {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 7px;
+    color: inherit;
+    font: inherit;
+    background: transparent;
+    border: 0;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.headerUser:hover {
+    background: #f3f4f6;
+}
+
+.headerUserName {
+    max-width: 190px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.headerUserArrow {
+    transition: transform 0.2s ease;
+}
+
+.headerUserArrowOpen {
+    transform: rotate(180deg);
+}
+
+.headerUserDropdown {
+    position: absolute;
+    z-index: 1000;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 230px;
+    padding: 8px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow:
+        0 16px 35px rgba(15, 23, 42, 0.14);
+}
+
+.headerUserDropdownInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 10px;
+}
+
+.headerUserDropdownInfo strong {
+    overflow: hidden;
+    color: #111827;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.headerUserDropdownInfo span {
+    overflow: hidden;
+    color: #6b7280;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.headerUserDropdownInfo small {
+    margin-top: 4px;
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.headerUserDropdownDivider {
+    height: 1px;
+    margin: 3px 0;
+    background: #e5e7eb;
+}
+
+.headerLogoutButton {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    color: #b91c1c;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.headerLogoutButton:hover {
+    background: #fef2f2;
+}

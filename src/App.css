@@ -109,3 +109,73 @@
     }
 
 }
+
+.authLoadingScreen,
+.accessDeniedPage {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 14px;
+    padding: 24px;
+    background: #f7f9fc;
+}
+
+.authLoadingScreen p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.authSpinner {
+    width: 30px;
+    height: 30px;
+    border: 3px solid #dbeafe;
+    border-top-color: #2563eb;
+    border-radius: 50%;
+    animation: authSpin 0.8s linear infinite;
+}
+
+.accessDeniedCard {
+    width: 100%;
+    max-width: 430px;
+    padding: 32px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.1);
+}
+
+.accessDeniedCard h1 {
+    margin: 0 0 10px;
+    color: #111827;
+    font-size: 23px;
+}
+
+.accessDeniedCard p {
+    margin: 0 0 22px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.accessDeniedCard button {
+    height: 40px;
+    padding: 0 18px;
+    color: #ffffff;
+    font: inherit;
+    font-weight: 600;
+    background: #2563eb;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+@keyframes authSpin {
+
+    to {
+        transform: rotate(360deg);
+    }
+}

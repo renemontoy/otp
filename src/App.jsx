@@ -1,19 +1,23 @@
 import "./App.css";
 
+import {
+    Navigate,
+    Outlet,
+    Route,
+    Routes
+} from "react-router-dom";
+
 import Sidebar from "./components/Sidebar";
 import Header from "./components/Header";
+import ProtectedRoute, {
+    PublicOnlyRoute
+} from "./components/ProtectedRoute";
 
 import Pacientes from "./pages/Pacientes";
 import Agenda from "./pages/Agenda";
+import Login from "./pages/Login";
 
-import {
-    Routes,
-    Route,
-    Navigate
-} from "react-router-dom";
-
-
-function App() {
+function AppLayout() {
 
     return (
 
@@ -23,49 +27,77 @@ function App() {
                 <Sidebar />
             </aside>
 
-
             <div className="appWorkspace">
 
                 <div className="appHeader">
                     <Header />
                 </div>
 
-
                 <main className="appContent">
-
-                    <Routes>
-
-                        <Route
-                            path="/"
-                            element={
-                                <Navigate
-                                    to="/pacientes"
-                                    replace
-                                />
-                            }
-                        />
-
-                        <Route
-                            path="/pacientes"
-                            element={<Pacientes />}
-                        />
-
-                        <Route
-                            path="/agenda"
-                            element={<Agenda />}
-                        />
-
-                    </Routes>
-
+                    <Outlet />
                 </main>
 
             </div>
 
         </div>
-
     );
-
 }
 
+function App() {
+
+    return (
+
+        <Routes>
+
+            <Route
+                path="/login"
+                element={
+                    <PublicOnlyRoute>
+                        <Login />
+                    </PublicOnlyRoute>
+                }
+            />
+
+            <Route element={<ProtectedRoute />}>
+
+                <Route element={<AppLayout />}>
+
+                    <Route
+                        index
+                        element={
+                            <Navigate
+                                to="/pacientes"
+                                replace
+                            />
+                        }
+                    />
+
+                    <Route
+                        path="/pacientes"
+                        element={<Pacientes />}
+                    />
+
+                    <Route
+                        path="/agenda"
+                        element={<Agenda />}
+                    />
+
+                </Route>
+
+            </Route>
+
+            <Route
+                path="*"
+                element={
+                    <Navigate
+                        to="/"
+                        replace
+                    />
+                }
+            />
+
+        </Routes>
+    );
+}
 
 export default App;
