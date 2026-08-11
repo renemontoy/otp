@@ -109,6 +109,34 @@ function formatBirthDate(date) {
 
     }
 
+    function formatCreatedDate(date) {
+
+        if (!date) {
+            return "Sin información";
+        }
+
+        const parsedDate =
+            new Date(date);
+
+        if (
+            Number.isNaN(
+                parsedDate.getTime()
+            )
+        ) {
+            return "Sin información";
+        }
+
+        return new Intl.DateTimeFormat(
+            "es-MX",
+            {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            }
+        ).format(parsedDate);
+
+    }
+
     return (
 
         <section className="patientProfile">
@@ -205,6 +233,23 @@ function formatBirthDate(date) {
 
                     </div>
 
+                    <div className="patientProfileRow">
+
+                        <span className="patientProfileLabel">
+
+                            Paciente desde
+
+                        </span>
+
+                        <span className="patientProfileValue">
+
+                            {formatCreatedDate(
+                                patient.created_at
+                            )}
+
+                        </span>
+
+                    </div>
 
                     <div className="patientProfileRow">
 

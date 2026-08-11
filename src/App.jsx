@@ -5,6 +5,7 @@ import Header from "./components/Header";
 
 import Pacientes from "./pages/Pacientes";
 import Agenda from "./pages/Agenda";
+import AgendaModule from "./components/Agenda/AgendaModule";
 
 import {
     Routes,
@@ -52,7 +53,7 @@ function App() {
 
                         <Route
                             path="/agenda"
-                            element={<Agenda />}
+                            element={<AgendaModule />}
                         />
 
                     </Routes>
