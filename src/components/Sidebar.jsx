@@ -153,7 +153,14 @@ function Sidebar() {
                 <div className="sidebarDivider" />
 
 
-                <div className="sidebarMenuItem sidebarMenuItemDisabled">
+                <NavLink
+                    to="/configuracion/formularios"
+                    className={({ isActive }) =>
+                        isActive
+                            ? "sidebarMenuItem active"
+                            : "sidebarMenuItem"
+                    }
+                >
 
                     <span className="sidebarMenuIcon">
                         <FaCog />
@@ -163,7 +170,7 @@ function Sidebar() {
                         Configuración
                     </span>
 
-                </div>
+                </NavLink>
 
             </div>
 

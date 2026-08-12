@@ -1,0 +1,500 @@
+.formDetailPage {
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 4px 0 36px;
+    color: #172033;
+}
+
+.formDetailBack {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 650;
+}
+
+.formDetailBack:hover {
+    color: #2563eb;
+}
+
+.formDetailHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 20px;
+}
+
+.formDetailTitle {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.formDetailIcon {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 12px;
+    background: #eef2ff;
+    color: #4f46e5;
+    font-size: 1.1rem;
+}
+
+.formDetailEyebrow {
+    display: block;
+    margin-bottom: 4px;
+    color: #64748b;
+    font-size: 0.73rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.formDetailHeader h1 {
+    margin: 0;
+    color: #172033;
+    font-size: 1.55rem;
+}
+
+.formDetailHeader p {
+    margin: 6px 0 0;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+.formDetailHeaderStatus {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.formDetailVersion,
+.formDetailStatus {
+    display: inline-flex;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.77rem;
+    font-weight: 700;
+}
+
+.formDetailVersion {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.formDetailStatus.published {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.formDetailStatus.draft {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.formDetailLockNotice {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding: 14px 16px;
+    border: 1px solid #dbeafe;
+    border-radius: 12px;
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.formDetailLockNotice div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.formDetailLockNotice span {
+    color: #64748b;
+    font-size: 0.84rem;
+}
+
+.formDetailSummary {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-bottom: 22px;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    background: #ffffff;
+}
+
+.formDetailSummary div {
+    display: flex;
+    min-height: 82px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+    border-right: 1px solid #e2e8f0;
+}
+
+.formDetailSummary div:last-child {
+    border-right: none;
+}
+
+.formDetailSummary strong {
+    color: #172033;
+    font-size: 1rem;
+}
+
+.formDetailSummary span {
+    color: #64748b;
+    font-size: 0.76rem;
+}
+
+.formDetailSections {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.formDetailSection {
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    background: #ffffff;
+}
+
+.formDetailSectionHeader {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 17px 19px;
+    border-bottom: 1px solid #e2e8f0;
+    background: #f8fafc;
+}
+
+.formDetailSectionHeader > span {
+    display: grid;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 0.76rem;
+    font-weight: 700;
+}
+
+.formDetailSectionHeader div {
+    flex: 1;
+}
+
+.formDetailSectionHeader h2,
+.formDetailGroupHeader h3 {
+    margin: 0;
+    color: #172033;
+}
+
+.formDetailSectionHeader h2 {
+    font-size: 1rem;
+}
+
+.formDetailSectionHeader p {
+    margin: 4px 0 0;
+    color: #64748b;
+    font-size: 0.82rem;
+}
+
+.formDetailSectionHeader em,
+.formDetailGroupHeader em {
+    color: #b91c1c;
+    font-size: 0.72rem;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.formDetailGroups {
+    display: flex;
+    flex-direction: column;
+}
+
+.formDetailGroup {
+    padding: 18px 19px;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.formDetailGroup:last-child {
+    border-bottom: none;
+}
+
+.formDetailGroupHeader {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 13px;
+}
+
+.formDetailGroupHeader h3 {
+    font-size: 0.9rem;
+}
+
+.formDetailGroupHeader span {
+    color: #94a3b8;
+    font-size: 0.72rem;
+}
+
+.formDetailFields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
+}
+
+.formDetailField {
+    padding: 13px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.formDetailFieldMain {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.formDetailFieldMain > div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.formDetailFieldMain strong {
+    color: #334155;
+    font-size: 0.84rem;
+}
+
+.formDetailFieldMain div span {
+    color: #94a3b8;
+    font-size: 0.7rem;
+}
+
+.formDetailFieldType {
+    flex-shrink: 0;
+    padding: 4px 7px;
+    border-radius: 6px;
+    background: #eef2ff;
+    color: #4f46e5;
+    font-size: 0.68rem;
+    font-weight: 700;
+}
+
+.formDetailFieldFlags,
+.formDetailOptions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.formDetailFieldFlags span,
+.formDetailOptions span {
+    padding: 4px 7px;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 0.68rem;
+    font-weight: 650;
+}
+
+.formDetailFieldFlags .inactive,
+.formDetailOptions .inactive {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.formDetailField p {
+    margin: 9px 0 0;
+    color: #64748b;
+    font-size: 0.73rem;
+}
+
+.formDetailState {
+    display: flex;
+    min-height: 300px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    background: #ffffff;
+    color: #64748b;
+}
+
+.formDetailState.error {
+    border-color: #fecaca;
+}
+
+.formDetailState.error strong {
+    color: #b91c1c;
+}
+
+.formDetailState button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.formDetailLoader {
+    width: 30px;
+    height: 30px;
+    border: 3px solid #dbeafe;
+    border-top-color: #2563eb;
+    border-radius: 50%;
+    animation: formDetailSpin 0.75s linear infinite;
+}
+
+@keyframes formDetailSpin {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+@media (max-width: 900px) {
+
+    .formDetailFields {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .formDetailHeader {
+        flex-direction: column;
+    }
+
+    .formDetailSummary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .formDetailSummary div:nth-child(2) {
+        border-right: none;
+    }
+
+    .formDetailSummary div:nth-child(-n + 2) {
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+}
+
+.formDetailHeaderStatus {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+.formDetailCloneButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-left: 5px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.formDetailCloneButton:hover:not(:disabled) {
+    background: #1d4ed8;
+}
+
+.formDetailCloneButton:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.formDetailActionError {
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    border: 1px solid #fecaca;
+    border-radius: 10px;
+    background: #fff1f2;
+    color: #b91c1c;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.formDetailPreviewButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 8px 12px;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #2563eb;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.74rem;
+    font-weight: 700;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.formDetailPreviewButton:hover {
+    border-color: #2563eb;
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.formDetailPreviewButton:focus-visible {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow:
+        0 0 0 3px
+        rgba(37, 99, 235, 0.15);
+}
+
+.formDetailPreviewButton:active {
+    background: #dbeafe;
+    transform: translateY(1px);
+}
+
+.formDetailPreviewButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.formDetailActions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+}

@@ -1,0 +1,271 @@
+.configOptions {
+    margin-top: 12px;
+    padding-top: 11px;
+    border-top: 1px solid #edf2f7;
+}
+
+.configOptionsHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.configOptionsHeader > span {
+    color: #64748b;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.configOptionsEdit {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 7px;
+    border: 1px solid #dbeafe;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #2563eb;
+    cursor: pointer;
+    font-size: 0.68rem;
+    font-weight: 700;
+}
+
+.configOptionsEdit:hover {
+    border-color: #2563eb;
+    background: #eff6ff;
+}
+
+.configOptionsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 9px;
+}
+
+.configOptionsList span {
+    padding: 4px 7px;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 0.68rem;
+    font-weight: 650;
+}
+
+.configOptionsList span.inactive {
+    background: #fee2e2;
+    color: #b91c1c;
+    text-decoration: line-through;
+}
+
+.configOptionsList em {
+    color: #94a3b8;
+    font-size: 0.72rem;
+    font-style: normal;
+}
+
+.configOptions.editor {
+    padding: 12px;
+    border: 1px solid #dbeafe;
+    border-radius: 9px;
+    background: #f8fbff;
+}
+
+.configOptionsEditorHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 10px;
+}
+
+.configOptionsEditorHeader strong {
+    color: #334155;
+    font-size: 0.78rem;
+}
+
+.configOptionsEditorHeader span {
+    color: #64748b;
+    font-size: 0.68rem;
+}
+
+.configOptionsRows {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.configOptionRow {
+    display: grid;
+    grid-template-columns:
+        24px
+        minmax(120px, 1fr)
+        auto
+        auto;
+    align-items: center;
+    gap: 7px;
+}
+
+.configOptionRow.inactive {
+    opacity: 0.65;
+}
+
+.configOptionOrder {
+    display: grid;
+    width: 23px;
+    height: 23px;
+    place-items: center;
+    border-radius: 6px;
+    background: #e2e8f0;
+    color: #475569;
+    font-size: 0.65rem;
+    font-weight: 700;
+}
+
+.configOptionRow > input {
+    min-width: 0;
+    padding: 7px 8px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #334155;
+    font: inherit;
+    font-size: 0.75rem;
+    outline: none;
+}
+
+.configOptionRow > input:focus {
+    border-color: #2563eb;
+    box-shadow:
+        0 0 0 3px
+        rgba(37, 99, 235, 0.1);
+}
+
+.configOptionActive {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #475569;
+    font-size: 0.69rem;
+    font-weight: 600;
+}
+
+.configOptionActive input {
+    accent-color: #2563eb;
+}
+
+.configOptionMove {
+    display: flex;
+    gap: 4px;
+}
+
+.configOptionMove button {
+    display: grid;
+    width: 25px;
+    height: 25px;
+    place-items: center;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #475569;
+    cursor: pointer;
+    font-size: 0.65rem;
+}
+
+.configOptionMove button:hover:not(:disabled) {
+    border-color: #2563eb;
+    color: #2563eb;
+}
+
+.configOptionMove button.remove {
+    border-color: #fecaca;
+    color: #dc2626;
+}
+
+.configOptionMove button:disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+}
+
+.configOptionsAdd {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 6px 9px;
+    border: 1px dashed #93c5fd;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #2563eb;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.configOptionsAdd:hover {
+    border-style: solid;
+    background: #eff6ff;
+}
+
+.configOptionsError {
+    margin-top: 9px;
+    padding: 8px 10px;
+    border: 1px solid #fecaca;
+    border-radius: 7px;
+    background: #fff1f2;
+    color: #b91c1c;
+    font-size: 0.72rem;
+}
+
+.configOptionsActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 7px;
+    margin-top: 10px;
+}
+
+.configOptionsActions button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 10px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.configOptionsActions .secondary {
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #475569;
+}
+
+.configOptionsActions .primary {
+    border: 1px solid #2563eb;
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.configOptionsActions button:disabled {
+    cursor: wait;
+    opacity: 0.6;
+}
+
+@media (max-width: 700px) {
+
+    .configOptionRow {
+        grid-template-columns:
+            24px
+            minmax(0, 1fr);
+    }
+
+    .configOptionActive {
+        grid-column: 2;
+    }
+
+    .configOptionMove {
+        grid-column: 2;
+    }
+
+}

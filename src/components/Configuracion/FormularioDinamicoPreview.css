@@ -1,0 +1,217 @@
+.dynamicPreview {
+    border: 1px solid #dbeafe;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #f8fafc;
+}
+
+.dynamicPreviewHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 20px;
+    border-bottom: 1px solid #dbeafe;
+    background: #eff6ff;
+}
+
+.dynamicPreviewHeader span {
+    color: #2563eb;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.dynamicPreviewHeader h2 {
+    margin: 3px 0;
+    color: #1e293b;
+    font-size: 1.05rem;
+}
+
+.dynamicPreviewHeader p {
+    margin: 0;
+    color: #64748b;
+    font-size: 0.75rem;
+}
+
+.dynamicPreviewHeader button {
+    padding: 8px 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #475569;
+    cursor: pointer;
+    font-size: 0.73rem;
+    font-weight: 700;
+}
+
+.dynamicPreviewBody {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 18px;
+}
+
+.dynamicSection {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.dynamicSectionHeader {
+    padding: 14px 16px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.dynamicSectionHeader > span {
+    color: #2563eb;
+    font-size: 0.66rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.dynamicSectionHeader h3 {
+    margin: 3px 0 0;
+    color: #1e293b;
+    font-size: 0.95rem;
+}
+
+.dynamicSectionHeader p,
+.dynamicGroup > p {
+    margin: 5px 0 0;
+    color: #64748b;
+    font-size: 0.73rem;
+}
+
+.dynamicGroup {
+    padding: 15px 16px;
+}
+
+.dynamicGroup + .dynamicGroup {
+    border-top: 1px solid #edf2f7;
+}
+
+.dynamicGroup h4 {
+    margin: 0 0 12px;
+    color: #334155;
+    font-size: 0.82rem;
+}
+
+.dynamicFields {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.dynamicField {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 7px;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+}
+
+.dynamicFieldLabel {
+    color: #334155;
+    font-size: 0.76rem;
+    font-weight: 750;
+}
+
+.dynamicFieldLabel > span {
+    margin-left: 3px;
+    color: #dc2626;
+}
+
+.dynamicFieldHelp {
+    margin: -3px 0 0;
+    color: #94a3b8;
+    font-size: 0.68rem;
+}
+
+.dynamicField > input,
+.dynamicField > textarea,
+.dynamicObservations textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8px 9px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #334155;
+    font: inherit;
+    font-size: 0.76rem;
+    outline: none;
+    resize: vertical;
+}
+
+.dynamicField > input:focus,
+.dynamicField > textarea:focus,
+.dynamicObservations textarea:focus {
+    border-color: #2563eb;
+    box-shadow:
+        0 0 0 3px
+        rgba(37, 99, 235, 0.1);
+}
+
+.dynamicOptions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.dynamicOptions label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 9px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    color: #475569;
+    cursor: pointer;
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.dynamicOptions input {
+    accent-color: #2563eb;
+}
+
+.dynamicObservations {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 5px;
+    padding-top: 10px;
+    border-top: 1px dashed #cbd5e1;
+}
+
+.dynamicObservations > span {
+    color: #64748b;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.dynamicUnsupported {
+    padding: 8px;
+    border-radius: 7px;
+    background: #fff7ed;
+    color: #c2410c;
+    font-size: 0.72rem;
+}
+
+@media (max-width: 800px) {
+
+    .dynamicFields {
+        grid-template-columns: 1fr;
+    }
+
+    .dynamicPreviewHeader {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+}

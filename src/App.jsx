@@ -17,6 +17,8 @@ import ProtectedRoute, {
 import Pacientes from "./pages/Pacientes";
 import Login from "./pages/Login";
 import AgendaModule from "./components/Agenda/AgendaModule";
+import ConfiguracionFormularios from "./pages/ConfiguracionFormularios";
+import ConfiguracionFormularioDetalle from "./pages/ConfiguracionFormularioDetalle";
 
 function AppLayout() {
 
@@ -83,6 +85,15 @@ function App() {
                         element={<AgendaModule />}
                     />
 
+                    <Route
+                        path="/configuracion/formularios"
+                        element={<ConfiguracionFormularios />}
+                    />
+
+                    <Route
+                        path="/configuracion/formularios/:formularioId"
+                        element={<ConfiguracionFormularioDetalle />}
+                    />
                 </Route>
 
             </Route>
